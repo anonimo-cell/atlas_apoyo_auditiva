@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-labelledby="t d">
+  <title id="t">Atlas de Apoyo</title>
+  <desc id="d">Engranaje azul con el símbolo de accesibilidad en blanco en su interior.</desc>
+  <defs>
+    <path id="diente" d="M-30 -150 L-22 -190 L22 -190 L30 -150 Z"/>
+  </defs>
+  <!-- Engranaje -->
+  <g transform="translate(200 200)" fill="#204555" stroke="#204555" stroke-width="10" stroke-linejoin="round">
+    <circle r="155"/>
+    <use href="#diente"/>
+    <use href="#diente" transform="rotate(45)"/>
+    <use href="#diente" transform="rotate(90)"/>
+    <use href="#diente" transform="rotate(135)"/>
+    <use href="#diente" transform="rotate(180)"/>
+    <use href="#diente" transform="rotate(225)"/>
+    <use href="#diente" transform="rotate(270)"/>
+    <use href="#diente" transform="rotate(315)"/>
+  </g>
+  <!-- Figura de accesibilidad -->
+  <g transform="translate(200 200) scale(0.36) translate(-600 -580)" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="600" cy="350" r="75" stroke="none"/>
+    <path d="M362 462 L600 530 L838 462" fill="none" stroke-width="76"/>
+    <rect x="525" y="495" width="150" height="165" stroke="none"/>
+    <path d="M562 640 L487 862 M638 640 L712 862" fill="none" stroke-width="76"/>
+  </g>
+</svg>

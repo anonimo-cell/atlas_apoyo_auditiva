@@ -6845,3 +6845,52 @@ html.acc-espaciado p {
     border: 0 !important;
   }
 }
+
+/* El nombre "Atlas de apoyo" siempre en una sola línea en la barra del móvil */
+.marca-movil-nombre {
+  white-space: nowrap;
+}
+
+/* Móvil: "Atlas de apoyo Parkinson" es largo; en vez de centrarlo en la
+   pantalla (se montaba sobre el ☰) se centra en el hueco que queda a su derecha */
+@media (max-width: 699px) {
+  :is(#marca#marca#marca#marca#marca, html) .barra-movil .marca-movil,
+  :is(#marca#marca#marca#marca#marca, html) .barra-movil .marca-movil:is(:hover, :active) {
+    position: static;
+    transform: none !important;
+    margin: 0 auto;
+    min-width: 0;
+  }
+
+  .marca-movil-nombre {
+    font-size: clamp(1rem, 4.6vw, 1.25rem);
+  }
+}
+
+/* Pantallas muy estrechas: si no cabe, el nombre pasa a dos líneas en vez de cortarse */
+@media (max-width: 699px) {
+  .marca-movil-nombre {
+    white-space: normal;
+    line-height: 1.15;
+    text-align: left;
+  }
+
+  .marca-movil-logo {
+    flex: none;
+  }
+}
+
+/* Logo de Atlas de apoyo a la izquierda del nombre en la barra superior
+   (ordenador). La barra es azul oscuro, así que se usa la versión clara
+   del logo (logo-atlas-de-apoyo-claro.svg: engranaje blanco, figura azul). */
+.barra-superior-login .eslogan-barra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-barra {
+  height: 40px;
+  width: 40px;
+  flex: none;
+}
