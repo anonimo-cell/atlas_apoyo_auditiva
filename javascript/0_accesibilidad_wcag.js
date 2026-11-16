@@ -74,6 +74,88 @@ function sincronizarEstados() {
         if (campo.classList.contains('campo-error')) campo.setAttribute('aria-invalid', 'true');
         else campo.removeAttribute('aria-invalid');
     });
+
+    unirDescripcionesDeCampos();
+}
+
+// -------------------------------------------------------------------------
+// 4b. ERRORES Y AYUDAS UNIDOS A SU CAMPO (aria-describedby, WCAG 3.3.1)
+//     Al volver al campo, el lector lee su ayuda, el contador de caracteres
+//     y el mensaje de error, pero el error solo mientras se ve en pantalla.
+// -------------------------------------------------------------------------
+function estaVisible(elemento) {
+    return !!elemento && elemento.style.display !== 'none' && !elemento.hidden &&
+        elemento.textContent.trim() !== '';
+}
+
+function unirDescripcionesDeCampos() {
+    document.querySelectorAll('[data-error], [data-contador]').forEach(campo => {
+        // La primera vez guardamos las descripciones fijas que trae el HTML
+        if (campo.dataset.descripcionBase === undefined) {
+            campo.dataset.descripcionBase = campo.getAttribute('aria-describedby') || '';
+        }
+        const ids = campo.dataset.descripcionBase.split(' ').filter(Boolean);
+        if (campo.dataset.contador) ids.push(campo.dataset.contador);
+        (campo.dataset.error || '').split(' ').filter(Boolean).forEach(id => {
+            if (estaVisible(document.getElementById(id))) ids.push(id);
+        });
+
+        const valor = ids.join(' ');
+        if (valor) {
+            if (campo.getAttribute('aria-describedby') !== valor) campo.setAttribute('aria-describedby', valor);
+        } else {
+            campo.removeAttribute('aria-describedby');
+        }
+    });
+}
+
+// -------------------------------------------------------------------------
+// 4c. CONTADOR DE CARACTERES en los textos con límite (accesibilidad cognitiva)
+// -------------------------------------------------------------------------
+let contadorIds = 0;
+
+function textoContador(campo) {
+    const max = parseInt(campo.getAttribute('maxlength'), 10);
+    return `${campo.value.length} de ${max} caracteres`;
+}
+
+function anadirContadores() {
+    const selector = '.acordeon-form textarea[maxlength], .acordeon-form input.input-moderno[maxlength]';
+    document.querySelectorAll(selector).forEach(campo => {
+        if (campo.dataset.contador) return;
+        const contador = document.createElement('span');
+        contador.className = 'contador-caracteres';
+        contador.id = `contador-caracteres-${++contadorIds}`;
+        contador.textContent = textoContador(campo);
+        campo.insertAdjacentElement('afterend', contador);
+        campo.dataset.contador = contador.id;
+    });
+}
+
+document.addEventListener('input', (evento) => {
+    const campo = evento.target;
+    if (!campo.dataset || !campo.dataset.contador) return;
+    const contador = document.getElementById(campo.dataset.contador);
+    if (!contador) return;
+    contador.textContent = textoContador(campo);
+    const lleno = campo.value.length >= parseInt(campo.getAttribute('maxlength'), 10);
+    contador.classList.toggle('contador-lleno', lleno);
+    if (lleno) anunciar('Has llegado al número máximo de caracteres.');
+});
+
+// -------------------------------------------------------------------------
+// 4d. BOTÓN "BUSCAR" junto a cada buscador (no solo con la tecla Enter)
+// -------------------------------------------------------------------------
+function lanzarBusqueda(boton) {
+    const caja = boton.closest('.caja-contenedor-busqueda');
+    const campo = caja && caja.querySelector('.input-busqueda');
+    if (!campo) return;
+    if (campo.value.trim() === '') {
+        anunciar('Escribe lo que quieres buscar.');
+        campo.focus();
+        return;
+    }
+    ejecutarBusquedaTexto({ key: 'Enter', keyCode: 13 }, campo);
 }
 
 // -------------------------------------------------------------------------
@@ -141,6 +223,7 @@ function envolverRenderizadoCatalogo() {
 // APLICAR TODO (al cargar y cada vez que la página cambia)
 // -------------------------------------------------------------------------
 function aplicarMejorasAccesibilidad() {
+    anadirContadores();
     mejorarMigasDePan();
     mejorarImagenesAmpliables();
     sincronizarEstados();

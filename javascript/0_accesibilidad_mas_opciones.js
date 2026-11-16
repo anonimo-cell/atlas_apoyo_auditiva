@@ -9,7 +9,8 @@ const CLAVE_ACCE_MAS = 'epunto-accesibilidad-mas';
 const OPCIONES_ACCE_MAS = {
     'contraste': 'alto-contraste',
     'cursor': 'acc-cursor-grande',
-    'enlaces': 'acc-resaltar-enlaces'
+    'enlaces': 'acc-resaltar-enlaces',
+    'espaciado': 'acc-espaciado'
 };
 
 // Marca como pulsados los botones de las opciones activas y guarda el estado

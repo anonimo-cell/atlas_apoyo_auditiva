@@ -14,8 +14,27 @@
 
 <body>
 
+  <!--SALTAR AL CONTENIDO (WCAG 2.4.1): primer elemento al pulsar Tab-->
+  <a class="saltar-contenido" href="#contenido-principal"
+    onclick="event.preventDefault(); document.getElementById('contenido-principal').focus();">Saltar al contenido principal</a>
+
   <!--AVISOS PARA LECTORES DE PANTALLA-->
   <div id="anuncio-accesible" class="sr-only" role="status" aria-live="polite"></div>
+
+  <!--MENÚ DEL TELÉFONO: botón ☰ arriba a la izquierda (solo se ve en el móvil)-->
+  <div class="barra-movil">
+    <button type="button" id="btn-menu-movil" class="btn-menu-movil" aria-haspopup="dialog"
+      aria-controls="menu-movil" aria-label="Abrir menú" onclick="abrirMenuMovil()">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="30" height="30" fill="none"
+        stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+    <div class="marca-movil">
+      <img src="logo.png" alt="" class="marca-movil-logo">
+      <span class="marca-movil-nombre">EPunto</span>
+    </div>
+  </div>
 
   <div class="parent">
     <!--PARAMETROS BÁSICOS-->
@@ -45,57 +64,57 @@
     <!--MENÚ DE LATERAL DERECHO (el primero abre el menú de accesibilidad)-->
     <aside class="lateral_izq" aria-label="Accesibilidad e información sobre EPunto">
       <div class="grid-lateral-izq">
-        <div class="side-btn-dech" role="button" tabindex="0" aria-haspopup="dialog" onclick="abrirModal('modal-acce-mas')">
-          <div class="cabecera-izq">
+        <button type="button" class="side-btn-dech" aria-haspopup="dialog" onclick="abrirModal('modal-acce-mas')">
+          <span class="cabecera-izq">
             <img src="svg/accesibilidad/acces.svg" class="cap-icon-izq" alt="">
             <span class="btn-titulo-izq">Menú de accesibilidad</span>
-          </div>
-        </div>
-        <div class="side-btn-dech" role="button" tabindex="0" onclick="abrirModal('modal-info')">
-          <div class="cabecera-izq">
+          </span>
+        </button>
+        <button type="button" class="side-btn-dech" onclick="abrirModal('modal-info')">
+          <span class="cabecera-izq">
             <img src="svg/lat_dech/info.svg" class="cap-icon-izq" alt="">
             <span class="btn-titulo-izq">Información</span>
-          </div>  
-        </div>
-        <div class="side-btn-dech" role="button" tabindex="0" onclick="abrirModal('modal-contacto')">
-          <div class="cabecera-izq">
+          </span>  
+        </button>
+        <button type="button" class="side-btn-dech" onclick="abrirModal('modal-contacto')">
+          <span class="cabecera-izq">
             <img src="svg/lat_dech/gmail.svg" class="cap-icon-izq" alt="">
             <span class="btn-titulo-izq">Contacto</span>
-          </div>
-        </div>
-        <div class="side-btn-dech" role="button" tabindex="0" onclick="abrirModal('modal-agradecimientos')">
-          <div class="cabecera-izq">
+          </span>
+        </button>
+        <button type="button" class="side-btn-dech" onclick="abrirModal('modal-agradecimientos')">
+          <span class="cabecera-izq">
             <img src="svg/lat_dech/agradecimientos.svg" class="cap-icon-izq" alt="">
             <span class="btn-titulo-izq">Agradecimientos</span>
-          </div>
-        </div>
+          </span>
+        </button>
 
       </div>
     </aside>
     <!--LOGO-->
     <!--MENÚ SUPERIOR USUARIO-->
     <nav class="multi-slider" aria-label="Menú principal">
-      <div class="btn-menu" role="button" tabindex="0" data-vista="vista-subir" onclick="cambiarEstadoslider(this)">
-        <div class="btn-icono-contenedor">
+      <button type="button" class="btn-menu" data-vista="vista-subir" onclick="cambiarEstadoslider(this)">
+        <span class="btn-icono-contenedor">
           <img src="svg/menu/subir.svg" class="cap-icon-menu" alt="">
-        </div>
-        <div class="btn-textos-contenedor-menu">
-          <span class="btn-titulo-menu">Difundir productos o tutoriales</span>
-        </div>
-      </div>
-      <div class="btn-menu active" role="button" tabindex="0" data-vista="vista-ver" aria-current="page"
+        </span>
+        <span class="btn-textos-contenedor-menu">
+          <span class="btn-titulo-menu"><span class="texto-largo-menu">Difundir productos o tutoriales</span><span class="texto-corto-menu">Difundir productos</span></span>
+        </span>
+      </button>
+      <button type="button" class="btn-menu active" data-vista="vista-ver" aria-current="page"
         onclick="cambiarEstadoslider(this)">
-        <div class="btn-icono-contenedor-menu">
+        <span class="btn-icono-contenedor-menu">
           <img src="svg/menu/ver.png" class="cap-icon-menu" alt="">
-        </div>
-        <div class="btn-textos-contenedor-menu">
+        </span>
+        <span class="btn-textos-contenedor-menu">
           <span class="btn-titulo-menu">Ver productos</span>
-        </div>
-      </div>
+        </span>
+      </button>
     </nav>
 
     <!--CONTENIDO PRINCIPAL (todas las vistas)-->
-    <main id="contenido-principal" class="contenido-principal">
+    <main id="contenido-principal" class="contenido-principal" tabindex="-1">
     <div id="vista-ver" class="subvista-contenido">
       <div class="contenedor-dinamico">
         <div class="linea_superior">
@@ -117,8 +136,9 @@
 
               <img src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
 
-              <input type="text" id="input-busqueda-id" class="input-busqueda" tabindex="0" aria-label="Buscar producto"
-                placeholder="Buscar producto" maxlength="20" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" id="input-busqueda-id" class="input-busqueda" aria-label="Buscar producto"
+                placeholder="Buscar producto" maxlength="20" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
 
           </div>
@@ -173,20 +193,20 @@
           </div>
         </div>
         <div class="slider-subir">
-          <div class="btn-subir" role="button" tabindex="0" data-vista="vista-prod-baj"
+          <button type="button" class="btn-subir" data-vista="vista-prod-baj"
             onclick="comprobarSesionYAbrirSubida(this)">
             <span class="btn-titulo-subir">Producto de bajo coste</span>
             <span class="btn-frase-subir">Sube un tutorial de un invento casero que te haya ayudado con algún síntoma
               del Parkinson</span>
             <img loading="lazy" decoding="async" src="svg/subir/hacer.png" class="cap-icon-subir" alt="">
-          </div>
-          <div class="btn-subir" role="button" tabindex="0" data-vista="vista-prod-com"
+          </button>
+          <button type="button" class="btn-subir" data-vista="vista-prod-com"
             onclick="comprobarSesionYAbrirSubida(this)">
             <span class="btn-titulo-subir">Producto de apoyo comercializado</span>
             <span class="btn-frase-subir">Sube un producto que hayas comprado y te haya ayudado con algún síntoma del
               Parkinson</span>
             <img loading="lazy" decoding="async" src="svg/subir/comprar.png" class="cap-icon-subir" alt="">
-          </div>
+          </button>
         </div>
       </div>
     </div>
@@ -200,12 +220,12 @@
               <span class="miga-separador">&rarr;</span>
               <span class="miga-actual">Producto de bajo coste</span>
             </nav>
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarvolver(2)">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarvolver(2)">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/subir/hacer.png" class="cap-icon-linea-superior" alt="">
               <div class="text-linea-superior">
@@ -229,7 +249,7 @@
                   </div>
                   <div class="form-row">
                     <label>Descripción:<span class="marca-obligatorio" aria-hidden="true">*</span>
-                      <textarea class="input-moderno" placeholder="¿Para que sirve tu producto?" aria-required="true" maxlength="300"></textarea>
+                      <textarea class="input-moderno" placeholder="¿Para qué sirve tu producto?" aria-required="true" maxlength="300"></textarea>
                     </label>
                   </div>
 
@@ -247,12 +267,12 @@
                 </div>
               </div>
               <div class="siguiente">
-                <div class="btn-siguiente" role="button" tabindex="0" aria-label="Siguiente sección" onclick="siguienteSeccion('seccion-filt')">
-                  <div class="cabecera-linea-volver">
+                <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-filt')">
+                  <span class="cabecera-linea-volver">
                     <span class="texto-nav-seccion">Siguiente</span>
                     <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
-                  </div>
-                </div>
+                  </span>
+                </button>
               </div>
             </div>
           </details>
@@ -296,22 +316,22 @@
 
 
               <div class="siguiente">
-                <div class="btn-siguiente" role="button" tabindex="0" aria-label="Anterior sección" onclick="siguienteSeccion('seccion-info')">
-                  <div class="cabecera-linea-volver">
+                <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-info')">
+                  <span class="cabecera-linea-volver">
                     <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
                     <span class="texto-nav-seccion">Anterior</span>
 
-                  </div>
-                </div>
-                <div class="btn-siguiente" role="button" tabindex="0" aria-label="Siguiente sección" onclick="siguienteSeccion('seccion-cate')">
-                  <div class="cabecera-linea-volver">
+                  </span>
+                </button>
+                <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-cate')">
+                  <span class="cabecera-linea-volver">
 
                     <span class="texto-nav-seccion">Siguiente</span>
 
                     <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
 
-                  </div>
-                </div>
+                  </span>
+                </button>
               </div>
             </div>
 
@@ -321,40 +341,40 @@
             <summary>Categorías</summary>
             <div class="contenedor-categoria">
               <button type="button" class="btn-cate" onclick="abrirModalCate1()">
-                <span class="btn-cate-txt">Nivel 1<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
+                <span class="btn-cate-txt">Categoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
                 <span id="valor-n1" class="btn-sele-filt">No seleccionada</span>
                 <img loading="lazy" decoding="async" id="icono-elegido-n1" class="cap-icon-cate" src="" alt="" style="display: none;">
               </button>
 
               <button type="button" class="btn-cate" onclick="abrirModalNivel2()">
-                <span class="btn-cate-txt">Nivel 2<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
+                <span class="btn-cate-txt">Subcategoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
                 <span id="valor-n2" class="btn-sele-filt">No seleccionada</span>
                 <img loading="lazy" decoding="async" id="icono-elegido-n2" class="cap-icon-cate" src="" alt="" style="display: none;">
               </button>
 
               <button type="button" class="btn-cate" onclick="abrirModalNivel3()">
-                <span class="btn-cate-txt">Nivel 3<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
+                <span class="btn-cate-txt">Tipo<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
                 <span id="valor-n3" class="btn-sele-filt">No seleccionada</span>
                 <img loading="lazy" decoding="async" id="icono-elegido-n3" class="cap-icon-cate" src="" alt="" style="display: none;">
               </button>
             </div>
             <div class="siguiente">
-              <div class="btn-siguiente" role="button" tabindex="0" aria-label="Anterior sección" onclick="siguienteSeccion('seccion-filt')">
-                <div class="cabecera-linea-volver">
+              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-filt')">
+                <span class="cabecera-linea-volver">
                   <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
                     <span class="texto-nav-seccion">Anterior</span>
 
-                </div>
-              </div>
-              <div class="btn-siguiente" role="button" tabindex="0" aria-label="Siguiente sección" onclick="siguienteSeccion('seccion-materiales')">
-                <div class="cabecera-linea-volver">
+                </span>
+              </button>
+              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-materiales')">
+                <span class="cabecera-linea-volver">
 
                   <span class="texto-nav-seccion">Siguiente</span>
 
                   <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
 
-                </div>
-              </div>
+                </span>
+              </button>
             </div>
 
           </details>
@@ -373,21 +393,21 @@
             </button>
 
             <div class="siguiente">
-              <div class="btn-volver" role="button" tabindex="0" aria-label="Anterior sección" onclick="siguienteSeccion('seccion-info')">
-                <div class="cabecera-linea-volver">
+              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-cate')">
+                <span class="cabecera-linea-volver">
                   <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
                     <span class="texto-nav-seccion">Anterior</span>
 
-                </div>
-              </div>
-              <div class="btn-volver" role="button" tabindex="0" aria-label="Siguiente sección" onclick="siguienteSeccion('seccion-pasos')">
-                <div class="cabecera-linea-volver">
+                </span>
+              </button>
+              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-pasos')">
+                <span class="cabecera-linea-volver">
 
                   <span class="texto-nav-seccion">Siguiente</span>
 
                   <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
-                </div>
-              </div>
+                </span>
+              </button>
             </div>
 
           </details>
@@ -405,13 +425,13 @@
                     <div class="paso-columna-texto">
                       <label class="paso-label" for="paso-texto-1" style="font-weight: bold; margin-bottom: 5px;">Paso 1</label>
                       <div class="form-row" style="flex: 1; display: flex; flex-direction: column;">
-                        <textarea id="paso-texto-1" placeholder="Descripción detallada" maxlength="80" aria-required="true" style="flex: 1; width: 100%; resize: none;"></textarea>
+                        <textarea id="paso-texto-1" placeholder="Descripción del paso 1" maxlength="300" aria-required="true" style="flex: 1; width: 100%; resize: none;"></textarea>
                       </div>
                     </div>
 
                     <!-- Columna Derecha (Imagen) -->
                     <div class="paso-columna-imagen">
-                      <span class="titulo-form" id="titulo-imagen-paso-1" style="font-size: 0.85rem; margin-bottom: 5px; font-weight: bold;">Imagen del paso  :</span>
+                      <span class="titulo-form" id="titulo-imagen-paso-1" style="font-size: 0.85rem; margin-bottom: 5px; font-weight: bold;">Imagen del paso (opcional):</span>
                       <div class="area-carga-imagen" id="contenedor-imagen" role="group" aria-labelledby="titulo-imagen-paso-1">
                         <input type="file" class="file-input" accept="image/*" style="display:none;"
                           tabindex="-1" aria-hidden="true">
@@ -430,37 +450,39 @@
               <button type="button" class="btn-accion" id="btn-agregar-paso"><span aria-hidden="true">+</span> Añadir nuevo paso</button>
 
               <div class="siguiente">
-                <div class="btn-siguiente" role="button" tabindex="0" aria-label="Anterior sección" onclick="siguienteSeccion('seccion-materiales')">
-                  <div class="cabecera-linea-volver">
+                <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-materiales')">
+                  <span class="cabecera-linea-volver">
                     <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
                     <span class="texto-nav-seccion">Anterior</span>
 
-                  </div>
-                </div>
-                <div class="btn-siguiente" role="button" tabindex="0" aria-label="Siguiente sección"
+                  </span>
+                </button>
+                <button type="button" class="btn-siguiente"
                   onclick="siguienteSeccion('seccion-conclusiones')">
-                  <div class="cabecera-linea-volver">
+                  <span class="cabecera-linea-volver">
                     <span class="texto-nav-seccion">Siguiente</span>
                     <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
 
-                  </div>
-                </div>
+                  </span>
+                </button>
               </div>
             </div>
           </details>
 
           <details id="seccion-conclusiones">
             <summary>Conclusiones</summary>
-            <div class="form-row"><textarea placeholder="¿Has aprendido algo haciendo este proyecto?"
-                aria-label="¿Has aprendido algo haciendo este proyecto?" maxlength="80"></textarea></div>
+            <div class="form-row">
+              <label for="conclusiones-texto" class="titulo-form">¿Has aprendido algo haciendo este proyecto? (opcional)</label>
+              <textarea id="conclusiones-texto" placeholder="Escribe aquí lo que has aprendido" maxlength="300"></textarea>
+            </div>
             <div class="siguiente">
-              <div class="btn-siguiente" role="button" tabindex="0" aria-label="Anterior sección" onclick="siguienteSeccion('seccion-pasos')">
-                <div class="cabecera-linea-volver">
+              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-pasos')">
+                <span class="cabecera-linea-volver">
                   <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
                     <span class="texto-nav-seccion">Anterior</span>
 
-                </div>
-              </div>
+                </span>
+              </button>
             </div>
           </details>
           <div class="buscar-espacio">
@@ -484,12 +506,12 @@
               <span class="miga-actual">Producto de apoyo comercializado</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarvolver(2)">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarvolver(2)">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/subir/comprar.png" class="cap-icon-linea-superior" alt="">
               <div class="text-linea-superior">
@@ -510,11 +532,11 @@
                 <label id="titulo-precio-com">Precio:<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></label>
                 <div class="contenedor-slider-filtros" style="display: flex; gap: 10px;" id="precio-com" role="group" aria-labelledby="titulo-precio-com">
                   <button type="button" class="btn-filtro"
-                    onclick="cambiarOpcionPrecioComercializado(this, 'Bajo')">Bajo (1-20€)</button>
+                    onclick="cambiarOpcionPrecioComercializado(this, 'Bajo')">Bajo (hasta 20 €)</button>
                   <button type="button" class="btn-filtro"
-                    onclick="cambiarOpcionPrecioComercializado(this, 'Medio')">Medio (20-50€)</button>
+                    onclick="cambiarOpcionPrecioComercializado(this, 'Medio')">Medio (20-50 €)</button>
                   <button type="button" class="btn-filtro"
-                    onclick="cambiarOpcionPrecioComercializado(this, 'Alto')">Alto (50-100€)</button>
+                    onclick="cambiarOpcionPrecioComercializado(this, 'Alto')">Alto (más de 50 €)</button>
                 </div>
                 <!-- Elemento oculto o span para guardar el valor seleccionado para la validación -->
                 <span id="valor-precio-comercializado" style="display: none;">No seleccionada</span>
@@ -537,19 +559,19 @@
               <label id="titulo-categoria-sele">Categoría:<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></label>
               <div class="contenedor-categoria" id="categoria-sele" role="group" aria-labelledby="titulo-categoria-sele">
                 <button type="button" class="btn-cate" onclick="abrirModalCate1('-com')">
-                  <span class="btn-cate-txt">Nivel 1<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
+                  <span class="btn-cate-txt">Categoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
                   <span id="valor-n1-com" class="btn-sele-filt">No seleccionada</span>
                   <img loading="lazy" decoding="async" id="icono-elegido-n1-com" class="cap-icon-cate" src="" alt=""
                     style="display: none;">
                 </button>
                 <button type="button" class="btn-cate" onclick="abrirModalNivel2('-com')">
-                  <span class="btn-cate-txt">Nivel 2<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
+                  <span class="btn-cate-txt">Subcategoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
                   <span id="valor-n2-com" class="btn-sele-filt">No seleccionada</span>
                   <img loading="lazy" decoding="async" id="icono-elegido-n2-com" class="cap-icon-cate" src="" alt=""
                     style="display: none;">
                 </button>
                 <button type="button" class="btn-cate" onclick="abrirModalNivel3('-com')">
-                  <span class="btn-cate-txt">Nivel 3<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
+                  <span class="btn-cate-txt">Tipo<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
                   <span id="valor-n3-com" class="btn-sele-filt">No seleccionada</span>
                   <img loading="lazy" decoding="async" id="icono-elegido-n3-com" class="cap-icon-cate" src="" alt=""
                     style="display: none;">
@@ -653,15 +675,15 @@
             <nav class="migas-pan" aria-label="Ruta de navegación">
               <span class="miga-enlace" onclick="regresarvolver(1)">Ver Productos</span>
               <span class="miga-separador">&rarr;</span>
-              <span class="miga-actual" id="miga-ver-titulo">Producto</span>
+              <span class="miga-actual">Producto</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarAnterior()">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarAnterior()">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
 
             <div class="cabecera-superior-icono">
               <div class="text-linea-superior">
@@ -685,22 +707,22 @@
           </div>
 
           <div style="margin-bottom: 25px;">
-            <h3 class="txt-detalle">Descripción</h3>
+            <h2 class="txt-detalle">Descripción</h2>
             <p id="detalle-ver-descripcion" style="line-height: 1.5;"></p>
           </div>
 
           <div style="margin-bottom: 25px;">
-            <h3 class="txt-detalle">Materiales necesarios</h3>
+            <h2 class="txt-detalle">Materiales necesarios</h2>
             <p id="detalle-ver-materiales" style="line-height: 1.5;"></p>
           </div>
 
           <div style="margin-bottom: 25px;">
-            <h3 class="txt-detalle">Pasos del tutorial</h3>
+            <h2 class="txt-detalle">Pasos del tutorial</h2>
             <div id="detalle-ver-pasos" style="line-height: 1.5;"></div>
           </div>
 
           <div style="margin-bottom: 25px;">
-            <h3 class="txt-detalle">Conclusiones</h3>
+            <h2 class="txt-detalle">Conclusiones</h2>
             <p id="detalle-ver-conclusiones" style="line-height: 1.5;"></p>
           </div>
         </div>
@@ -715,18 +737,19 @@
             <nav class="migas-pan" aria-label="Ruta de navegación">
               <span class="miga-enlace" onclick="regresarvolver(1)">Ver Productos</span>
               <span class="miga-separador">&rarr;</span>
-              <span class="miga-actual" id="miga-ver-titulo">Producto</span>
+              <span class="miga-actual">Producto</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarAnterior()">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarAnterior()">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
 
             <div class="cabecera-superior-icono">
               <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior" id="cabecera-ver-titulo">Cargando...</h1>
+                <h1 class="titulo-linea-superior" id="cabecera-ver-titulo-com">Cargando...</h1>
               </div>
             </div>
           </div>
@@ -735,22 +758,22 @@
         <div class="detalle-card" style="text-align: left; margin-top: 20px; padding: 20px;">
 
           <div style="text-align: center; margin-bottom: 20px;">
-            <img loading="lazy" decoding="async" id="detalle-ver-imagen" src="" style="max-height: 100%; height: 400px; border-radius: 10px;"
+            <img loading="lazy" decoding="async" id="detalle-ver-imagen-com" src="" style="max-height: 100%; height: 400px; border-radius: 10px;"
               alt="">
           </div>
 
           <div class="prod-etiquetas" style="justify-content: center; margin-bottom: 30px; display: flex; gap: 10px;">
-            <span class="etiqueta-badge-fila" id="detalle-ver-precio"></span>
+            <span class="etiqueta-badge-fila" id="detalle-ver-precio-com"></span>
           </div>
 
           <div style="margin-bottom: 25px;">
-            <h3 class="txt-detalle">Descripción</h3>
-            <p id="detalle-ver-descripcion" style="line-height: 1.5;"></p>
+            <h2 class="txt-detalle">Descripción</h2>
+            <p id="detalle-ver-descripcion-com" style="line-height: 1.5;"></p>
           </div>
 
           <div style="margin-bottom: 25px;">
-            <h3 class="txt-detalle">Forma de compra</h3>
-            <p id="detalle-ver-conclusiones" style="line-height: 1.5;"></p>
+            <h2 class="txt-detalle">Forma de compra</h2>
+            <p id="detalle-ver-conclusiones-com" style="line-height: 1.5;"></p>
           </div>
 
         </div>
@@ -767,12 +790,12 @@
               <span class="miga-separador">&rarr;</span>
               <span class="miga-actual">Autonomía y cuidado</span>
             </nav>
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarvolver(1)">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/cate/auto/auto.png" class="cap-icon-linea-superior" alt=""
                >
@@ -783,8 +806,9 @@
 
             <div class="caja-contenedor-busqueda" role="search">
               <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" tabindex="0" placeholder="Buscar producto"
-                aria-label="Buscar producto" maxlength="20" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" class="input-busqueda" placeholder="Buscar producto"
+                aria-label="Buscar producto" maxlength="20" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
           </div>
         </div>
@@ -830,12 +854,12 @@
               <span class="miga-actual">Ocio</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarvolver(1)">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/cate/ocio/ocio.png" class="cap-icon-linea-superior" alt="">
               <div class="text-linea-superior">
@@ -845,8 +869,9 @@
 
             <div class="caja-contenedor-busqueda" role="search">
               <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" tabindex="0" placeholder="Buscar producto"
-                aria-label="Buscar producto" maxlength="20" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" class="input-busqueda" placeholder="Buscar producto"
+                aria-label="Buscar producto" maxlength="20" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
 
           </div>
@@ -893,12 +918,12 @@
               <span class="miga-actual">Movilidad</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarvolver(1)">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/cate/movilidad/mover.png" class="cap-icon-linea-superior" alt=""
                >
@@ -909,8 +934,9 @@
 
             <div class="caja-contenedor-busqueda" role="search">
               <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" tabindex="0" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
+                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
 
           </div>
@@ -964,12 +990,12 @@
               <span class="miga-actual">Comunicación</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarvolver(1)">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/cate/comunica/comunicación.png" class="cap-icon-linea-superior" alt=""
                >
@@ -980,8 +1006,9 @@
 
             <div class="caja-contenedor-busqueda" role="search">
               <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" tabindex="0" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
+                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
 
           </div>
@@ -1035,12 +1062,12 @@
               <span class="miga-actual">Tareas cotidianas</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarvolver(1)">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/cate/tareas/tareas.png" class="cap-icon-linea-superior" alt=""
                >
@@ -1051,8 +1078,9 @@
 
             <div class="caja-contenedor-busqueda" role="search">
               <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" tabindex="0" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
+                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
 
           </div>
@@ -1110,12 +1138,12 @@
               <span class="miga-actual">Higiene</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarAnterior(1)">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarAnterior(1)">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/cate/auto/higiene/higiene.png" class="cap-icon-linea-superior" alt=""
                >
@@ -1126,8 +1154,9 @@
 
             <div class="caja-contenedor-busqueda" role="search">
               <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" tabindex="0" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
+                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
 
           </div>
@@ -1181,12 +1210,12 @@
               <span class="miga-actual">Vestirse</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarAnterior()">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarAnterior()">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" src="svg/cate/auto/vestirse/ropa.png" class="cap-icon-linea-superior" alt=""
                >
@@ -1197,8 +1226,9 @@
 
             <div class="caja-contenedor-busqueda" role="search">
               <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" tabindex="0" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
+                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
 
           </div>
@@ -1256,12 +1286,12 @@
               <span class="miga-actual">Catálogo de productos</span>
             </nav>
 
-            <div class="btn-volver" role="button" tabindex="0" aria-label="Volver atrás" onclick="regresarAnterior()">
-              <div class="cabecera-linea-volver">
+            <button type="button" class="btn-volver" onclick="regresarAnterior()">
+              <span class="cabecera-linea-volver">
                 <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-
-              </div>
-            </div>
+                <span class="texto-nav-seccion">Volver</span>
+              </span>
+            </button>
 
             <div class="cabecera-superior-icono">
               <img loading="lazy" decoding="async" id="icono-dinamico" src="svg/menu/ver.png" class="cap-icon-linea-superior"
@@ -1273,13 +1303,24 @@
 
             <div class="caja-contenedor-busqueda" role="search">
               <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" tabindex="0" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeypress="ejecutarBusquedaTexto(event, this)">
+              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
+                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
+              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
             </div>
+
+            <!--BOTÓN DE FILTROS junto al buscador (solo en el móvil)-->
+            <button type="button" class="btn-abrir-filtros btn-filtros-junto-buscar" aria-haspopup="dialog"
+              aria-label="Filtrar productos" onclick="abrirFiltrosCatalogo()">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="26" height="26" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 5h18l-7 8.5V19l-4 2v-7.5L3 5Z" />
+              </svg>
+              <span class="contador-filtros" hidden></span>
+            </button>
           </div>
 
           <!--SLIDER FILTRO-->
-          <div style="display: flex; justify-content: center; width: 100%; margin-top: 10px;">
+          <div class="fila-slider-filtros">
             <div class="contenedor-slider-filtros">
               <!-- Botón 2 -->
               <button type="button" class="btn-filtro  active-filtro" id="btn-opcion-1"
@@ -1293,6 +1334,15 @@
                 <span>Producto comercializado</span>
               </button>
             </div>
+            <!--BOTÓN DE FILTROS (precio, dificultad, tiempo)-->
+            <button type="button" id="btn-abrir-filtros" class="btn-abrir-filtros" aria-haspopup="dialog"
+              aria-label="Filtrar productos" onclick="abrirFiltrosCatalogo()">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="28" height="28" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 5h18l-7 8.5V19l-4 2v-7.5L3 5Z" />
+              </svg>
+              <span class="contador-filtros" id="contador-filtros" hidden></span>
+            </button>
           </div>
         </div>
 
@@ -1301,7 +1351,7 @@
 
             <button type="button" class="btn-producto">
               <span class="prod-titulo">Producto de ejemplo 1</span>
-              <img loading="lazy" decoding="async" src="svg/subir/hacer.png" class="prod-img" alt="Producto">
+              <img loading="lazy" decoding="async" src="svg/subir/hacer.png" class="prod-img" alt="">
               <div class="prod-etiquetas">
                 <span class="etiqueta-badge"><img loading="lazy" decoding="async" src="svg/filtro/dona.svg" alt="Precio"> Bajo</span>
                 <span class="etiqueta-badge"><img loading="lazy" decoding="async" src="svg/filtro/difi.svg" alt="Dificultad"> Fácil</span>
@@ -1339,7 +1389,7 @@
 
           <div class="form-row verificar-correo-campo">
             <label for="verificar-correo-codigo">Código:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
-            <input type="text" id="verificar-correo-codigo" class="input-moderno" placeholder="Introducir código"
+            <input type="text" id="verificar-correo-codigo" data-error="error-texto-codigo" class="input-moderno" placeholder="Introducir código"
               inputmode="numeric" autocomplete="one-time-code" maxlength="10" aria-required="true">
             <p id="error-texto-codigo" class="mensaje-error-campo" role="alert" style="display: none;"></p>
             <p id="texto-codigo-reenviado" class="confirmacion-texto" role="status" style="display: none;">
@@ -1384,7 +1434,7 @@
                 <div class="form-row">
                   <label class="titulo-form">Nombre de usuario:<span class="marca-obligatorio" aria-hidden="true">*</span>
                     <!-- AÑADIDO ID -->
-                    <input type="text" id="solicitud-usuario" class="input-moderno" placeholder="Nombre de usuario"
+                    <input type="text" id="solicitud-usuario" data-error="error-texto-usuario" class="input-moderno" placeholder="Nombre de usuario"
                       aria-required="true" autocomplete="username" maxlength="20" minlength="4"></label>
                   <p id="error-texto-usuario" class="mensaje-error-campo" role="alert" style="display: none;"></p>
                 </div>
@@ -1392,7 +1442,7 @@
                 <!--CONTACTO (en la columna izquierda, frente a las contraseñas)-->
                 <div class="form-row">
                   <label>Correo electrónico:<span class="marca-obligatorio" aria-hidden="true">*</span>
-                    <input type="email" id="solicitud-contacto" class="input-moderno" placeholder="Introducir correo electrónico"
+                    <input type="email" id="solicitud-contacto" data-error="error-texto-correo" class="input-moderno" placeholder="Introducir correo electrónico"
                       aria-required="true" autocomplete="email" inputmode="email"></label>
                   <p id="error-texto-correo" class="mensaje-error-campo" role="alert" style="display: none;"></p>
                 </div>
@@ -1401,9 +1451,10 @@
               <div class="col-right">
                 <div class="form-row">
                   <label for="psswd-1">Contraseña:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
+                  <p id="ayuda-pass" class="ayuda-campo">Mínimo 6 caracteres.</p>
 
                   <div class="fila-contrasena" id="contrasena-primera">
-                    <input type="password" id="psswd-1" class="input-moderno" placeholder="Introducir contraseña"
+                    <input type="password" id="psswd-1" aria-describedby="ayuda-pass" data-error="error-texto-pass" class="input-moderno" placeholder="Introducir contraseña"
                       aria-required="true" autocomplete="new-password">
 
                     <button type="button" id="btn-toggle-pass"
@@ -1416,7 +1467,7 @@
                   <label for="psswd-2">Repite
                     la contraseña:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
                   <div class="fila-contrasena" id="contrasena-segunda">
-                    <input type="password" id="psswd-2" class="input-moderno" placeholder="Repetir contraseña"
+                    <input type="password" id="psswd-2" data-error="error-texto-pass" class="input-moderno" placeholder="Repetir contraseña"
                       aria-required="true" autocomplete="new-password">
 
                     <button type="button" id="btn-toggle-pass-2"
@@ -1460,7 +1511,7 @@
             </div>
           </div>
 
-          <label>Fundación o asociación  :
+          <label>Fundación o asociación (opcional):
             <div class="form-row">
               <!-- AÑADIDO ID -->
               <input type="text" id="solicitud-fundacion" class="input-moderno"
@@ -1480,13 +1531,110 @@
     </main>
   </div>
 
+  <!--FILTROS DEL CATÁLOGO (se abre con el embudo junto al slider)-->
+  <dialog id="modal-filtros-catalogo" class="modal-accesible modal-filtros-catalogo" aria-labelledby="titulo-filtros-catalogo">
+    <div class="modal-cabecera">
+      <div class="btn-cabecera-linea-modal">
+        <h2 class="btn-titulo-dialog" id="titulo-filtros-catalogo">Filtrar productos</h2>
+      </div>
+      <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
+    </div>
+
+    <div class="modal-cuerpo">
+      <fieldset class="grupo-filtro" data-filtro="precio">
+        <legend><img src="svg/filtro/dona.svg" alt=""> Precio</legend>
+        <p class="ayuda-filtro">Bajo: hasta 20 € · Medio: de 20 a 50 € · Alto: más de 50 €</p>
+        <div class="opciones-filtro">
+          <button type="button" class="chip-filtro" data-valor="Bajo" aria-pressed="false">Bajo</button>
+          <button type="button" class="chip-filtro" data-valor="Medio" aria-pressed="false">Medio</button>
+          <button type="button" class="chip-filtro" data-valor="Alto" aria-pressed="false">Alto</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="grupo-filtro solo-bajo-coste" data-filtro="dificultad">
+        <legend><img src="svg/filtro/difi.svg" alt=""> Dificultad de fabricación</legend>
+        <p class="ayuda-filtro">Fácil: sin herramientas · Medio: herramientas sencillas · Difícil: herramientas o ayuda</p>
+        <div class="opciones-filtro">
+          <button type="button" class="chip-filtro" data-valor="Fácil" aria-pressed="false">Fácil</button>
+          <button type="button" class="chip-filtro" data-valor="Medio" aria-pressed="false">Medio</button>
+          <button type="button" class="chip-filtro" data-valor="Difícil" aria-pressed="false">Difícil</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="grupo-filtro solo-bajo-coste" data-filtro="tiempo">
+        <legend><img src="svg/filtro/tiempo.svg" alt=""> Tiempo de fabricación</legend>
+        <p class="ayuda-filtro">Bajo: menos de 1 hora · Medio: de 1 a 3 horas · Alto: más de 3 horas</p>
+        <div class="opciones-filtro">
+          <button type="button" class="chip-filtro" data-valor="Bajo" aria-pressed="false">Bajo</button>
+          <button type="button" class="chip-filtro" data-valor="Medio" aria-pressed="false">Medio</button>
+          <button type="button" class="chip-filtro" data-valor="Alto" aria-pressed="false">Alto</button>
+        </div>
+      </fieldset>
+
+      <div class="botones-filtros">
+        <button type="button" class="btn-filtros-secundario" onclick="quitarFiltrosCatalogo()">Quitar filtros</button>
+        <button type="button" class="btn-filtros-principal" id="btn-ver-resultados" onclick="cerrarModal('modal-filtros-catalogo')">Ver productos</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!--MENÚ LATERAL DEL TELÉFONO (sale por la izquierda al pulsar ☰)-->
+  <dialog id="menu-movil" class="menu-movil" aria-labelledby="titulo-menu-movil">
+    <div class="menu-movil-cabecera">
+      <h2 id="titulo-menu-movil" class="menu-movil-titulo">Menú</h2>
+      <button type="button" class="btn-cerrar-modal" aria-label="Cerrar menú" onclick="cerrarModal(this)">×</button>
+    </div>
+    <nav aria-label="Menú del teléfono">
+      <ul class="menu-movil-lista">
+        <li>
+          <button type="button" class="menu-movil-opcion" onclick="opcionMenuMovil('modal-acce-mas')">
+            <img src="svg/accesibilidad/acces.svg" alt="" class="menu-movil-icono">
+            <span>Menú de accesibilidad</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="menu-movil-opcion" onclick="opcionMenuMovil('modal-info')">
+            <img src="svg/lat_dech/info.svg" alt="" class="menu-movil-icono">
+            <span>Información</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="menu-movil-opcion" onclick="opcionMenuMovil('modal-contacto')">
+            <img src="svg/lat_dech/gmail.svg" alt="" class="menu-movil-icono">
+            <span>Contacto</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="menu-movil-opcion" onclick="opcionMenuMovil('modal-agradecimientos')">
+            <img src="svg/lat_dech/agradecimientos.svg" alt="" class="menu-movil-icono">
+            <span>Agradecimientos</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <!--Sesión abajo del todo: Registrarse (relleno) e Iniciar sesión (con borde),
+        o solo Cerrar sesión (en rojo) si ya hay sesión-->
+    <div class="menu-movil-pie">
+      <button type="button" id="menu-movil-registro" class="menu-movil-btn-pie menu-movil-btn-registro"
+        onclick="opcionMenuMovil('registro')">
+        <img src="svg/login/registro.svg" alt="" class="menu-movil-icono">
+        <span>Registrarse</span>
+      </button>
+      <button type="button" id="menu-movil-sesion" class="menu-movil-btn-pie menu-movil-btn-sesion"
+        onclick="opcionMenuMovil('sesion')">
+        <img src="svg/login/avatar.svg" alt="" class="menu-movil-icono">
+        <span id="menu-movil-sesion-texto">Iniciar sesión</span>
+      </button>
+    </div>
+  </dialog>
+
   <!-- ========================================== -->
   <!-- DIÁLOGO FLOTANTE DE INICIO DE SESIÓN (ESTILO MODAL ACCESIBLE) -->
   <!-- ========================================== -->
   <dialog id="modal-login" class="modal-accesible" aria-labelledby="titulo-modal-login">
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
-        <span class="btn-titulo-dialog" id="titulo-modal-login">Iniciar sesión</span>
+        <h2 class="btn-titulo-dialog" id="titulo-modal-login">Iniciar sesión</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
@@ -1495,14 +1643,14 @@
     
       <div class="form-row">
         <label>Correo electrónico o nombre de usuario:<span class="marca-obligatorio" aria-hidden="true">*</span>
-          <input type="text" id="login-usuario-modal" class="input-moderno" placeholder="Correo o nombre de usuario"
+          <input type="text" id="login-usuario-modal" data-error="mensaje-error-login-modal" class="input-moderno" placeholder="Correo o nombre de usuario"
             aria-required="true" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="100"></label>
       </div>
 
       <div class="form-row">
         <label for="login-password-modal">Contraseña:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
         <div class="fila-contrasena" id="contrase-inicio">
-          <input type="password" id="login-password-modal" class="input-moderno" placeholder="Introducir contraseña"
+          <input type="password" id="login-password-modal" data-error="mensaje-error-login-modal" class="input-moderno" placeholder="Introducir contraseña"
             aria-required="true" autocomplete="current-password">
           <button type="button" id="btn-toggle-pass-modal" onclick="toggleMostrarPasswordModal()" class="btn-mostrar">
             Mostrar<span class="sr-only"> contraseña</span>
@@ -1527,22 +1675,22 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/lat_dech/info.svg" class="cap-icon-modal" alt="">
-        <span class="btn-titulo-dialog">Información</span>
+        <h2 class="btn-titulo-dialog">Información</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
     <div class="modal-cuerpo">
-      <p> Hola, bienvenido a nuestra web EPunto.</p>
-      <p>EPunto es una página web para difundir soluciones útiles para personas con Parkinson.</p>
-      <p>Está pensada para que personas con Parkinson, familiares o terapeutas puedan buscar y subir soluciones
-        que
-        les han sido utiles</p>
-      <p>Así, ellos ayudan a otras personas con Parkinson que hayan tenido las mismas dificultades</p>
-      <p>En esta página vas a encontrar 2 tipos de productos de apoyo:</p>
-      <p>- Los comercializados, que se venden en el mercado y todos podemos comprar</p>
-      <p>- Los tutoriales de productos de apoyo de bajo costes, son productos caseros con materiales que todos tenemos. Los usuarios
-        los suben con instrucciones y así tú tambien vas a poder hacerlo.</p>
-      <p>Muchas gracias </p>
+      <p>Hola, te damos la bienvenida a EPunto.</p>
+      <p>EPunto es una página web para compartir soluciones útiles para personas con Parkinson.</p>
+      <p>Aquí, las personas con Parkinson, sus familias y sus terapeutas pueden buscar y subir productos
+        que les han sido útiles. Así ayudan a otras personas que tienen las mismas dificultades.</p>
+      <p>En EPunto vas a encontrar 2 tipos de productos de apoyo:</p>
+      <ul class="lista-info">
+        <li><strong>Productos comercializados:</strong> se venden en tiendas y cualquiera los puede comprar.</li>
+        <li><strong>Productos de bajo coste:</strong> son productos caseros hechos con materiales fáciles de conseguir.
+          Cada uno tiene un tutorial con los pasos para que tú también puedas hacerlo.</li>
+      </ul>
+      <p>¡Muchas gracias!</p>
     </div>
   </dialog>
 
@@ -1550,12 +1698,12 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/lat_dech/agradecimientos.svg" class="cap-icon-modal" alt="">
-        <span class="btn-titulo-dialog">Agradecimientos</span>
+        <h2 class="btn-titulo-dialog">Agradecimientos</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
     <div class="modal-cuerpo">
-      <p>Pagina web desarrollada por <b>Celia Sáez De La Peña</b></p>
+      <p>Página web desarrollada por <b>Celia Sáez De La Peña</b></p>
       <p>En colaboración con Fundación Parkinson Madrid, Universidad Politécnica de Madrid y Universidad Rey Juan Carlos</p>
        <p>Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para ARASAAC (http://www.arasaac.org), que los distribuye bajo Licencia Creative Commons BY-NC-SA.</p>
       <div class="logos-agradecimientos">
@@ -1571,12 +1719,12 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/lat_dech/gmail.svg" class="cap-icon-modal" alt="">
-        <span class="btn-titulo-dialog">Contacto</span>
+        <h2 class="btn-titulo-dialog">Contacto</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
     <div class="modal-cuerpo">
-      <p>Aqui te dejamos nuestro contacto para que nos preguntes dudes o nos cuentes tu ideas</p>
+      <p>Escríbenos si tienes dudas o quieres contarnos tus ideas.</p>
       <p>Email: <a class="enlace-email" href="mailto:epuntoweb@gmail.com">epuntoweb@gmail.com</a></p>
     </div>
   </dialog>
@@ -1587,7 +1735,7 @@
   <dialog id="modal-categorias1" class="modal-cate">
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
-        <p class="titulo-menu-acce">Selecciona una opción</p>
+        <h2 class="titulo-menu-acce">Elige una categoría</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
@@ -1629,7 +1777,7 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/accesibilidad/acces.svg" class="cap-icon-acce" alt="">
-        <p class="titulo-menu-acce">Autonomía y cuidado</p>
+        <h2 class="titulo-menu-acce">Autonomía y cuidado</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
@@ -1653,7 +1801,7 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/accesibilidad/acces.svg" class="cap-icon-acce" alt="">
-        <p class="titulo-menu-acce">Ocio</p>
+        <h2 class="titulo-menu-acce">Ocio</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
@@ -1677,7 +1825,7 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/accesibilidad/acces.svg" class="cap-icon-acce" alt="">
-        <p class="titulo-menu-acce">Movilidad</p>
+        <h2 class="titulo-menu-acce">Movilidad</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
@@ -1721,7 +1869,7 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/accesibilidad/acces.svg" class="cap-icon-acce" alt="">
-        <p class="titulo-menu-acce">Comunicación</p>
+        <h2 class="titulo-menu-acce">Comunicación</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
@@ -1765,7 +1913,7 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/accesibilidad/acces.svg" class="cap-icon-acce" alt="">
-        <p class="titulo-menu-acce">Tareas cotidianas</p>
+        <h2 class="titulo-menu-acce">Tareas cotidianas</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
@@ -1809,7 +1957,7 @@
   <dialog id="modal-n3-higiene" class="modal-cate">
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
-        <p class="titulo-menu-acce">Higiene (Nivel 3)</p>
+        <h2 class="titulo-menu-acce">Higiene: elige el tipo</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
@@ -1855,21 +2003,24 @@
   <dialog id="modal-dificultad" class="modal-cate modal-pequeno">
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
-        <p class="titulo-menu-acce">Dificultad</p>
+        <h2 class="titulo-menu-acce">Dificultad</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar" onclick="cerrarModal(this)">×</button>
     </div>
     <div class="grid-capsulas">
       <button type="button" class="btn-cate" onclick="seleccionarDificultad(this)">
         <span class="txt-filtro">Fácil</span>
+        <span class="txt-filtro-ayuda">Sin herramientas</span>
         <img loading="lazy" decoding="async" src="svg/filtro/bajo.svg" class="cap-icon-cate" alt="">
       </button>
       <button type="button" class="btn-cate" onclick="seleccionarDificultad(this)">
         <span class="txt-filtro">Medio</span>
+        <span class="txt-filtro-ayuda">Con herramientas sencillas</span>
         <img loading="lazy" decoding="async" src="svg/filtro/medio.svg" class="cap-icon-cate" alt="">
       </button>
       <button type="button" class="btn-cate" onclick="seleccionarDificultad(this)">
         <span class="txt-filtro">Difícil</span>
+        <span class="txt-filtro-ayuda">Con herramientas o ayuda</span>
         <img loading="lazy" decoding="async" src="svg/filtro/alto.svg" class="cap-icon-cate" alt="">
       </button>
     </div>
@@ -1878,21 +2029,24 @@
   <dialog id="modal-tiempo" class="modal-cate modal-pequeno">
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
-        <p class="titulo-menu-acce">Tiempo de fabricación</p>
+        <h2 class="titulo-menu-acce">Tiempo de fabricación</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar" onclick="cerrarModal(this)">×</button>
     </div>
     <div class="grid-capsulas">
       <button type="button" class="btn-cate" onclick="seleccionarTiempo(this)">
         <span class="txt-filtro">Bajo</span>
+        <span class="txt-filtro-ayuda">Menos de 1 hora</span>
         <img loading="lazy" decoding="async" src="svg/filtro/bajo.svg" class="cap-icon-cate" alt="">
       </button>
       <button type="button" class="btn-cate" onclick="seleccionarTiempo(this)">
         <span class="txt-filtro">Medio</span>
+        <span class="txt-filtro-ayuda">De 1 a 3 horas</span>
         <img loading="lazy" decoding="async" src="svg/filtro/medio.svg" class="cap-icon-cate" alt="">
       </button>
       <button type="button" class="btn-cate" onclick="seleccionarTiempo(this)">
         <span class="txt-filtro">Alto</span>
+        <span class="txt-filtro-ayuda">Más de 3 horas</span>
         <img loading="lazy" decoding="async" src="svg/filtro/alto.svg" class="cap-icon-cate" alt="">
       </button>
     </div>
@@ -1901,21 +2055,24 @@
   <dialog id="modal-precio" class="modal-cate modal-pequeno">
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
-        <p class="titulo-menu-acce">Precio</p>
+        <h2 class="titulo-menu-acce">Precio</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar" onclick="cerrarModal(this)">×</button>
     </div>
     <div class="grid-capsulas">
       <button type="button" class="btn-cate" onclick="seleccionarPrecio(this)">
         <span class="txt-filtro">Bajo</span>
+        <span class="txt-filtro-ayuda">Hasta 20 €</span>
         <img loading="lazy" decoding="async" src="svg/filtro/bajo.svg" class="cap-icon-cate" alt="">
       </button>
       <button type="button" class="btn-cate" onclick="seleccionarPrecio(this)">
         <span class="txt-filtro">Medio</span>
+        <span class="txt-filtro-ayuda">De 20 a 50 €</span>
         <img loading="lazy" decoding="async" src="svg/filtro/medio.svg" class="cap-icon-cate" alt="">
       </button>
       <button type="button" class="btn-cate" onclick="seleccionarPrecio(this)">
         <span class="txt-filtro">Alto</span>
+        <span class="txt-filtro-ayuda">Más de 50 €</span>
         <img loading="lazy" decoding="async" src="svg/filtro/alto.svg" class="cap-icon-cate" alt="">
       </button>
     </div>
@@ -1926,7 +2083,7 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img loading="lazy" decoding="async" src="svg/lat_dech/ayuda.svg" class="cap-icon-modal" alt="">
-        <span class="btn-titulo-dialog">Menú de Ayuda</span>
+        <h2 class="btn-titulo-dialog">Menú de ayuda</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana"
         onclick="cerrarModal(this)">×</button>
@@ -1934,29 +2091,29 @@
     <div class="modal-cuerpo" style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
 
       <!-- Botones adaptados para el modal -->
-      <div class="side-btn-dech" role="button" tabindex="0" style="max-width: 100%; border-radius: 12px; height: 55px;"
+      <button type="button" class="side-btn-dech" style="max-width: 100%; border-radius: 12px; height: 55px;"
         onclick="cerrarModal(this); abrirModal('modal-info')">
-        <div class="cabecera-izq">
+        <span class="cabecera-izq">
           <img loading="lazy" decoding="async" src="svg/lat_dech/info.svg" class="cap-icon-izq" alt="">
           <span class="btn-titulo-izq" style="font-size: 1rem;">Información</span>
-        </div>
-      </div>
+        </span>
+      </button>
 
-      <div class="side-btn-dech" role="button" tabindex="0" style="max-width: 100%; border-radius: 12px; height: 55px;"
+      <button type="button" class="side-btn-dech" style="max-width: 100%; border-radius: 12px; height: 55px;"
         onclick="cerrarModal(this); abrirModal('modal-contacto')">
-        <div class="cabecera-izq">
+        <span class="cabecera-izq">
           <img loading="lazy" decoding="async" src="svg/lat_dech/gmail.svg" class="cap-icon-izq" alt="">
           <span class="btn-titulo-izq" style="font-size: 1rem;">Contacto</span>
-        </div>
-      </div>
+        </span>
+      </button>
 
-      <div class="side-btn-dech" role="button" tabindex="0" style="max-width: 100%; border-radius: 12px; height: 55px;"
+      <button type="button" class="side-btn-dech" style="max-width: 100%; border-radius: 12px; height: 55px;"
         onclick="cerrarModal(this); abrirModal('modal-agradecimientos')">
-        <div class="cabecera-izq">
+        <span class="cabecera-izq">
           <img loading="lazy" decoding="async" src="svg/lat_dech/agradecimientos.svg" class="cap-icon-izq" alt="">
           <span class="btn-titulo-izq" style="font-size: 1rem;">Agradecimientos</span>
-        </div>
-      </div>
+        </span>
+      </button>
 
     </div>
   </dialog>
@@ -1966,54 +2123,61 @@
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
         <img src="svg/accesibilidad/acces.svg" class="cap-icon-titulo-acce" alt="">
-        <span class="btn-titulo-dialog" id="titulo-acce-mas">Menú de accesibilidad</span>
+        <h2 class="btn-titulo-dialog" id="titulo-acce-mas">Menú de accesibilidad</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana"
         onclick="cerrarModal(this)">×</button>
     </div>
 
     <div class="modal-cuerpo grid-acce-mas">
-      <div class="side-btn-acce" role="button" tabindex="0" id="btn-aumentar">
-        <div class="cabecera-linea-acce">
+      <button type="button" class="side-btn-acce" id="btn-aumentar">
+        <span class="cabecera-linea-acce">
           <span class="icono-acce-mas" aria-hidden="true" style="font-weight: bold;">A+</span>
-          <span class="btn-titulo-acce">Aumento letra</span>
-        </div>
-      </div>
+          <span class="btn-titulo-acce">Aumentar letra</span>
+        </span>
+      </button>
 
-      <div class="side-btn-acce" role="button" tabindex="0" id="btn-reducir">
-        <div class="cabecera-linea-acce">
+      <button type="button" class="side-btn-acce" id="btn-reducir">
+        <span class="cabecera-linea-acce">
           <span class="icono-acce-mas" aria-hidden="true" style="font-weight: bold;">A−</span>
           <span class="btn-titulo-acce">Reducir letra</span>
-        </div>
-      </div>
+        </span>
+      </button>
 
-      <div class="side-btn-acce" role="button" tabindex="0" aria-pressed="false" data-acc-opcion="contraste">
-        <div class="cabecera-linea-acce">
+      <button type="button" class="side-btn-acce" aria-pressed="false" data-acc-opcion="contraste">
+        <span class="cabecera-linea-acce">
           <span class="icono-acce-mas" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" stroke-linejoin="round"><!-- Siempre blanco y negro; el reborde blanco exterior lo hace visible también sobre el fondo oscuro de la opción activada --><rect x="0" y="0" width="24" height="24" rx="5" fill="#fff"/><rect x="3" y="3" width="18" height="18" rx="2" fill="#fff" stroke="#000" stroke-width="2"/><path d="M21 3 3 21h16a2 2 0 0 0 2-2z" fill="#000"/></svg></span>
-          <span class="btn-titulo-acce">Blanco y negro</span>
-        </div>
-      </div>
+          <span class="btn-titulo-acce">Alto contraste</span>
+        </span>
+      </button>
 
-      <div class="side-btn-acce" role="button" tabindex="0" aria-pressed="false" data-acc-opcion="cursor">
-        <div class="cabecera-linea-acce">
+      <button type="button" class="side-btn-acce" aria-pressed="false" data-acc-opcion="cursor">
+        <span class="cabecera-linea-acce">
           <span class="icono-acce-mas" aria-hidden="true">➤</span>
           <span class="btn-titulo-acce">Cursor grande</span>
-        </div>
-      </div>
+        </span>
+      </button>
 
-      <div class="side-btn-acce" role="button" tabindex="0" aria-pressed="false" data-acc-opcion="enlaces">
-        <div class="cabecera-linea-acce">
+      <button type="button" class="side-btn-acce" aria-pressed="false" data-acc-opcion="enlaces">
+        <span class="cabecera-linea-acce">
           <span class="icono-acce-mas" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>
           <span class="btn-titulo-acce">Resaltar enlaces y botones</span>
-        </div>
-      </div>
+        </span>
+      </button>
 
-      <div class="side-btn-acce" role="button" tabindex="0" data-acc-accion="restablecer-mas">
-        <div class="cabecera-linea-acce">
+      <button type="button" class="side-btn-acce" aria-pressed="false" data-acc-opcion="espaciado">
+        <span class="cabecera-linea-acce">
+          <span class="icono-acce-mas" aria-hidden="true" style="font-weight: bold;">↕</span>
+          <span class="btn-titulo-acce">Más espacio en el texto</span>
+        </span>
+      </button>
+
+      <button type="button" class="side-btn-acce" data-acc-accion="restablecer-mas">
+        <span class="cabecera-linea-acce">
           <img loading="lazy" decoding="async" src="svg/accesibilidad/resta.svg" class="cap-icon-mini-acce" alt="">
           <span class="btn-titulo-acce">Restablecer</span>
-        </div>
-      </div>
+        </span>
+      </button>
     </div>
   </dialog>
 

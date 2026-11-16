@@ -592,12 +592,12 @@ function agregarFilaMaterial() {
     // Si es el primer material (totalMateriales === 0), NO añadimos el botón "X"
     if (totalMateriales === 0) {
         div.innerHTML = `
-            <input type="text" placeholder="Escribe qué material" maxlength="20" aria-label="Material ${numero}" aria-required="true" class="input-material" style="flex: 1; padding: 8px; border: 1px solid #767676; border-radius: 6px;">
+            <input type="text" placeholder="Escribe qué material" maxlength="40" aria-label="Material ${numero}" aria-required="true" class="input-material" style="flex: 1; padding: 8px; border: 1px solid #767676; border-radius: 6px;">
         `;
     } else {
         // A partir del segundo material, sí llevan el botón de eliminar
         div.innerHTML = `
-            <input type="text" placeholder="Escribe qué material" maxlength="20" aria-label="Material ${numero}" aria-required="true" class="input-material" style="flex: 1; padding: 8px; border: 1px solid #767676; border-radius: 6px;">
+            <input type="text" placeholder="Escribe qué material" maxlength="40" aria-label="Material ${numero}" aria-required="true" class="input-material" style="flex: 1; padding: 8px; border: 1px solid #767676; border-radius: 6px;">
             <button type="button" onclick="eliminarFilaMaterial(this)" aria-label="Eliminar material ${numero}" style="background-color: #d93025; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; min-width: 44px; min-height: 44px;">X</button>
         `;
     }
@@ -610,6 +610,8 @@ function agregarFilaMaterial() {
 
 // Elimina una fila de material y devuelve el foco a un sitio lógico
 function eliminarFilaMaterial(boton) {
+    // Confirmamos antes de borrar: con temblor es fácil pulsarlo sin querer
+    if (!confirm('¿Quieres eliminar este material?')) return;
     boton.parentElement.remove();
 
     const contenedor = document.getElementById('lista-materiales');

@@ -59,6 +59,8 @@ document.getElementById('btn-agregar-paso').addEventListener('click', function (
 
     // 2. Lógica para eliminar el paso
     nuevoPaso.querySelector('.btn-eliminar-paso').addEventListener('click', function () {
+        // Confirmamos antes de borrar: con temblor es fácil pulsarlo sin querer
+        if (!confirm('¿Quieres eliminar este paso? Se perderá lo que has escrito.')) return;
         nuevoPaso.remove();
         reordenarPasos();
         verificarLimite();

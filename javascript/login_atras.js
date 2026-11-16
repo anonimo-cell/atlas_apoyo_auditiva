@@ -52,7 +52,7 @@ async function gestionarClickLogin(boton) {
         pintarBotonLogin();
 
         // Si está viendo un producto, quitamos la marca de su voto
-        document.querySelectorAll('#detalle-ver-valoracion').forEach(contenedor => {
+        document.querySelectorAll('[id^="detalle-ver-valoracion"]').forEach(contenedor => {
             contenedor.dataset.votoUsuario = '';
             contenedor.querySelectorAll('.btn-valoracion-independiente').forEach(btn => {
                 btn.classList.remove('active-filtro');
@@ -69,6 +69,48 @@ async function gestionarClickLogin(boton) {
         abrirModal('modal-login');
     }
 }
+// =========================================================================
+// MENÚ DEL TELÉFONO (botón ☰ arriba a la izquierda)
+// Reúne lo que en el ordenador está en la cabecera y en los botones
+// laterales: sesión, registro, accesibilidad, información, contacto y
+// agradecimientos.
+// =========================================================================
+function abrirMenuMovil() {
+    // La opción de sesión dice lo que hará ahora mismo
+    const conSesion = sessionStorage.getItem('sesionIniciada') === '1';
+    const textoSesion = document.getElementById('menu-movil-sesion-texto');
+    if (textoSesion) {
+        textoSesion.innerText = conSesion ? 'Cerrar sesión' : 'Iniciar sesión';
+    }
+    // Con la sesión iniciada, "Cerrar sesión" va en rojo (como en el ordenador)
+    const opcionSesion = document.getElementById('menu-movil-sesion');
+    if (opcionSesion) opcionSesion.classList.toggle('menu-movil-sesion-activa', conSesion);
+    abrirModal('menu-movil');
+}
+
+function opcionMenuMovil(opcion) {
+    cerrarModal('menu-movil');
+
+    if (opcion === 'sesion') {
+        gestionarClickLogin(document.getElementById('mi-boton-login'));
+    } else if (opcion === 'registro') {
+        const btnRegistro = document.getElementById('btn-solicitud');
+        if (btnRegistro) cambiarEstadoslider(btnRegistro);
+        window.scrollTo(0, 0);
+    } else {
+        abrirModal(opcion);
+    }
+}
+
+// Pulsar fuera del panel (en la zona oscurecida) también lo cierra
+document.addEventListener('DOMContentLoaded', () => {
+    const menu = document.getElementById('menu-movil');
+    if (!menu) return;
+    menu.addEventListener('click', (evento) => {
+        if (evento.target === menu) menu.close();
+    });
+});
+
 // 2. Pintar el botón según el estado
 function pintarBotonLogin() {
     const boton = document.getElementById('mi-boton-login');

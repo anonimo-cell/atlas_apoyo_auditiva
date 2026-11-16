@@ -1,17 +1,30 @@
-// Guardamos el tamaño inicial (100%)
-let tamanoActual = 100;
+// Tamaño de letra: de 80% a 200% (WCAG 1.4.4 pide poder llegar al doble)
+const TAMANO_MIN = 80;
+const TAMANO_MAX = 200;
+const CLAVE_TAMANO = 'epunto-tamano-letra';
 
-// Función auxiliar para aplicar el tamaño de fuente
+// Recuperamos el tamaño guardado en la visita anterior (si lo hay)
+let tamanoActual = 100;
+try {
+    const guardado = parseInt(localStorage.getItem(CLAVE_TAMANO), 10);
+    if (guardado >= TAMANO_MIN && guardado <= TAMANO_MAX) tamanoActual = guardado;
+} catch (e) { /* el navegador no permite leerlo: usamos el 100% */ }
+document.documentElement.style.setProperty('--tamano-fuente-base', `${tamanoActual}%`);
+
+// Función auxiliar para aplicar (y guardar) el tamaño de fuente
 function cambiarTamanoFuente(nuevoTamano) {
     tamanoActual = nuevoTamano;
     document.documentElement.style.setProperty('--tamano-fuente-base', `${tamanoActual}%`);
+    try {
+        localStorage.setItem(CLAVE_TAMANO, String(tamanoActual));
+    } catch (e) { /* el navegador no permite guardar: no pasa nada */ }
     if (typeof anunciar === 'function') anunciar(`Tamaño de letra: ${tamanoActual}%`);
 }
 
 // 1. Aumentar letra (afecta tanto al lateral como al modal)
 document.querySelectorAll('#btn-aumentar').forEach(btn => {
     btn.addEventListener('click', () => {
-        if (tamanoActual < 130) {
+        if (tamanoActual < TAMANO_MAX) {
             cambiarTamanoFuente(tamanoActual + 10);
         } else if (typeof anunciar === 'function') {
             anunciar('Ya está en el tamaño de letra máximo');
@@ -22,7 +35,7 @@ document.querySelectorAll('#btn-aumentar').forEach(btn => {
 // 2. Reducir letra (afecta tanto al lateral como al modal)
 document.querySelectorAll('#btn-reducir').forEach(btn => {
     btn.addEventListener('click', () => {
-        if (tamanoActual > 80) {
+        if (tamanoActual > TAMANO_MIN) {
             cambiarTamanoFuente(tamanoActual - 10);
         } else if (typeof anunciar === 'function') {
             anunciar('Ya está en el tamaño de letra mínimo');

@@ -63,10 +63,14 @@ function inicializarImagenPaso(contenedor) {
     });
 
     btnEliminar.addEventListener('click', () => {
+        // Confirmamos antes de borrar: con temblor es fácil pulsarlo sin querer
+        if (!confirm('¿Quieres quitar esta imagen?')) return;
         fileInput.value = '';
         
         // Apaga la vista previa y enciende el botón (con flex para mantener el tamaño)
         previewContainer.style.display = 'none';
-        btnSubir.style.display = 'flex'; 
+        btnSubir.style.display = 'flex';
+        btnSubir.focus();
+        if (typeof anunciar === 'function') anunciar('Imagen quitada');
     });
 }

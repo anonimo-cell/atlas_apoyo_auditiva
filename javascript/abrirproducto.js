@@ -124,6 +124,8 @@ async function abrirCatalogoProductos(boton) {
             }
 
             tipoFiltroGlobal = 0;
+            // Cada categoría empieza sin filtros
+            Object.values(filtrosCatalogo).forEach(conjunto => conjunto.clear());
             renderizarProductosFiltrados();
 
         } catch (error) {
@@ -211,7 +213,7 @@ async function abrirDetalleVerProducto(indiceProducto) {
         }
 
         // Título final del producto (como texto actual, sin enlace)
-        migasHTML += `<span class="miga-separador">&rarr;</span><span class="miga-actual" id="miga-ver-titulo">${producto.titulo || 'Producto'}</span>`;
+        migasHTML += `<span class="miga-separador">&rarr;</span><span class="miga-actual">${producto.titulo || 'Producto'}</span>`;
 
         return migasHTML;
     }
@@ -225,11 +227,11 @@ async function abrirDetalleVerProducto(indiceProducto) {
         const navMigasCom = vistaCom.querySelector('.migas-pan');
         if (navMigasCom) navMigasCom.innerHTML = generarMigasDePan(prod);
 
-        const cabeceraTitulo = vistaCom.querySelector('#cabecera-ver-titulo');
+        const cabeceraTitulo = vistaCom.querySelector('#cabecera-ver-titulo-com');
         if (cabeceraTitulo) cabeceraTitulo.innerText = prod.titulo || 'Producto comercial';
 
         // Imagen comercial optimizada para móvil y PC (Ancho fluido, contención de altura)
-        const imgCom = vistaCom.querySelector('#detalle-ver-imagen');
+        const imgCom = vistaCom.querySelector('#detalle-ver-imagen-com');
         if (imgCom) {
             imgCom.src = prod.imagen_url || 'svg/subir/comprar.png';
             imgCom.alt = prod.titulo ? `Foto de ${prod.titulo}` : "Foto del producto";
@@ -254,13 +256,13 @@ async function abrirDetalleVerProducto(indiceProducto) {
             contenedorInfoExtraCom.innerHTML = `Subido por <strong>${usuarioSubidaCom}</strong> el ${fechaFormateadaCom}`;
         }
 
-        const precioCom = vistaCom.querySelector('#detalle-ver-precio');
+        const precioCom = vistaCom.querySelector('#detalle-ver-precio-com');
         if (precioCom) precioCom.innerText = prod.precio ? `Precio: ${prod.precio}` : '-';
 
-        const descCom = vistaCom.querySelector('#detalle-ver-descripcion');
+        const descCom = vistaCom.querySelector('#detalle-ver-descripcion-com');
         if (descCom) descCom.innerText = prod.descripcion || "No se ha proporcionado una descripción.";
 
-        const conclusionesCom = vistaCom.querySelector('#detalle-ver-conclusiones');
+        const conclusionesCom = vistaCom.querySelector('#detalle-ver-conclusiones-com');
         if (conclusionesCom) {
             conclusionesCom.innerText = prod.enlace || "No se ha proporcionado una forma de compra.";
         }
@@ -368,9 +370,9 @@ async function abrirDetalleVerProducto(indiceProducto) {
                     contenedorPasos.innerHTML = pasosPermitidos.map((paso, index) => {
                         let pasoHTML = `
                             <div style="margin-bottom: 25px; width: 100%; box-sizing: border-box;">
-                                <h4 style="color: #024389; margin-bottom: 8px; font-weight: bold; font-size: 1.2rem;">
+                                <h3 style="color: #024389; margin-bottom: 8px; font-weight: bold; font-size: 1.2rem;">
                                     Paso ${index + 1}
-                                </h4>
+                                </h3>
                         `;
 
                         if (paso.texto && paso.texto.trim() !== "") {
@@ -428,10 +430,92 @@ function cambiarOpcionCatalogo(botonPulsado, opcionElegida) {
     renderizarProductosFiltrados();
 }
 
+// =========================================================================
+// FILTROS DEL CATÁLOGO: precio, dificultad y tiempo de fabricación
+// Se puede marcar más de una opción por grupo (p. ej. precio Bajo o Medio).
+// Dificultad y tiempo solo existen en los productos de bajo coste.
+// =========================================================================
+const filtrosCatalogo = { precio: new Set(), dificultad: new Set(), tiempo: new Set() };
+
+const normalizarFiltro = texto => (texto || '').toString().trim().toLowerCase();
+
+function cumpleFiltros(prod) {
+    const grupos = tipoFiltroGlobal == 1 ? ['precio'] : ['precio', 'dificultad', 'tiempo'];
+    return grupos.every(grupo => {
+        const elegidos = filtrosCatalogo[grupo];
+        return elegidos.size === 0 || elegidos.has(normalizarFiltro(prod[grupo]));
+    });
+}
+
+// Filtros que cuentan en la pestaña actual (en comercializados, solo el precio)
+function numeroFiltrosActivos() {
+    const grupos = tipoFiltroGlobal == 1 ? ['precio'] : ['precio', 'dificultad', 'tiempo'];
+    return grupos.reduce((total, grupo) => total + filtrosCatalogo[grupo].size, 0);
+}
+
+function actualizarContadorFiltros() {
+    // Hay dos botones de filtros: junto al slider (ordenador) y junto al buscador (móvil)
+    const n = numeroFiltrosActivos();
+    document.querySelectorAll('.btn-abrir-filtros').forEach(boton => {
+        const contador = boton.querySelector('.contador-filtros');
+        if (contador) {
+            contador.hidden = n === 0;
+            contador.innerText = n;
+        }
+        boton.classList.toggle('con-filtros', n > 0);
+        boton.setAttribute('aria-label', n > 0 ? `Filtrar productos (${n} ${n === 1 ? 'filtro activo' : 'filtros activos'})` : 'Filtrar productos');
+    });
+}
+
+function abrirFiltrosCatalogo() {
+    const modal = document.getElementById('modal-filtros-catalogo');
+    if (!modal) return;
+    // En comercializados no hay dificultad ni tiempo
+    modal.querySelectorAll('.solo-bajo-coste').forEach(grupo => grupo.hidden = tipoFiltroGlobal == 1);
+    pintarChipsFiltros();
+    abrirModal('modal-filtros-catalogo');
+}
+
+function pintarChipsFiltros() {
+    document.querySelectorAll('#modal-filtros-catalogo .grupo-filtro').forEach(grupo => {
+        const elegidos = filtrosCatalogo[grupo.dataset.filtro];
+        grupo.querySelectorAll('.chip-filtro').forEach(chip => {
+            chip.setAttribute('aria-pressed', elegidos.has(normalizarFiltro(chip.dataset.valor)) ? 'true' : 'false');
+        });
+    });
+}
+
+function quitarFiltrosCatalogo() {
+    Object.values(filtrosCatalogo).forEach(conjunto => conjunto.clear());
+    pintarChipsFiltros();
+    renderizarProductosFiltrados();
+}
+
+// Al marcar/desmarcar una opción, el catálogo se actualiza al momento
+document.addEventListener('click', (evento) => {
+    const chip = evento.target.closest('#modal-filtros-catalogo .chip-filtro');
+    if (!chip) return;
+    const elegidos = filtrosCatalogo[chip.closest('.grupo-filtro').dataset.filtro];
+    const valor = normalizarFiltro(chip.dataset.valor);
+    if (elegidos.has(valor)) elegidos.delete(valor);
+    else elegidos.add(valor);
+    pintarChipsFiltros();
+    renderizarProductosFiltrados();
+});
+
 // Función 2: Filtra la lista de Supabase y crea el HTML
 function renderizarProductosFiltrados() {
     const contenedorProductos = document.getElementById('contenedor-productos-dinamico');
-    const productosFiltrados = productosGlobales.filter(prod => prod.producto == tipoFiltroGlobal);
+    const productosDelTipo = productosGlobales.filter(prod => prod.producto == tipoFiltroGlobal);
+    const productosFiltrados = productosDelTipo.filter(cumpleFiltros);
+
+    actualizarContadorFiltros();
+
+    // El botón "Ver productos" de la ventana de filtros dice cuántos hay
+    const btnVerResultados = document.getElementById('btn-ver-resultados');
+    if (btnVerResultados) {
+        btnVerResultados.innerText = `Ver ${productosFiltrados.length} ${productosFiltrados.length === 1 ? 'producto' : 'productos'}`;
+    }
 
     if (productosFiltrados && productosFiltrados.length > 0) {
         // Si hay productos con ese número, los pintamos (todo el HTML de golpe, una sola escritura en el DOM)
@@ -463,8 +547,15 @@ function renderizarProductosFiltrados() {
             return tarjetaHTML;
         }).join('');
     } else {
-        // Si no hay ninguno, mostramos este mensaje
-        contenedorProductos.innerHTML = `
+        // Si no hay ninguno, mostramos este mensaje (distinto si es por los filtros)
+        contenedorProductos.innerHTML = productosDelTipo.length > 0
+            ? `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                <p class="mensaje-catalogo">No hay productos con estos filtros.</p>
+                <button type="button" class="btn-filtros-secundario" onclick="quitarFiltrosCatalogo()">Quitar filtros</button>
+            </div>
+        `
+            : `
             <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                 <p class="mensaje-catalogo">No hay productos de este tipo actualmente.</p>
             </div>
@@ -562,11 +653,13 @@ function actualizarBotonesValoracion(contenedor, prod, votoUsuario) {
 }
 
 async function pintarValoracion(vista, prod) {
-    let contenedor = vista.querySelector('#detalle-ver-valoracion');
+    // Cada vista tiene su propio id (no puede haber dos elementos con el mismo id)
+    const idValoracion = vista.id === 'vista-detalle-verproductocom' ? 'detalle-ver-valoracion-com' : 'detalle-ver-valoracion';
+    let contenedor = vista.querySelector('#' + idValoracion);
     if (!contenedor) {
         const detalleCard = vista.querySelector('.detalle-card');
         contenedor = document.createElement('div');
-        contenedor.id = 'detalle-ver-valoracion';
+        contenedor.id = idValoracion;
         // Adaptación móvil: flex-wrap permite que caigan en otra línea si la pantalla es estrecha
         contenedor.style.cssText = "display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; box-sizing: border-box; margin-top: 25px; margin-bottom: 10px;";
         contenedor.innerHTML = `
@@ -601,7 +694,7 @@ async function pintarValoracion(vista, prod) {
 }
 
 async function alternarValoracion(botonPulsado) {
-    const contenedor = botonPulsado.closest('#detalle-ver-valoracion');
+    const contenedor = botonPulsado.closest('[id^="detalle-ver-valoracion"]');
     const prod = productosGlobales.find(p => p.id == contenedor.dataset.productoId);
     if (!prod) return;
 
