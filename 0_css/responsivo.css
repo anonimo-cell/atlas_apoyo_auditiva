@@ -5994,7 +5994,33 @@ img[role="button"] {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    pointer-events: none;
+  }
+}
+
+/* Logo + "EPunto" es un botón que lleva al inicio: sin aspecto de botón ni
+   el relieve general (que además movería el logo con su transform) */
+.marca-movil {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  margin: 0;
+  padding: 4px 8px;
+  min-height: 44px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+:is(#marca#marca#marca#marca, html) .barra-movil .marca-movil:not(:disabled),
+:is(#marca#marca#marca#marca, html) .barra-movil .marca-movil:not(:disabled):is(:hover, :active) {
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+@media (max-width: 699px) {
+  :is(#marca#marca#marca#marca, html) .barra-movil .marca-movil:not(:disabled),
+  :is(#marca#marca#marca#marca, html) .barra-movil .marca-movil:not(:disabled):is(:hover, :active) {
+    transform: translateX(-50%) !important;
   }
 }
 
