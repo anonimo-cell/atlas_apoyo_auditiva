@@ -6894,3 +6894,7 @@ html.acc-espaciado p {
   width: 40px;
   flex: none;
 }
+
+.barra-superior-login .titulo-menu-acce-claro {
+  font-size: 1.2rem !important;
+}
