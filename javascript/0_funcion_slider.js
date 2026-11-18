@@ -1156,8 +1156,8 @@ async function verificarCodigoCorreo(boton) {
         // confirmarse la cuenta (trigger copiar_usuario_confirmado)
 
         // La sesión queda iniciada
-        sessionStorage.setItem('sesionIniciada', '1');
-        sessionStorage.setItem('nombreUsuario', registroPendiente.perfil.nombre);
+        localStorage.setItem('sesionIniciada', '1');
+        localStorage.setItem('nombreUsuario', registroPendiente.perfil.nombre);
         if (typeof pintarBotonLogin === 'function') pintarBotonLogin();
 
         registroPendiente = null;

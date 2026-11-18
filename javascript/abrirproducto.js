@@ -739,7 +739,7 @@ async function alternarValoracion(botonPulsado) {
 let subidaPendienteTrasLogin = null;
 
 function comprobarSesionYAbrirSubida(elemento) {
-    const estadoSesion = sessionStorage.getItem('sesionIniciada');
+    const estadoSesion = localStorage.getItem('sesionIniciada');
 
     if (estadoSesion !== '1') {
         subidaPendienteTrasLogin = elemento;
@@ -757,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalLogin = document.getElementById('modal-login');
     if (!modalLogin) return;
     modalLogin.addEventListener('close', () => {
-        if (sessionStorage.getItem('sesionIniciada') !== '1') subidaPendienteTrasLogin = null;
+        if (localStorage.getItem('sesionIniciada') !== '1') subidaPendienteTrasLogin = null;
         // Al volver a abrirlo no debe quedar nada en rojo
         modalLogin.querySelectorAll('.campo-error').forEach(campo => campo.classList.remove('campo-error'));
         const avisoLogin = document.getElementById('mensaje-error-login-modal');
@@ -821,11 +821,10 @@ async function simularInicioSesionModal() {
             throw error;
         }
 
-        // GUARDAMOS EN SESSION (se borra al cerrar el navegador)
-        sessionStorage.setItem('sesionIniciada', '1');
+        localStorage.setItem('sesionIniciada', '1');
 
         // Nombre visible del usuario: el que puso al registrarse
-        sessionStorage.setItem('nombreUsuario', nombreVisibleDe(data.user) || usuarioInput);
+        localStorage.setItem('nombreUsuario', nombreVisibleDe(data.user) || usuarioInput);
 
         // PINTAMOS EL BOTÓN AL INSTANTE
         if (typeof pintarBotonLogin === 'function') {

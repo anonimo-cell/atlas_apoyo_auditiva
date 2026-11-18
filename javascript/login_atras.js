@@ -25,7 +25,7 @@ function toggleMostrarPassword(inputId, btnId) {
 }
 // 1. Qué pasa cuando haces clic en el botón de la cabecera
 async function gestionarClickLogin(boton) {
-    const estadoSesion = sessionStorage.getItem('sesionIniciada');
+    const estadoSesion = localStorage.getItem('sesionIniciada');
 
     if (estadoSesion === '1') {
         try {
@@ -36,8 +36,8 @@ async function gestionarClickLogin(boton) {
             console.error("Error al cerrar sesión:", error);
         }
 
-        sessionStorage.removeItem('sesionIniciada');
-        sessionStorage.removeItem('nombreUsuario');
+        localStorage.removeItem('sesionIniciada');
+        localStorage.removeItem('nombreUsuario');
 
         const vistaActual = typeof obtenerVistaVisible === 'function' ? obtenerVistaVisible() : null;
 
@@ -77,7 +77,7 @@ async function gestionarClickLogin(boton) {
 // =========================================================================
 function abrirMenuMovil() {
     // La opción de sesión dice lo que hará ahora mismo
-    const conSesion = sessionStorage.getItem('sesionIniciada') === '1';
+    const conSesion = localStorage.getItem('sesionIniciada') === '1';
     const textoSesion = document.getElementById('menu-movil-sesion-texto');
     if (textoSesion) {
         textoSesion.innerText = conSesion ? 'Cerrar sesión' : 'Iniciar sesión';
@@ -116,10 +116,10 @@ function pintarBotonLogin() {
     const boton = document.getElementById('mi-boton-login');
     if (!boton) return;
 
-    const estadoSesion = sessionStorage.getItem('sesionIniciada');
+    const estadoSesion = localStorage.getItem('sesionIniciada');
 
     if (estadoSesion === '1') {
-        const estadoSesion = sessionStorage.getItem('sesionIniciada');
+        const estadoSesion = localStorage.getItem('sesionIniciada');
         const botonLogin = document.getElementById('mi-boton-login'); // Asegúrate de que este sea el id de tu botón de sesión
 
         if (estadoSesion === '1' && botonLogin) {
@@ -142,8 +142,40 @@ function pintarBotonLogin() {
     }
 }
 
-// 3. Que se pinte automáticamente al cargar la página
-document.addEventListener('DOMContentLoaded', pintarBotonLogin);
+function actualizarEstadoSesion(session) {
+    const user = session && session.user;
+    if (user) {
+        const nombre = (user.user_metadata && user.user_metadata.nombre) || (user.email || '').split('@')[0];
+        localStorage.setItem('sesionIniciada', '1');
+        localStorage.setItem('nombreUsuario', nombre);
+    } else {
+        localStorage.removeItem('sesionIniciada');
+        localStorage.removeItem('nombreUsuario');
+    }
+    pintarBotonLogin();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    pintarBotonLogin();
+
+    if (!window.supabase || !window.supabase.auth) {
+        console.error('No se pudo inicializar el cliente de Supabase.');
+        return;
+    }
+
+    window.supabase.auth.onAuthStateChange((_event, session) => {
+        window.setTimeout(() => actualizarEstadoSesion(session), 0);
+    });
+
+    window.supabase.auth.getSession()
+        .then(({ data, error }) => {
+            if (error) throw error;
+            actualizarEstadoSesion(data.session);
+        })
+        .catch(error => {
+            console.error('No se pudo comprobar la sesión:', error);
+        });
+});
 
 // =========================================================================
 // SELECCIÓN DE PERFILES

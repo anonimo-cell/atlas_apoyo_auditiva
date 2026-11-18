@@ -2199,7 +2199,9 @@
     const supabaseUrl = 'https://wdjpqqhxyzrhdbvrumav.supabase.co';
     const supabaseKey = 'sb_publishable_Nps0kXuyPJZlCJ1IPWsalQ_tBLNFgkG';
 
-    window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    window.supabase = supabase.createClient(supabaseUrl, supabaseKey, {
+      auth: { persistSession: true }
+    });
   </script>
 
 
