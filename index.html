@@ -1672,6 +1672,27 @@
     </div>
   </dialog>
 
+  <dialog id="modal-confirmar-cierre-sesion" class="modal-accesible"
+    aria-labelledby="titulo-confirmar-cierre-sesion" aria-describedby="texto-confirmar-cierre-sesion">
+    <div class="modal-cabecera">
+      <div class="btn-cabecera-linea-modal">
+        <h2 class="btn-titulo-dialog" id="titulo-confirmar-cierre-sesion">Confirmar cierre de sesión</h2>
+      </div>
+      <button type="button" class="btn-cerrar-modal" aria-label="Cancelar y cerrar ventana"
+        title="Cancelar y cerrar ventana" onclick="cerrarModal(this)">×</button>
+    </div>
+    <div class="modal-cuerpo">
+      <p id="texto-confirmar-cierre-sesion">¿Seguro que quieres cerrar la sesión de tu cuenta?</p>
+      <p id="mensaje-error-cierre-sesion" class="mensaje-error-campo" role="alert" style="display: none;"></p>
+      <div class="acciones-cierre-sesion">
+        <button type="button" id="btn-cancelar-cierre-sesion" class="btn-buscar"
+          onclick="cerrarModal('modal-confirmar-cierre-sesion')">No, volver atrás</button>
+        <button type="button" id="btn-confirmar-cierre-sesion" class="btn-buscar"
+          onclick="confirmarCierreSesion()">Sí, cerrar sesión</button>
+      </div>
+    </div>
+  </dialog>
+
   <!--DIALOGOS DERECHA-->
   <dialog id="modal-info" class="modal-accesible">
     <div class="modal-cabecera">

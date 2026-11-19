@@ -28,30 +28,42 @@ async function gestionarClickLogin(boton) {
     const estadoSesion = localStorage.getItem('sesionIniciada');
 
     if (estadoSesion === '1') {
-        try {
-            if (typeof window.supabase !== 'undefined') {
-                await window.supabase.auth.signOut();
-            }
-        } catch (error) {
-            console.error("Error al cerrar sesión:", error);
-        }
+        abrirModal('modal-confirmar-cierre-sesion');
+    } else {
+        // Inicio de sesión desde la cabecera: no hay formulario pendiente que abrir después
+        if (typeof subidaPendienteTrasLogin !== 'undefined') subidaPendienteTrasLogin = null;
+        abrirModal('modal-login');
+    }
+}
+
+async function confirmarCierreSesion() {
+    const boton = document.getElementById('btn-confirmar-cierre-sesion');
+    const mensajeError = document.getElementById('mensaje-error-cierre-sesion');
+
+    if (!window.supabase || !window.supabase.auth) {
+        console.error('No está disponible la conexión de autenticación para cerrar sesión.');
+        mensajeError.textContent = 'No se pudo conectar para cerrar sesión. Inténtalo de nuevo más tarde.';
+        mensajeError.style.display = 'block';
+        return;
+    }
+
+    mensajeError.style.display = 'none';
+    boton.disabled = true;
+    try {
+        const { error } = await window.supabase.auth.signOut();
+        if (error) throw error;
 
         localStorage.removeItem('sesionIniciada');
         localStorage.removeItem('nombreUsuario');
+        cerrarModal('modal-confirmar-cierre-sesion');
 
         const vistaActual = typeof obtenerVistaVisible === 'function' ? obtenerVistaVisible() : null;
-
         if (vistaActual && VISTAS_CON_SESION.includes(vistaActual.id)) {
-            // Estaba subiendo un producto: recargamos (vuelve a la pantalla
-            // principal y el formulario a medias queda vacío)
             window.location.reload();
             return;
         }
 
-        // En el resto de pantallas se queda donde estaba
         pintarBotonLogin();
-
-        // Si está viendo un producto, quitamos la marca de su voto
         document.querySelectorAll('[id^="detalle-ver-valoracion"]').forEach(contenedor => {
             contenedor.dataset.votoUsuario = '';
             contenedor.querySelectorAll('.btn-valoracion-independiente').forEach(btn => {
@@ -59,14 +71,14 @@ async function gestionarClickLogin(boton) {
                 btn.setAttribute('aria-pressed', 'false');
             });
         });
-
-        const anuncio = document.getElementById('anuncio-accesible');
-        if (anuncio) anuncio.innerText = 'Has cerrado la sesión';
-
-    } else {
-        // Inicio de sesión desde la cabecera: no hay formulario pendiente que abrir después
-        if (typeof subidaPendienteTrasLogin !== 'undefined') subidaPendienteTrasLogin = null;
-        abrirModal('modal-login');
+        anunciar('Has cerrado la sesión');
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+        mensajeError.textContent = 'No se pudo cerrar la sesión. Inténtalo de nuevo.';
+        mensajeError.style.display = 'block';
+        anunciar('No se pudo cerrar la sesión. Inténtalo de nuevo.');
+    } finally {
+        boton.disabled = false;
     }
 }
 // =========================================================================
@@ -175,6 +187,17 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('No se pudo comprobar la sesión:', error);
         });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modalCierreSesion = document.getElementById('modal-confirmar-cierre-sesion');
+    const mensajeError = document.getElementById('mensaje-error-cierre-sesion');
+    const botonConfirmar = document.getElementById('btn-confirmar-cierre-sesion');
+
+    modalCierreSesion.addEventListener('close', () => {
+        mensajeError.style.display = 'none';
+        botonConfirmar.disabled = false;
+    });
 });
 
 // =========================================================================
