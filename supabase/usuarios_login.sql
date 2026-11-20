@@ -11,7 +11,8 @@
 
 
 -- 0. ANTES DE NADA: ¿hay ya nombres repetidos? (si sale alguna fila, hay que
---    cambiar el nombre a una de esas cuentas desde Authentication → Users)
+--    cambiar el nombre a una de esas cuentas desde Authentication → Users).
+--    Se comprueban también las cuentas pendientes de confirmar.
 --
 -- select lower(trim(raw_user_meta_data ->> 'nombre')) as nombre, count(*)
 --   from auth.users
@@ -29,9 +30,15 @@ security definer
 set search_path = ''
 as $$
   select exists (
-    select 1 from auth.users
-     where lower(trim(raw_user_meta_data ->> 'nombre')) = lower(trim(nombre_usuario))
-       and email_confirmed_at is not null
+  select 1
+    from auth.users u
+   where lower(trim(u.raw_user_meta_data ->> 'nombre')) = lower(trim(nombre_usuario))
+      or lower(u.email) = lower(regexp_replace(trim(nombre_usuario), '\s+', '', 'g')) || '@epunto.com'
+      or exists (
+        select 1
+          from public.usuarios p
+         where lower(trim(p.nombre)) = lower(trim(nombre_usuario))
+      )
   );
 $$;
 
@@ -63,7 +70,7 @@ grant execute on function public.correo_de_usuario(text, text) to anon, authenti
 
 
 -- 3. La base de datos no deja crear una cuenta con un nombre que ya tiene
---    otra cuenta confirmada (aunque alguien se salte la comprobación de la web)
+--    otra cuenta, aunque aún no haya confirmado el correo o se salte la web.
 create or replace function public.impedir_usuario_repetido()
 returns trigger
 language plpgsql
@@ -71,13 +78,26 @@ security definer
 set search_path = ''
 as $$
 begin
-  if new.raw_user_meta_data ->> 'nombre' is not null and exists (
-    select 1 from auth.users
-     where id <> new.id
-       and email_confirmed_at is not null
-       and lower(trim(raw_user_meta_data ->> 'nombre')) = lower(trim(new.raw_user_meta_data ->> 'nombre'))
-  ) then
+  if nullif(trim(new.raw_user_meta_data ->> 'nombre'), '') is not null then
+    perform pg_catalog.pg_advisory_xact_lock(
+      pg_catalog.hashtext(lower(trim(new.raw_user_meta_data ->> 'nombre')))
+    );
+
+    if exists (
+      select 1
+        from auth.users u
+       where u.id <> new.id
+         and (
+           lower(trim(u.raw_user_meta_data ->> 'nombre')) = lower(trim(new.raw_user_meta_data ->> 'nombre'))
+           or lower(u.email) = lower(regexp_replace(trim(new.raw_user_meta_data ->> 'nombre'), '\s+', '', 'g')) || '@epunto.com'
+         )
+    ) or exists (
+      select 1
+        from public.usuarios p
+       where lower(trim(p.nombre)) = lower(trim(new.raw_user_meta_data ->> 'nombre'))
+    ) then
     raise exception 'usuario_repetido: ese nombre de usuario ya existe';
+    end if;
   end if;
   return new;
 end;

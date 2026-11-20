@@ -1,6 +1,6 @@
-// Tamaño de letra: de 80% a 200% (WCAG 1.4.4 pide poder llegar al doble)
+// Tamaño de letra: de 80% a 150%
 const TAMANO_MIN = 80;
-const TAMANO_MAX = 200;
+const TAMANO_MAX = 150;
 const CLAVE_TAMANO = 'epunto-tamano-letra';
 
 // Recuperamos el tamaño guardado en la visita anterior (si lo hay)

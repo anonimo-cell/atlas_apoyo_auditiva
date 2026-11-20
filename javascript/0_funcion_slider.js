@@ -356,7 +356,7 @@ async function validarYPublicar(elemento) {
             const fechaActual = new Date().toISOString();
 
             const { data, error } = await supabase
-                .from('verproductos')
+                .from('productos_parkinson')
                 .insert([
                     {
                         titulo: tituloFinal,
@@ -442,7 +442,7 @@ async function validarYPublicar(elemento) {
             const fechaActual = new Date().toISOString();
 
             const { data, error } = await supabase
-                .from('verproductos')
+                .from('productos_parkinson')
                 .insert([
                     {
                         titulo: tituloFinal,
@@ -1084,8 +1084,10 @@ function abrirVerificacionCorreo(email) {
     document.getElementById('error-texto-codigo').style.display = 'none';
     document.getElementById('texto-codigo-reenviado').style.display = 'none';
 
-    vistaObjetivoSeleccionada = 'vista-verificar-correo';
-    realizarBusqueda();
+    document.getElementById('vista-solicitud').style.display = 'none';
+    document.getElementById('vista-verificar-correo').style.display = 'flex';
+    const modalRegistro = document.getElementById('modal-registro-inicio');
+    if (!modalRegistro.open) abrirModal('modal-registro-inicio');
     campoCodigo.focus();
 
     // Acabamos de mandar un código: Supabase no deja pedir otro hasta pasado un minuto
@@ -1161,6 +1163,7 @@ async function verificarCodigoCorreo(boton) {
         if (typeof pintarBotonLogin === 'function') pintarBotonLogin();
 
         registroPendiente = null;
+        cerrarModal('modal-registro-inicio');
         vistaObjetivoSeleccionada = 'vista-publicado-solicitud';
         realizarBusqueda();
 

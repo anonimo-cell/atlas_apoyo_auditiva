@@ -7,7 +7,7 @@
   <title>Atlas de apoyo Parkinson</title>
   <link rel="preconnect" href="https://wdjpqqhxyzrhdbvrumav.supabase.co" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="stylesheet" href="0_css/responsivo.css">
 
 </head> 
@@ -41,16 +41,18 @@
     <!--PARAMETROS BÁSICOS-->
     <!--ESLOGAN-->
     <header class="barra-superior-login">
-      <div class="eslogan-barra">
+      <button type="button" class="eslogan-barra" aria-label="Atlas de apoyo Parkinson, ir al inicio"
+        onclick="regresarvolver(1)">
         <img src="logo-atlas-de-apoyo-claro.svg" alt="" class="logo-barra">
-        <p class="titulo-menu-acce-claro">Atlas de apoyo Parkinson</p>
-      </div>
+        <span class="titulo-menu-acce-claro">Atlas de apoyo Parkinson</span>
+      </button>
       <div class="botones-login-container">
         <!--id="btn-header-sesion"-->
-        <button type="button" id="mi-boton-login" class="btn-login-header" onclick="gestionarClickLogin(this)">Iniciar sesión</button>
+        <button type="button" id="mi-boton-login" class="btn-login-header" aria-haspopup="dialog"
+          aria-controls="modal-login" onclick="gestionarClickLogin(this)">Iniciar sesión</button>
 
-        <button type="button" class="btn-login-header" data-vista="vista-solicitud" id="btn-solicitud"
-          onclick="cambiarEstadoslider(this)">Registrarse</button>
+        <button type="button" class="btn-login-header" id="btn-solicitud" aria-haspopup="dialog"
+          aria-controls="modal-registro-inicio" onclick="abrirRegistroInicio()">Registrarse</button>
       </div>
     </header>
     <button type="button" id="btn-top-accesibilidad" class="btn-top-acce" aria-haspopup="dialog"
@@ -101,7 +103,7 @@
           <img src="svg/menu/subir.svg" class="cap-icon-menu" alt="">
         </span>
         <span class="btn-textos-contenedor-menu">
-          <span class="btn-titulo-menu"><span class="texto-largo-menu">Difundir productos o tutoriales</span><span class="texto-corto-menu">Difundir productos</span></span>
+          <span class="btn-titulo-menu"><span class="texto-largo-menu">Compartir productos</span><span class="texto-corto-menu">Compartir productos</span></span>
         </span>
       </button>
       <button type="button" class="btn-menu active" data-vista="vista-ver" aria-current="page"
@@ -121,16 +123,6 @@
       <div class="contenedor-dinamico">
         <div class="linea_superior">
           <div class="grid-linea-superior">
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-actual">Ver Productos</span>
-            </nav>
-            <div class="cabecera-superior-icono">
-              <img src="svg/menu/ver.png" class="cap-icon-linea-superior" alt="">
-              <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior">Ver Productos </h1>
-              </div>
-            </div>
-
             <div class="caja-contenedor-busqueda" role="search">
 
               <!-- Etiqueta real para WAVE, oculta visualmente pero leída por lectores de pantalla -->
@@ -178,22 +170,6 @@
     <!--VISTA SUBIR-->
     <div id="vista-subir" class="subvista-contenido" style="display: none;">
       <div class="contenedor-dinamico">
-        <div class="linea_superior">
-          <div class="grid-linea-superior">
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-actual">Difundir productos o tutoriales</span>
-            </nav>
-            <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/menu/subir.svg" class="cap-icon-linea-superior" alt=""
-               >
-              <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior">Difundir productos o tutoriales</h1>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
         <div class="slider-subir">
           <button type="button" class="btn-subir" data-vista="vista-prod-baj"
             onclick="comprobarSesionYAbrirSubida(this)">
@@ -218,7 +194,7 @@
         <div class="linea_superior">
           <div class="grid-linea-superior">
             <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-enlace" onclick="regresarvolver(2)">Difundir productos o tutoriales</span>
+              <span class="miga-enlace" onclick="regresarvolver(2)">Compartir productos</span>
               <span class="miga-separador">&rarr;</span>
               <span class="miga-actual">Producto de bajo coste</span>
             </nav>
@@ -237,7 +213,6 @@
           </div>
         </div>
         <div class="acordeon-form">
-          <p class="nota-obligatorio">Los campos marcados con <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> son obligatorios.</p>
           <!--TITULO,IMAGEN, FILTRO-->
           <details id="seccion-info" open style="display: block;">
             <summary>Información del Producto</summary>
@@ -503,7 +478,7 @@
           <div class="grid-linea-superior">
 
             <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-enlace" onclick="regresarvolver(2)">Difundir productos o tutoriales</span>
+              <span class="miga-enlace" onclick="regresarvolver(2)">Compartir productos</span>
               <span class="miga-separador">&rarr;</span>
               <span class="miga-actual">Producto de apoyo comercializado</span>
             </nav>
@@ -523,7 +498,6 @@
           </div>
         </div>
         <div class="acordeon-form">
-          <p class="nota-obligatorio">Los campos marcados con <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> son obligatorios.</p>
           <!--TITULO,IMAGEN, FILTRO-->
           <div class="guia-card">
             <div class="paso-item">
@@ -607,7 +581,7 @@
         <div class="linea_superior">
           <div class="grid-linea-superior">
             <nav class="migas-pan" aria-label="Ruta de navegación">
-                <span class="miga-enlace" onclick="regresarvolver(2)">Difundir productos o tutoriales</span>
+                <span class="miga-enlace" onclick="regresarvolver(2)">Compartir productos</span>
                 <span class="miga-separador">&rarr;</span>
                 <!-- MIGA DINÁMICA: Cambiará según el formulario -->
                 <span class="miga-texto" id="miga-tipo-formulario">Formulario</span>
@@ -671,6 +645,10 @@
     <!--VISTA PRODUCTO DE BAJO COSTE-->
     <div id="vista-detalle-verproducto" class="subvista-contenido" style="display: none;">
       <div class="contenedor-dinamico">
+        <div class="encabezado-pdf">
+          <img src="logo-atlas-de-apoyo.svg" alt="">
+          <span>Atlas de productos de apoyo</span>
+        </div>
         <div class="linea_superior">
           <div class="grid-linea-superior">
 
@@ -690,6 +668,15 @@
             <div class="cabecera-superior-icono">
               <div class="text-linea-superior">
                 <h1 class="titulo-linea-superior" id="cabecera-ver-titulo">Cargando...</h1>
+              </div>
+              <div class="pdf-acciones">
+                <button type="button" class="btn-descargar-pdf" onclick="descargarTutorialPDF()">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v4h14v-4" />
+                  </svg>
+                  <span>Descargar PDF</span>
+                </button>
               </div>
             </div>
           </div>
@@ -733,6 +720,10 @@
 
     <div id="vista-detalle-verproductocom" class="subvista-contenido" style="display: none;">
       <div class="contenedor-dinamico">
+        <div class="encabezado-pdf">
+          <img src="logo-atlas-de-apoyo.svg" alt="">
+          <span>Atlas de productos de apoyo</span>
+        </div>
         <div class="linea_superior">
           <div class="grid-linea-superior">
 
@@ -752,6 +743,15 @@
             <div class="cabecera-superior-icono">
               <div class="text-linea-superior">
                 <h1 class="titulo-linea-superior" id="cabecera-ver-titulo-com">Cargando...</h1>
+              </div>
+              <div class="pdf-acciones">
+                <button type="button" class="btn-descargar-pdf" onclick="descargarTutorialPDF()">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v4h14v-4" />
+                  </svg>
+                  <span>Descargar PDF</span>
+                </button>
               </div>
             </div>
           </div>
@@ -1367,169 +1367,109 @@
     </div>
 
 
-    <!--VISTA SOLICITUD -->
-    <!--VISTA VERIFICAR CORREO: se escribe el código que llega por email al registrarse-->
-    <div id="vista-verificar-correo" class="subvista-contenido" style="display: none;">
-      <div class="contenedor-dinamico">
-        <div class="linea_superior">
-          <div class="grid-linea-superior">
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-texto">Registrarse</span>
-              <span class="miga-separador">&rarr;</span>
-              <span class="miga-actual">Verificar correo</span>
-            </nav>
-          </div>
+    <dialog id="modal-registro-inicio" class="modal-accesible" aria-labelledby="titulo-registro-inicio">
+      <div class="modal-cabecera">
+        <div class="btn-cabecera-linea-modal">
+          <h2 class="btn-titulo-dialog" id="titulo-registro-inicio">Introduce tus datos</h2>
         </div>
-
-        <section class="confirmacion" aria-labelledby="titulo-verificar-correo">
-          <h1 id="titulo-verificar-correo" class="confirmacion-titulo">Revisa tu correo</h1>
-          <p class="confirmacion-texto">
-            Te hemos enviado un código a <strong id="verificar-correo-email"></strong>.
-            Escríbelo aquí para confirmar tu cuenta.
-          </p>
-          <p class="confirmacion-texto">Si no lo ves, mira en la carpeta de correo no deseado (spam).</p>
-
-          <div class="form-row verificar-correo-campo">
-            <label for="verificar-correo-codigo">Código:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
-            <input type="text" id="verificar-correo-codigo" data-error="error-texto-codigo" class="input-moderno" placeholder="Introducir código"
-              inputmode="numeric" autocomplete="one-time-code" maxlength="10" aria-required="true">
-            <p id="error-texto-codigo" class="mensaje-error-campo" role="alert" style="display: none;"></p>
-            <p id="texto-codigo-reenviado" class="confirmacion-texto" role="status" style="display: none;">
-              Te hemos enviado un código nuevo.
-            </p>
+        <button type="button" class="btn-cerrar-modal" aria-label="Cerrar registro" title="Cerrar registro"
+          onclick="cerrarModal(this)">×</button>
+      </div>
+      <div class="modal-cuerpo">
+        <form id="form-registro-inicio" novalidate>
+          <div class="registro-inicio-grid">
+            <div class="form-row">
+              <label for="registro-nombre-inicio">Nombre de usuario:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
+              <input type="text" id="registro-nombre-inicio" class="input-moderno" placeholder="Nombre de usuario"
+                autocomplete="username" minlength="4" maxlength="20" required>
+              <p id="error-registro-nombre-inicio" class="mensaje-error-campo" role="alert" hidden></p>
+            </div>
+            <div class="form-row">
+              <label for="registro-email-inicio">Correo electrónico:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
+              <input type="email" id="registro-email-inicio" class="input-moderno"
+                placeholder="Introducir correo electrónico" autocomplete="email" inputmode="email" required>
+              <p id="error-registro-email-inicio" class="mensaje-error-campo" role="alert" hidden></p>
+            </div>
+            <div class="form-row">
+              <label for="registro-password-inicio">Contraseña:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
+              <div class="fila-contrasena">
+                <input type="password" id="registro-password-inicio" class="input-moderno"
+                  placeholder="Introducir contraseña" autocomplete="new-password" required>
+                <button type="button" class="btn-mostrar" data-password-toggle="registro-password-inicio">Mostrar<span class="sr-only"> contraseña</span></button>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="registro-password-repite-inicio">Repite la contraseña:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
+              <div class="fila-contrasena">
+                <input type="password" id="registro-password-repite-inicio" class="input-moderno"
+                  placeholder="Repetir contraseña" autocomplete="new-password" required>
+                <button type="button" class="btn-mostrar" data-password-toggle="registro-password-repite-inicio">Mostrar<span class="sr-only"> contraseña</span></button>
+              </div>
+              <p id="error-registro-password-inicio" class="mensaje-error-campo" role="alert" hidden></p>
+            </div>
           </div>
 
-          <div class="confirmacion-botones">
-            <button type="button" class="btn-confirmacion-principal" onclick="verificarCodigoCorreo(this)">
-              Confirmar cuenta
-            </button>
-            <button type="button" id="btn-reenviar-codigo" class="btn-mostrar" onclick="reenviarCodigoCorreo(this)">
-              Reenviar código
-            </button>
+          <fieldset class="registro-perfil-inicio">
+            <legend>Tipo de usuario:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
+            <div class="registro-perfiles-inicio">
+              <button type="button" id="registro-tipo-paciente-inicio" class="btn-rela" data-tipo-usuario="paciente" aria-pressed="false">Paciente</button>
+              <button type="button" class="btn-rela" data-tipo-usuario="terapeuta" aria-pressed="false">Terapeuta ocupacional</button>
+              <button type="button" class="btn-rela" data-tipo-usuario="familiar" aria-pressed="false">Familiar o cercano</button>
+              <button type="button" class="btn-rela" data-tipo-usuario="cuidador" aria-pressed="false">Cuidador</button>
+              <button type="button" class="btn-rela" data-tipo-usuario="otro" aria-pressed="false">Otro</button>
+            </div>
+            <p id="error-registro-tipo-usuario-inicio" class="mensaje-error-campo" role="alert" hidden></p>
+          </fieldset>
+
+          <fieldset class="registro-perfil-inicio">
+            <legend>Discapacidad (opción múltiple):<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
+            <div class="registro-perfiles-inicio">
+              <button type="button" id="registro-discapacidad-visual-inicio" class="btn-rela" data-discapacidad="visual" aria-pressed="false">Visual</button>
+              <button type="button" class="btn-rela" data-discapacidad="auditiva" aria-pressed="false">Auditiva</button>
+              <button type="button" class="btn-rela" data-discapacidad="cognitiva" aria-pressed="false">Cognitiva</button>
+              <button type="button" class="btn-rela" data-discapacidad="parkinson" aria-pressed="false">Parkinson</button>
+              <button type="button" class="btn-rela" data-discapacidad="otros" aria-pressed="false">Otros</button>
+            </div>
+            <p id="error-registro-discapacidad-inicio" class="mensaje-error-campo" role="alert" hidden></p>
+          </fieldset>
+
+          <div class="form-row">
+            <label for="registro-fundacion-inicio">Fundación o asociación (opcional):</label>
+            <input type="text" id="registro-fundacion-inicio" class="input-moderno"
+              placeholder="Si perteneces a alguna asociación, escríbela por favor" maxlength="30">
+          </div>
+          <p id="mensaje-error-registro-inicio" class="mensaje-error-campo" role="alert" hidden></p>
+          <div class="buscar-espacio">
+            <button type="submit" id="btn-crear-cuenta-inicio" class="btn-buscar">Crear cuenta</button>
+          </div>
+        </form>
+
+        <section id="registro-verificacion-inicio" aria-labelledby="titulo-verificacion-inicio" hidden>
+          <h3 id="titulo-verificacion-inicio">Revisa tu correo</h3>
+          <p>Te hemos enviado un código a <strong id="email-verificacion-inicio"></strong>. Escríbelo aquí para confirmar tu cuenta.</p>
+          <p>Si no lo ves, revisa la carpeta de correo no deseado (spam).</p>
+          <div class="form-row">
+            <label for="codigo-verificacion-inicio">Código:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="codigo-verificacion-inicio" class="input-moderno"
+              placeholder="Introducir código" inputmode="numeric" autocomplete="one-time-code" maxlength="10">
+            <p id="error-codigo-verificacion-inicio" class="mensaje-error-campo" role="alert" hidden></p>
+            <p id="estado-reenvio-codigo-inicio" class="confirmacion-texto" role="status" hidden></p>
+          </div>
+          <div class="registro-inicio-acciones">
+            <button type="button" id="btn-confirmar-cuenta-inicio" class="btn-buscar">Confirmar cuenta</button>
+            <button type="button" id="btn-reenviar-codigo-inicio" class="btn-mostrar">Reenviar código</button>
+          </div>
+        </section>
+
+        <section id="registro-exito-inicio" aria-labelledby="titulo-exito-registro-inicio" hidden>
+          <h3 id="titulo-exito-registro-inicio">Cuenta confirmada</h3>
+          <p id="texto-exito-registro-inicio" role="status"></p>
+          <div class="buscar-espacio">
+            <button type="button" class="btn-buscar" onclick="cerrarModal('modal-registro-inicio')">Volver al inicio</button>
           </div>
         </section>
       </div>
-    </div>
-
-    <div id="vista-solicitud" class=" subvista-contenido" style="display: none;">
-      <div class="contenedor-dinamico">
-        <div class="linea_superior">
-          <div class="grid-linea-superior">
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-actual">Registrarse</span>
-            </nav>
-            <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/login/registro.svg" class="cap-icon-linea-superior" alt="">
-              <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior">Registrarse</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="acordeon-form">
-          <!--AVISO DE CAMPOS SIN RELLENAR: arriba del formulario, para verlo nada más fallar-->
-          <p id="mensaje-error-solicitud" class="mensaje-error-campo" role="alert" style="display: none;"></p>
-          <div class="guia-card">
-            <div class="form-grid-ini">
-              <div class="col-left">
-                <div class="form-row">
-                  <label class="titulo-form">Nombre de usuario:<span class="marca-obligatorio" aria-hidden="true">*</span>
-                    <!-- AÑADIDO ID -->
-                    <input type="text" id="solicitud-usuario" data-error="error-texto-usuario" class="input-moderno" placeholder="Nombre de usuario"
-                      aria-required="true" autocomplete="username" maxlength="20" minlength="4"></label>
-                  <p id="error-texto-usuario" class="mensaje-error-campo" role="alert" style="display: none;"></p>
-                </div>
-
-                <!--CONTACTO (en la columna izquierda, frente a las contraseñas)-->
-                <div class="form-row">
-                  <label>Correo electrónico:<span class="marca-obligatorio" aria-hidden="true">*</span>
-                    <input type="email" id="solicitud-contacto" data-error="error-texto-correo" class="input-moderno" placeholder="Introducir correo electrónico"
-                      aria-required="true" autocomplete="email" inputmode="email"></label>
-                  <p id="error-texto-correo" class="mensaje-error-campo" role="alert" style="display: none;"></p>
-                </div>
-              </div>
-              <!--REPETIR CONTRASEÑAS-->
-              <div class="col-right">
-                <div class="form-row">
-                  <label for="psswd-1">Contraseña:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
-                  <p id="ayuda-pass" class="ayuda-campo">Mínimo 6 caracteres.</p>
-
-                  <div class="fila-contrasena" id="contrasena-primera">
-                    <input type="password" id="psswd-1" aria-describedby="ayuda-pass" data-error="error-texto-pass" class="input-moderno" placeholder="Introducir contraseña"
-                      aria-required="true" autocomplete="new-password">
-
-                    <button type="button" id="btn-toggle-pass"
-                      onclick="toggleMostrarPassword('psswd-1', 'btn-toggle-pass')" class="btn-mostrar">
-                      Mostrar<span class="sr-only"> contraseña</span>
-                    </button>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <label for="psswd-2">Repite
-                    la contraseña:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
-                  <div class="fila-contrasena" id="contrasena-segunda">
-                    <input type="password" id="psswd-2" data-error="error-texto-pass" class="input-moderno" placeholder="Repetir contraseña"
-                      aria-required="true" autocomplete="new-password">
-
-                    <button type="button" id="btn-toggle-pass-2"
-                      onclick="toggleMostrarPassword('psswd-2', 'btn-toggle-pass-2')" class="btn-mostrar">
-                      Mostrar<span class="sr-only"> contraseña</span>
-                    </button>
-                  </div>
-
-                  <p id="error-texto-pass" class="mensaje-error-campo" role="alert" style="display: none;">
-                    Las contraseñas no coinciden. Revísalas.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <label id="titulo-sele-relacion">Relación con el Parkinson:<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></label>
-          <div class="guia-card" id="sele-relacion" role="group" aria-labelledby="titulo-sele-relacion">
-            <div
-              style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 25px; width: 100%;">
-              <button type="button" class="btn-rela" data-perfil="paciente" onclick="seleccionarPerfilFormulario(this)">
-                <span class="btn-cate-txt">Paciente</span>
-
-              </button>
-              <button type="button" class="btn-rela" data-perfil="terapeuta"
-                onclick="seleccionarPerfilFormulario(this)">
-                <span class="btn-cate-txt">Terapeuta ocupacional</span>
-
-              </button>
-              <button type="button" class="btn-rela" data-perfil="familiar" onclick="seleccionarPerfilFormulario(this)">
-                <span class="btn-cate-txt">Familiar o cercano</span>
-              </button>
-              <button type="button" class="btn-rela" data-perfil="cuidador" onclick="seleccionarPerfilFormulario(this)">
-                <span class="btn-cate-txt">Cuidador</span>
-
-              </button>
-              <button type="button" class="btn-rela" data-perfil="otro" onclick="seleccionarPerfilFormulario(this)">
-                <span class="btn-cate-txt">Otro</span>
-
-              </button>
-            </div>
-          </div>
-
-          <label>Fundación o asociación (opcional):
-            <div class="form-row">
-              <!-- AÑADIDO ID -->
-              <input type="text" id="solicitud-fundacion" class="input-moderno"
-                placeholder="Si perteneces a alguna asociación, escríbela por favor" maxlength="30">
-            </div>
-          </label>
-          <!--BOTÓN FINAL CON LA NUEVA FUNCIÓN-->
-          <div class="buscar-espacio" style="margin-top: 20px;">
-            <button type="button" data-vista="vista-publicado-solicitud" onclick="validarFormularioSolicitud(this)"
-              class="btn-buscar">
-              Crear cuenta
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </dialog>
     </main>
   </div>
 
@@ -1618,12 +1558,12 @@
         o solo Cerrar sesión (en rojo) si ya hay sesión-->
     <div class="menu-movil-pie">
       <button type="button" id="menu-movil-registro" class="menu-movil-btn-pie menu-movil-btn-registro"
-        onclick="opcionMenuMovil('registro')">
+        aria-haspopup="dialog" aria-controls="modal-registro-inicio" onclick="opcionMenuMovil('registro')">
         <img src="svg/login/registro.svg" alt="" class="menu-movil-icono">
         <span>Registrarse</span>
       </button>
       <button type="button" id="menu-movil-sesion" class="menu-movil-btn-pie menu-movil-btn-sesion"
-        onclick="opcionMenuMovil('sesion')">
+        aria-haspopup="dialog" aria-controls="modal-login" onclick="opcionMenuMovil('sesion')">
         <img src="svg/login/avatar.svg" alt="" class="menu-movil-icono">
         <span id="menu-movil-sesion-texto">Iniciar sesión</span>
       </button>
@@ -1636,40 +1576,34 @@
   <dialog id="modal-login" class="modal-accesible" aria-labelledby="titulo-modal-login">
     <div class="modal-cabecera">
       <div class="btn-cabecera-linea-modal">
-        <h2 class="btn-titulo-dialog" id="titulo-modal-login">Iniciar sesión</h2>
+        <h2 class="btn-titulo-dialog" id="titulo-modal-login">Introduce tus datos</h2>
       </div>
       <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana" onclick="cerrarModal(this)">×</button>
     </div>
 
-    <div class="modal-cuerpo">
-    
+    <form id="form-login" class="modal-cuerpo" onsubmit="event.preventDefault(); simularInicioSesionModal()">
       <div class="form-row">
-        <label>Correo electrónico o nombre de usuario:<span class="marca-obligatorio" aria-hidden="true">*</span>
-          <input type="text" id="login-usuario-modal" data-error="mensaje-error-login-modal" class="input-moderno" placeholder="Correo o nombre de usuario"
-            aria-required="true" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="100"></label>
+        <label for="login-usuario-modal">Correo electrónico o nombre de usuario:<span
+            class="marca-obligatorio" aria-hidden="true">*</span></label>
+        <input type="text" id="login-usuario-modal" data-error="mensaje-error-login-modal" class="input-moderno"
+          placeholder="Correo o nombre de usuario" aria-required="true" autocomplete="username"
+          autocapitalize="none" spellcheck="false" maxlength="100">
       </div>
-
       <div class="form-row">
         <label for="login-password-modal">Contraseña:<span class="marca-obligatorio" aria-hidden="true">*</span></label>
         <div class="fila-contrasena" id="contrase-inicio">
-          <input type="password" id="login-password-modal" data-error="mensaje-error-login-modal" class="input-moderno" placeholder="Introducir contraseña"
-            aria-required="true" autocomplete="current-password">
-          <button type="button" id="btn-toggle-pass-modal" onclick="toggleMostrarPasswordModal()" class="btn-mostrar">
-            Mostrar<span class="sr-only"> contraseña</span>
-          </button>
+          <input type="password" id="login-password-modal" data-error="mensaje-error-login-modal"
+            class="input-moderno" placeholder="Introducir contraseña" aria-required="true"
+            autocomplete="current-password">
+          <button type="button" id="btn-toggle-pass-modal" onclick="toggleMostrarPasswordModal()"
+            class="btn-mostrar">Mostrar<span class="sr-only"> contraseña</span></button>
         </div>
       </div>
-
-      <p id="mensaje-error-login-modal" class="mensaje-error-campo" role="alert" style="display: none;">
-        El usuario o la contraseña no son correctos.
-      </p>
-
+      <p id="mensaje-error-login-modal" class="mensaje-error-campo" role="alert" style="display: none;"></p>
       <div class="buscar-espacio">
-        <button type="button" class="btn-buscar" onclick="simularInicioSesionModal()">
-          Iniciar sesión
-        </button>
+        <button type="submit" id="btn-login-modal" class="btn-buscar">Iniciar sesión</button>
       </div>
-    </div>
+    </form>
   </dialog>
 
   <dialog id="modal-confirmar-cierre-sesion" class="modal-accesible"
@@ -2184,7 +2118,7 @@
       <button type="button" class="side-btn-acce" aria-pressed="false" data-acc-opcion="enlaces">
         <span class="cabecera-linea-acce">
           <span class="icono-acce-mas" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>
-          <span class="btn-titulo-acce">Resaltar enlaces y botones</span>
+          <span class="btn-titulo-acce">Resaltar enlaces</span>
         </span>
       </button>
 
@@ -2239,6 +2173,7 @@
   <script src="javascript/sele-filtro.js"></script>
   <script src="javascript/abrirproducto.js"></script>
   <script src="javascript/login_atras.js"></script>
+  <script src="javascript/0_registro_inicio.js"></script>
   <script src="javascript/retroceder_movil.js"></script>
 
 

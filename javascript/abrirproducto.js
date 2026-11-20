@@ -19,7 +19,7 @@ const COLUMNAS_DETALLE = 'descripcion,conclusiones,materiales,pasos,enlace';
 const cacheCatalogo = new Map();
 
 async function cargarProductos(consulta) {
-    const url = `${SUPABASE_URL}/rest/v1/verproductos?select=${COLUMNAS_TARJETA}&${consulta}`;
+    const url = `${SUPABASE_URL}/rest/v1/productos_parkinson?select=${COLUMNAS_TARJETA}&${consulta}`;
     if (cacheCatalogo.has(url)) return cacheCatalogo.get(url);
 
     const respuesta = await fetch(url, {
@@ -39,7 +39,7 @@ async function cargarProductos(consulta) {
 async function completarProducto(prod) {
     if (prod.completo) return;
 
-    const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/verproductos?select=${COLUMNAS_DETALLE}&id=eq.${prod.id}`, {
+    const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/productos_parkinson?select=${COLUMNAS_DETALLE}&id=eq.${prod.id}`, {
         headers: {
             'apikey': SUPABASE_KEY,
             'Authorization': `Bearer ${SUPABASE_KEY}`
@@ -402,6 +402,10 @@ async function abrirDetalleVerProducto(indiceProducto) {
     }
 }
 
+function descargarTutorialPDF() {
+    window.print();
+}
+
 // =========================================================================
 // SISTEMA DE FILTRADO (SLIDER: COMERCIALIZADO VS BAJO COSTE)
 // =========================================================================
@@ -614,7 +618,7 @@ document.addEventListener('keydown', (evento) => {
 // VALORACIONES: "ME GUSTA" / "NO ME GUSTA"
 // Solo votan los usuarios con sesión iniciada. El voto se guarda en la tabla
 // "valoraciones" (uno por usuario y producto) y la función votar_producto
-// recalcula las columnas me_gusta y no_gusta de verproductos.
+// recalcula las columnas me_gusta y no_gusta de productos_parkinson.
 // (SQL en sql/valoraciones.sql)
 // =========================================================================
 const TEXTOS_VOTO = { me_gusta: 'Me gusta', no_gusta: 'No me gusta' };
@@ -848,9 +852,16 @@ async function simularInicioSesionModal() {
     } catch (e) {
         console.error("Error de inicio de sesión:", e.message);
         if (mensajeError) {
+            const rpcUsuarioNoConfigurada = !usuarioInput.includes('@') && (
+                e.code === 'PGRST202'
+                || e.code === '42883'
+                || /correo_de_usuario|schema cache/i.test(e.message || '')
+            );
             mensajeError.style.display = 'block';
             mensajeError.innerText = (e.code === 'email_not_confirmed' || /not confirmed/i.test(e.message || ''))
                 ? "Todavía no has confirmado tu correo. Revisa tu bandeja de entrada."
+                : rpcUsuarioNoConfigurada
+                    ? "El acceso con nombre de usuario no está configurado. Ejecuta supabase/usuarios_login.sql en Supabase o inicia sesión con tu correo."
                 : usuarioInput.includes('@')
                     ? "Correo o contraseña incorrectos"
                     : "Usuario o contraseña incorrectos";
@@ -889,7 +900,7 @@ function rutaDeProducto(prod) {
 async function actualizarCategoriasVisibles() {
     let productos;
     try {
-        const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/verproductos?select=categoria1,categoria2,categoria`, {
+        const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/productos_parkinson?select=categoria1,categoria2,categoria`, {
             headers: {
                 'apikey': SUPABASE_KEY,
                 'Authorization': `Bearer ${SUPABASE_KEY}`

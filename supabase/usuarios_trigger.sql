@@ -1,7 +1,7 @@
 -- Copia el perfil de cada cuenta nueva en la tabla 'usuarios' en cuanto el
 -- usuario confirma su correo (con el código o con el enlace).
 -- Los datos salen de los metadatos que manda la web al registrarse
--- (nombre, contacto, relacion, fundacion). La contraseña NO se copia:
+-- (nombre, contacto, relacion, discapacidad, fundacion). La contraseña NO se copia:
 -- la guarda Supabase Auth cifrada.
 --
 -- Ejecutar una vez en Supabase → SQL Editor.
@@ -13,11 +13,16 @@ security definer
 set search_path = ''
 as $$
 begin
-  insert into public.usuarios (nombre, contacto, relacion, fundacion, fecha_envio)
+  insert into public.usuarios (nombre, contacto, relacion, discapacidad, fundacion, fecha_envio)
   values (
     new.raw_user_meta_data ->> 'nombre',
     coalesce(new.raw_user_meta_data ->> 'contacto', new.email),
     new.raw_user_meta_data ->> 'relacion',
+    coalesce(
+      new.raw_user_meta_data -> 'discapacidad',
+      new.raw_user_meta_data -> 'discapacidades',
+      '[]'::jsonb
+    ),
     new.raw_user_meta_data ->> 'fundacion',
     now()
   );

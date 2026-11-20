@@ -222,6 +222,12 @@ body {
 }
 
 .eslogan-barra {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
   font-size: 0.9rem;
   color: var(--color-barra-texto);
   text-align: center;
@@ -559,6 +565,10 @@ button:focus:not(:focus-visible) {
 
 .migas-pan .miga-separador {
   margin: 0 8px;
+}
+
+.grid-linea-superior > .migas-pan {
+  align-self: start;
 }
 
 .miga-enlace,
@@ -4977,9 +4987,12 @@ img[role="button"] {
     margin-top: 100px !important;
   }
 
-  .lateral_acce,
-  .lateral_izq {
+  .lateral_acce {
     top: 140px !important;
+  }
+
+  .lateral_izq {
+    top: 100px !important;
   }
 }
 
@@ -5007,7 +5020,7 @@ img[role="button"] {
   }
 
   .grid-lateral-izq {
-    gap: 40px;
+    gap: 60px;
   }
 
   /* Botones altos: más fáciles de acertar con temblor (objetivo táctil amplio) */
@@ -5145,7 +5158,7 @@ img[role="button"] {
     gap: 18px;
   }
 
-  /* Extremos exteriores muy redondeados: el izquierdo en "Difundir" y el
+  /* Extremos exteriores muy redondeados: el izquierdo en "Compartir" y el
      derecho en "Ver productos" (37px = medio alto, forma de píldora) */
   .multi-slider .btn-menu:first-child {
     border-top-left-radius: 37px;
@@ -5172,7 +5185,7 @@ img[role="button"] {
   }
 
   .lateral_izq {
-    top: 160px !important;
+    top: 100px !important;
   }
 }
 
@@ -5232,9 +5245,9 @@ img[role="button"] {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    grid-auto-rows: 130px;
+    grid-auto-rows: minmax(130px, auto);
     align-content: start;
-    row-gap: 32px !important;
+    row-gap: 8px !important;
     padding-top: 24px;
   }
 
@@ -5517,7 +5530,75 @@ img[role="button"] {
 /* Ficha: separación entre la cabecera y la foto */
 #vista-detalle-verproducto .detalle-card,
 #vista-detalle-verproductocom .detalle-card {
-  margin-top: 40px !important;
+  margin-top: 12px !important;
+  padding-top: 10px !important;
+}
+
+.pdf-acciones {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.encabezado-pdf {
+  display: none;
+}
+
+#vista-detalle-verproducto .cabecera-superior-icono,
+#vista-detalle-verproductocom .cabecera-superior-icono {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 20px !important;
+}
+
+@media (min-width: 1280px) {
+  #vista-detalle-verproducto .cabecera-superior-icono,
+  #vista-detalle-verproductocom .cabecera-superior-icono {
+    display: contents !important;
+  }
+
+  #vista-detalle-verproducto .text-linea-superior,
+  #vista-detalle-verproductocom .text-linea-superior {
+    grid-area: col2;
+  }
+
+  #vista-detalle-verproducto .pdf-acciones,
+  #vista-detalle-verproductocom .pdf-acciones {
+    grid-area: col3;
+    justify-self: end;
+  }
+}
+
+.btn-descargar-pdf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 22px;
+  background-color: var(--color-botones-superior-fondo);
+  color: var(--color-botones-superior-texto);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-descargar-pdf:hover,
+.btn-descargar-pdf:focus-visible {
+  background-color: var(--color-hover-superior);
+  color: var(--color-botones-superior-texto);
+}
+
+@media (max-width: 1279px) {
+  #vista-detalle-verproducto .titulo-linea-superior {
+    white-space: normal !important;
+  }
 }
 
 /* Foto → etiquetas → "Subido por" → secciones */
@@ -5645,7 +5726,7 @@ img[role="button"] {
 }
 
 /* =========================================================================
-   MENÚ PRINCIPAL (Difundir productos / Ver productos) EN ORDENADOR:
+   MENÚ PRINCIPAL (Compartir productos / Ver productos) EN ORDENADOR:
    ya no se queda fijo al hacer scroll. Está en el mismo sitio al cargar la
    página, pero sube con el contenido. (En tablet y móvil sigue siendo la
    barra fija de abajo.)
@@ -6100,6 +6181,12 @@ img[role="button"] {
   transform: none !important;
 }
 
+:is(#marca#marca#marca#marca, html) .barra-superior-login .eslogan-barra:not(:disabled),
+:is(#marca#marca#marca#marca, html) .barra-superior-login .eslogan-barra:not(:disabled):is(:hover, :active) {
+  box-shadow: none !important;
+  transform: none !important;
+}
+
 @media (max-width: 699px) {
   :is(#marca#marca#marca#marca, html) .barra-movil .marca-movil:not(:disabled),
   :is(#marca#marca#marca#marca, html) .barra-movil .marca-movil:not(:disabled):is(:hover, :active) {
@@ -6108,7 +6195,7 @@ img[role="button"] {
 }
 
 /* =========================================================================
-   MÓVIL: el menú principal (Difundir productos / Ver productos) pasa de la
+   MÓVIL: el menú principal (Compartir productos / Ver productos) pasa de la
    barra fija de abajo a la parte de arriba, como pestañas. En sus dos
    pantallas se quita el título, que repetía lo mismo que la pestaña activa.
    ========================================================================= */
@@ -6157,7 +6244,7 @@ img[role="button"] {
     text-align: left !important;
   }
 
-  /* Sin título repetido en "Ver productos" y "Difundir productos" */
+  /* Sin título repetido en "Ver productos" y "Compartir productos" */
   #vista-ver .cabecera-superior-icono,
   #vista-subir .cabecera-superior-icono {
     display: none !important;
@@ -6196,7 +6283,7 @@ img[role="button"] {
   }
 }
 
-/* Texto del botón "Difundir": completo en tablet y ordenador, corto en el móvil */
+/* Texto del botón "Compartir": completo en tablet y ordenador, corto en el móvil */
 .texto-corto-menu {
   display: none;
 }
@@ -6871,6 +6958,12 @@ html.acc-espaciado p {
   }
 }
 
+@media (min-width: 700px) {
+  :is(#busca#busca, html) .grid-linea-superior > .caja-contenedor-busqueda {
+    max-width: 360px !important;
+  }
+}
+
 /* Móvil, catálogo: mientras el buscador está plegado (solo la lupa) el
    botón no se ve; aparece al abrirlo para escribir */
 @media (max-width: 699px) {
@@ -6884,15 +6977,15 @@ html.acc-espaciado p {
   }
 }
 
-/* Botón "Volver" con texto visible (antes era solo una flecha): el botón
-   crece hasta que caben la flecha y la palabra */
+/* Botón "Volver": solo se muestra la flecha; el nombre sigue disponible
+   para lectores de pantalla. */
 :is(#volver#volver, html) .grid-linea-superior > .btn-volver {
-  width: auto !important;
-  max-width: none !important;
-  min-width: 44px;
-  min-height: 44px;
-  height: auto !important;
-  padding: 8px 18px 8px 12px !important;
+  width: 52px !important;
+  max-width: 52px !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  height: 52px !important;
+  padding: 8px !important;
   justify-self: start;
   align-self: center;
 }
@@ -6900,33 +6993,21 @@ html.acc-espaciado p {
 :is(#volver#volver, html) .grid-linea-superior > .btn-volver .cabecera-linea-volver {
   display: flex !important;
   align-items: center;
-  gap: 10px !important;
+  justify-content: center;
+  gap: 0 !important;
 }
 
 :is(#volver#volver, html) .grid-linea-superior > .btn-volver .texto-nav-seccion {
   display: inline !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap;
-}
-
-/* Móvil: no hay sitio para la palabra junto al pictograma de la cabecera,
-   así que solo se ve la flecha; la palabra "Volver" la sigue leyendo el
-   lector de pantalla (oculta solo a la vista, como .sr-only) */
-@media (max-width: 699px) {
-  :is(#volver#volver, html) .grid-linea-superior > .btn-volver {
-    padding: 8px 12px !important;
-  }
-
-  :is(#volver#volver, html) .grid-linea-superior > .btn-volver .texto-nav-seccion {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-  }
+  border: 0 !important;
 }
 
 /* El nombre "Atlas de apoyo" siempre en una sola línea en la barra del móvil */
@@ -6980,4 +7061,750 @@ html.acc-espaciado p {
 
 .barra-superior-login .titulo-menu-acce-claro {
   font-size: 1.2rem !important;
+}
+
+@media (min-width: 700px) {
+  #modal-acce-mas .grid-acce-mas {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html.acc-espaciado #modal-acce-mas .cabecera-linea-acce {
+    flex-direction: row !important;
+    gap: 8px !important;
+  }
+
+  html.acc-espaciado #modal-acce-mas .icono-acce-mas {
+    flex: 0 0 auto;
+    line-height: 1 !important;
+  }
+
+  html.acc-espaciado #modal-acce-mas .cap-icon-mini-acce {
+    flex: 0 0 auto;
+  }
+
+  html.acc-espaciado #modal-acce-mas .btn-titulo-acce {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}
+
+#modal-acce-mas .btn-titulo-acce {
+  text-align: left !important;
+}
+
+#modal-acce-mas {
+  padding-left: 32px !important;
+  width: min(96vw, 820px) !important;
+}
+
+@media (min-width: 1280px) {
+  #modal-acce-mas {
+    width: 32rem !important;
+  }
+}
+
+body,
+body * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}
+
+#modal-login input:focus:not(.campo-error),
+#vista-solicitud input:focus:not(.campo-error),
+#vista-solicitud textarea:focus:not(.campo-error) {
+  border: 6px solid var(--color-hover-superior-borde) !important;
+  outline: 3px solid var(--color-acce-borde) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}
+
+/* Registro integrado en la página de Inicio */
+#modal-registro-inicio {
+  width: min(94vw, 1000px) !important;
+  max-width: none !important;
+  max-height: 92vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+#modal-registro-inicio .modal-cabecera {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+}
+
+#modal-registro-inicio .btn-cerrar-modal {
+  flex: 0 0 48px;
+  width: 48px;
+}
+
+#modal-registro-inicio .modal-cuerpo {
+  max-height: calc(92vh - 82px);
+  padding: 18px 24px 24px;
+  overflow-y: auto;
+}
+
+#modal-registro-inicio [hidden] {
+  display: none !important;
+}
+
+#form-registro-inicio p:first-child {
+  margin-top: 0;
+}
+
+#form-registro-inicio .registro-inicio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 20px;
+}
+
+#form-registro-inicio .form-row {
+  width: 100%;
+  margin: 0 0 18px;
+}
+
+#form-registro-inicio .form-row label,
+#registro-verificacion-inicio .form-row label {
+  display: block;
+  margin: 0 0 8px;
+  color: #263238;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+#modal-registro-inicio .input-moderno {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 2px solid #667781;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #263238;
+  font: inherit;
+}
+
+#modal-registro-inicio .input-moderno:focus {
+  outline: 3px solid #0317fa;
+  outline-offset: 2px;
+}
+
+#modal-registro-inicio .input-moderno.campo-error,
+#modal-registro-inicio .input-moderno.campo-error:focus,
+#modal-registro-inicio .btn-rela.campo-error {
+  border: 3px solid var(--form-error, #b3261e);
+  background-color: #fff5f5;
+  outline: 2px solid var(--form-error, #b3261e);
+  outline-offset: 2px;
+}
+
+#modal-registro-inicio .fila-contrasena {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+#modal-registro-inicio .fila-contrasena input {
+  flex: 1;
+  min-width: 0;
+}
+
+#modal-registro-inicio .btn-mostrar {
+  flex: 0 0 auto;
+  min-width: 82px;
+  min-height: 50px;
+  padding: 0 12px;
+  border: 2px solid var(--color-acce-borde);
+  border-radius: 8px;
+  background-color: #fff;
+  color: var(--color-acce-borde);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#modal-registro-inicio .btn-mostrar:hover {
+  background-color: #e8f0f3;
+}
+
+#modal-registro-inicio .ayuda-campo {
+  margin: -4px 0 8px;
+}
+
+#modal-registro-inicio .marca-obligatorio {
+  margin-left: 3px;
+  color: var(--form-error, #b3261e);
+}
+
+#modal-registro-inicio .registro-perfil-inicio {
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+}
+
+#modal-registro-inicio .registro-perfil-inicio legend {
+  margin-bottom: 10px;
+  color: #263238;
+  font-weight: 700;
+}
+
+#modal-registro-inicio .registro-perfiles-inicio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#modal-registro-inicio .btn-rela {
+  min-height: 46px;
+  padding: 8px 12px;
+  border: 2px solid var(--color-acce-borde);
+  border-radius: 8px;
+  background-color: #fff;
+  color: #263238;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+#modal-registro-inicio .btn-rela.activ-cate {
+  background-color: var(--color-acce-borde-lateral);
+  font-weight: 700;
+}
+
+#modal-registro-inicio .mensaje-error-campo {
+  margin: 8px 0 0;
+}
+
+#modal-registro-inicio .buscar-espacio {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 0;
+}
+
+#modal-registro-inicio .btn-buscar {
+  width: min(100%, 360px);
+  min-height: 52px;
+  height: auto;
+  margin: 8px 0;
+  padding: 10px 18px;
+  border-width: 2px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+#modal-registro-inicio .btn-buscar:disabled,
+#modal-registro-inicio .btn-mostrar:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+#modal-registro-inicio .registro-inicio-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+#modal-registro-inicio #btn-reenviar-codigo-inicio {
+  min-height: 48px;
+}
+
+#registro-verificacion-inicio h3,
+#registro-exito-inicio h3 {
+  margin: 4px 0 12px;
+  color: var(--color-titulo);
+}
+
+#registro-verificacion-inicio .form-row {
+  max-width: 420px;
+  margin: 20px auto;
+}
+
+#registro-verificacion-inicio #codigo-verificacion-inicio {
+  text-align: center;
+  letter-spacing: 0.15em;
+  font-size: 1.25rem;
+}
+
+#modal-registro-inicio .confirmacion-texto {
+  margin: 10px 0 0;
+  color: #174e34;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  #modal-registro-inicio {
+    width: 94vw;
+    max-height: 94vh;
+  }
+
+  #modal-registro-inicio .modal-cabecera {
+    padding: 12px 14px;
+  }
+
+  #modal-registro-inicio .modal-cuerpo {
+    max-height: calc(94vh - 72px);
+    padding: 14px;
+  }
+
+  #form-registro-inicio .registro-inicio-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #modal-registro-inicio .registro-inicio-acciones {
+    flex-direction: column;
+  }
+
+  #modal-registro-inicio .registro-inicio-acciones > button {
+    width: 100%;
+  }
+}
+
+#btn-solicitud:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--relieve-encima);
+}
+
+#btn-solicitud:active {
+  transform: translateY(3px);
+  box-shadow: var(--relieve-pulsado);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #vista-ver .grid-capsulas > .btn-cate,
+  #btn-solicitud {
+    transition: none;
+  }
+
+  #vista-ver .grid-capsulas > a.btn-cate:hover,
+  #vista-ver .grid-capsulas > a.btn-cate:focus-visible,
+  #vista-ver .grid-capsulas > a.btn-cate:active,
+  #btn-solicitud:hover,
+  #btn-solicitud:active {
+    transform: none;
+  }
+}
+
+
+/* Inicio de sesión y registro comparten el mismo estilo de diálogo. */
+#modal-login,
+#modal-registro-inicio {
+  border: none !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+#modal-login .modal-cabecera,
+#modal-registro-inicio .modal-cabecera {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 16px 16px 16px 28px !important;
+  border: none !important;
+  background-color: var(--color-botones-superior-fondo) !important;
+}
+
+#modal-login .btn-cabecera-linea-modal,
+#modal-registro-inicio .btn-cabecera-linea-modal {
+  display: flex !important;
+  flex: 1 !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  min-width: 0;
+  padding-right: 0 !important;
+  text-align: left !important;
+}
+
+#modal-login .btn-titulo-dialog,
+#modal-registro-inicio .btn-titulo-dialog {
+  width: 100% !important;
+  margin: 0;
+  color: var(--color-botones-superior-texto) !important;
+  font-size: 1.4rem !important;
+  font-weight: 700;
+  text-align: left !important;
+}
+
+#modal-login .btn-cerrar-modal,
+#modal-registro-inicio .btn-cerrar-modal {
+  flex: 0 0 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+  border: 2px solid #fff !important;
+  border-radius: 10px !important;
+  background-color: transparent !important;
+  color: #fff !important;
+  font-size: 1.6rem !important;
+  line-height: 1;
+}
+
+#modal-login .btn-cerrar-modal:hover,
+#modal-registro-inicio .btn-cerrar-modal:hover {
+  background-color: #fff !important;
+  color: var(--color-acce-borde) !important;
+}
+
+#modal-login .modal-cuerpo,
+#modal-registro-inicio .modal-cuerpo {
+  padding: 24px 28px 28px !important;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+#modal-login .btn-buscar,
+#modal-registro-inicio .btn-buscar {
+  width: min(100%, 420px) !important;
+  max-width: none !important;
+  min-height: 60px !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 14px 28px !important;
+  border: 2px solid var(--color-acce-borde) !important;
+  border-radius: 14px !important;
+  background-color: var(--color-acce-borde) !important;
+  color: #fff !important;
+  font-family: inherit;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(32, 69, 85, 0.25);
+}
+
+#modal-registro-inicio .form-row label {
+  color: #263238;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+#modal-registro-inicio .input-moderno {
+  min-height: 52px !important;
+  padding: 12px 14px !important;
+  border-radius: 10px !important;
+  font-size: 1.05rem !important;
+  line-height: 1.5;
+}
+
+#modal-registro-inicio .btn-mostrar {
+  min-width: 100px;
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+@media (max-width: 640px) {
+  #modal-login .modal-cabecera,
+  #modal-registro-inicio .modal-cabecera {
+    padding: 12px 14px !important;
+  }
+
+  #modal-login .modal-cuerpo,
+  #modal-registro-inicio .modal-cuerpo {
+    padding: 14px !important;
+  }
+}
+
+@media (min-width: 700px) {
+  #form-registro-inicio {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 16px;
+  }
+
+  #form-registro-inicio > .registro-inicio-grid,
+  #form-registro-inicio > .form-row,
+  #form-registro-inicio > .mensaje-error-campo,
+  #form-registro-inicio > .buscar-espacio {
+    grid-column: 1 / -1;
+  }
+
+  #form-registro-inicio > .registro-perfil-inicio {
+    grid-column: 1 / -1;
+    min-width: 0;
+    margin-bottom: 12px;
+  }
+
+  #modal-registro-inicio .registro-perfiles-inicio > .btn-rela {
+    flex: 1 1 100px;
+    min-width: 0;
+  }
+}
+
+@media (min-width: 700px) and (max-height: 850px) {
+  #modal-registro-inicio {
+    max-height: calc(100vh - 16px);
+  }
+
+  #modal-registro-inicio .modal-cuerpo {
+    max-height: calc(100vh - 92px);
+    padding: 12px 20px 16px !important;
+  }
+
+  #form-registro-inicio .form-row {
+    margin-bottom: 8px;
+  }
+
+  #form-registro-inicio > .registro-perfil-inicio {
+    margin-bottom: 8px;
+  }
+
+  #modal-registro-inicio .registro-perfil-inicio legend {
+    margin-bottom: 6px;
+  }
+
+  #modal-registro-inicio .ayuda-campo {
+    margin: -4px 0 4px;
+  }
+
+  #modal-registro-inicio .registro-perfiles-inicio {
+    gap: 6px;
+  }
+
+  #modal-registro-inicio .btn-rela {
+    min-height: 40px;
+    padding: 6px 10px;
+  }
+
+  #modal-registro-inicio .input-moderno,
+  #modal-registro-inicio .btn-mostrar {
+    min-height: 46px !important;
+  }
+
+  #modal-registro-inicio .buscar-espacio {
+    margin-top: 4px;
+  }
+
+  #modal-registro-inicio .btn-buscar {
+    min-height: 48px !important;
+    padding: 10px 18px !important;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 14mm 16mm;
+}
+
+@media print {
+  .encabezado-pdf {
+    display: flex !important;
+    align-items: center;
+    gap: 10pt;
+    margin: 0 0 14pt;
+    color: #204555;
+    font-size: 15pt;
+    font-weight: 700;
+  }
+
+  .encabezado-pdf img {
+    width: 32pt;
+    height: 32pt;
+    object-fit: contain;
+    flex: none;
+  }
+
+  html,
+  body {
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #222 !important;
+    font-size: 11pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body > :not(.parent) {
+    display: none !important;
+  }
+
+  body > .parent {
+    display: block !important;
+    width: auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .parent > * {
+    display: none !important;
+  }
+
+  #contenido-principal {
+    display: block !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #contenido-principal > .subvista-contenido {
+    display: none !important;
+  }
+
+  #contenido-principal > #vista-detalle-verproducto[style*="display: block"],
+  #contenido-principal > #vista-detalle-verproductocom[style*="display: block"] {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .contenedor-dinamico,
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .linea_superior,
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .grid-linea-superior,
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .detalle-card {
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .grid-linea-superior {
+    margin-bottom: 12pt !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .migas-pan,
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .btn-volver,
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .pdf-acciones,
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) button {
+    display: none !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .cabecera-superior-icono {
+    display: block !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .titulo-linea-superior {
+    margin: 0 0 12pt !important;
+    color: #204555 !important;
+    font-size: 20pt !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .detalle-card > div:first-child {
+    margin: 0 0 12pt !important;
+    text-align: center !important;
+  }
+
+  #detalle-ver-imagen,
+  #detalle-ver-imagen-com {
+    width: auto !important;
+    max-width: 100% !important;
+    max-height: 220px !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  #detalle-ver-info-extra,
+  #detalle-com-info-extra {
+    display: block !important;
+    margin: 0 0 8pt !important;
+    color: #444 !important;
+    font-size: 10pt !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .prod-etiquetas {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 8pt !important;
+    margin: 0 0 14pt !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .detalle-card > div[style*="margin-bottom"] {
+    margin: 0 0 12pt !important;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) .txt-detalle {
+    margin: 0 0 5pt !important;
+    color: #204555 !important;
+    font-size: 14pt !important;
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) p,
+  :is(#vista-detalle-verproducto, #vista-detalle-verproductocom) li {
+    color: #222 !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+  }
+
+  #detalle-ver-pasos > div {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  #detalle-ver-pasos img {
+    max-width: 100% !important;
+    max-height: 180px !important;
+    height: auto !important;
+    box-shadow: none !important;
+  }
+}
+
+
+#modal-login input:focus:not(.campo-error),
+#modal-registro-inicio input:focus:not(.campo-error) {
+  border: 6px solid var(--color-hover-superior-borde) !important;
+  outline: 3px solid var(--color-acce-borde) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}
+
+.barra-superior-login .botones-login-container {
+  width: auto !important;
+  max-width: 100%;
+  min-width: 0;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+.barra-superior-login .btn-login-header {
+  box-sizing: border-box;
+  flex: 0 1 auto !important;
+  width: max-content !important;
+  min-width: 200px !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 44px !important;
+  padding: 8px 16px !important;
+  line-height: 1.2;
+  white-space: normal !important;
 }

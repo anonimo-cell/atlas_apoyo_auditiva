@@ -23,6 +23,7 @@ function toggleMostrarPassword(inputId, btnId) {
         if (btnPass) btnPass.innerHTML = 'Mostrar<span class="sr-only"> contraseña</span>';
     }
 }
+
 // 1. Qué pasa cuando haces clic en el botón de la cabecera
 async function gestionarClickLogin(boton) {
     const estadoSesion = localStorage.getItem('sesionIniciada');
@@ -88,15 +89,7 @@ async function confirmarCierreSesion() {
 // agradecimientos.
 // =========================================================================
 function abrirMenuMovil() {
-    // La opción de sesión dice lo que hará ahora mismo
-    const conSesion = localStorage.getItem('sesionIniciada') === '1';
-    const textoSesion = document.getElementById('menu-movil-sesion-texto');
-    if (textoSesion) {
-        textoSesion.innerText = conSesion ? 'Cerrar sesión' : 'Iniciar sesión';
-    }
-    // Con la sesión iniciada, "Cerrar sesión" va en rojo (como en el ordenador)
-    const opcionSesion = document.getElementById('menu-movil-sesion');
-    if (opcionSesion) opcionSesion.classList.toggle('menu-movil-sesion-activa', conSesion);
+    pintarBotonLogin();
     abrirModal('menu-movil');
 }
 
@@ -106,9 +99,7 @@ function opcionMenuMovil(opcion) {
     if (opcion === 'sesion') {
         gestionarClickLogin(document.getElementById('mi-boton-login'));
     } else if (opcion === 'registro') {
-        const btnRegistro = document.getElementById('btn-solicitud');
-        if (btnRegistro) cambiarEstadoslider(btnRegistro);
-        window.scrollTo(0, 0);
+        abrirRegistroInicio();
     } else {
         abrirModal(opcion);
     }
@@ -126,31 +117,19 @@ document.addEventListener('DOMContentLoaded', () => {
 // 2. Pintar el botón según el estado
 function pintarBotonLogin() {
     const boton = document.getElementById('mi-boton-login');
-    if (!boton) return;
+    const botonMovil = document.getElementById('menu-movil-sesion');
+    const textoMovil = document.getElementById('menu-movil-sesion-texto');
+    const sesionIniciada = localStorage.getItem('sesionIniciada') === '1';
+    const textoSesion = sesionIniciada ? 'Cerrar sesión' : 'Iniciar sesión';
 
-    const estadoSesion = localStorage.getItem('sesionIniciada');
-
-    if (estadoSesion === '1') {
-        const estadoSesion = localStorage.getItem('sesionIniciada');
-        const botonLogin = document.getElementById('mi-boton-login'); // Asegúrate de que este sea el id de tu botón de sesión
-
-        if (estadoSesion === '1' && botonLogin) {
-            // Añadimos la clase CSS para el fondo rojo y texto blanco
-            botonLogin.classList.add('btn-sesion-activa');
-
-            // Cambiamos el texto del botón
-            botonLogin.innerText = "Cerrar sesión";
-        }
-    } else {
-        // --- AQUÍ CAMBIAS EL ASPECTO CUANDO NO HAY SESIÓN ---
-
-        // Restauramos los colores por defecto quitando los estilos que pusimos arriba
-        boton.classList.remove('btn-sesion-activa');
-        boton.style.backgroundColor = "";
-        boton.style.color = "";
-        boton.style.border = "";
-
-        boton.innerText = "Iniciar sesión";
+    if (boton) {
+        boton.textContent = textoSesion;
+        boton.classList.toggle('btn-sesion-activa', sesionIniciada);
+    }
+    if (textoMovil) textoMovil.textContent = textoSesion;
+    if (botonMovil) {
+        botonMovil.classList.toggle('menu-movil-sesion-activa', sesionIniciada);
+        botonMovil.setAttribute('aria-label', textoSesion);
     }
 }
 
