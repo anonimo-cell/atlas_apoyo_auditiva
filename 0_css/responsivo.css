@@ -702,6 +702,44 @@ main[tabindex="-1"]:focus {
   font-weight: bold !important;
 }
 
+.tipo-discapacidad-campo {
+  width: 100%;
+  margin: 0 0 18px;
+  padding: 12px;
+  border: 2px solid var(--form-borde);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.tipo-discapacidad-campo legend {
+  padding: 0 6px;
+  font-weight: bold;
+}
+
+.tipo-discapacidad-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tipo-discapacidad-opciones label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 2px solid var(--form-borde);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.tipo-discapacidad-opciones input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-acce-borde);
+}
+
 .btn-val-g.active-filtro {
   background-color: rgb(1, 189, 1) !important;
   color: white !important;

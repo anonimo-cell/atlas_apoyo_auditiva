@@ -316,6 +316,17 @@
           <!--CATEGORIAS -->
           <details id="seccion-cate">
             <summary>Categorías</summary>
+            <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-baj">
+              <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
+              <div class="tipo-discapacidad-opciones">
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Auditiva">Auditiva</label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Motriz">Motriz</label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Cognitiva">Cognitiva</label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Visual">Visual</label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Parkinson" checked>Parkinson</label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Otra">Otra</label>
+              </div>
+            </fieldset>
             <div class="contenedor-categoria">
               <button type="button" class="btn-cate" onclick="abrirModalCate1()">
                 <span class="btn-cate-txt">Categoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
@@ -531,6 +542,17 @@
                 </div>
               </div>
             </div>
+            <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-com">
+              <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
+              <div class="tipo-discapacidad-opciones">
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Auditiva">Auditiva</label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Motriz">Motriz</label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Cognitiva">Cognitiva</label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Visual">Visual</label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Parkinson" checked>Parkinson</label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Otra">Otra</label>
+              </div>
+            </fieldset>
             <div class="form-row">
               <label id="titulo-categoria-sele">Categoría:<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></label>
               <div class="contenedor-categoria" id="categoria-sele" role="group" aria-labelledby="titulo-categoria-sele">

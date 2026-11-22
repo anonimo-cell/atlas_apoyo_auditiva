@@ -172,6 +172,11 @@ async function validarYPublicar(elemento) {
         const titulo = vistaActual.querySelector('#seccion-info input[type="text"]');
         if (!titulo || titulo.value.trim() === "") registrarError(titulo || vistaActual, "#seccion-info");
 
+        const tiposDiscapacidadBaj = vistaActual.querySelectorAll('#tipo-discapacidad-baj input[type="checkbox"]:checked');
+        if (tiposDiscapacidadBaj.length === 0) {
+            registrarError(vistaActual.querySelector('#tipo-discapacidad-baj'), "#seccion-cate");
+        }
+
         const descripcion = vistaActual.querySelector('#seccion-info textarea');
         if (!descripcion || descripcion.value.trim() === "") registrarError(descripcion || vistaActual, "#seccion-info");
 
@@ -245,6 +250,11 @@ async function validarYPublicar(elemento) {
             registrarError(tituloCom || vistaActual, ".form-grid");
         }
 
+        const tiposDiscapacidadCom = vistaActual.querySelectorAll('#tipo-discapacidad-com input[type="checkbox"]:checked');
+        if (tiposDiscapacidadCom.length === 0) {
+            registrarError(vistaActual.querySelector('#tipo-discapacidad-com'), ".guia-card");
+        }
+
         // 2. Validar Precio Comercializado
         const txtPrecioCom = document.getElementById('valor-precio-comercializado');
         if (!txtPrecioCom || txtPrecioCom.innerText.toLowerCase().includes("no seleccionada")) {
@@ -316,6 +326,8 @@ async function validarYPublicar(elemento) {
         const dificultadFinal = document.getElementById('valor-dificultad').innerText;
         const precioFinal = document.getElementById('valor-precio').innerText;
         const tiempoFinal = document.getElementById('valor-tiempo').innerText;
+        const tiposDiscapacidadFinal = Array.from(vistaActual.querySelectorAll('#tipo-discapacidad-baj input[type="checkbox"]:checked'))
+            .map(input => input.value);
 
         // <-- NUEVO: Recoger Categoría 1 y 2 para Bajo Coste
         const spanNivel1 = vistaActual.querySelector('#valor-n1');
@@ -365,6 +377,7 @@ async function validarYPublicar(elemento) {
                         dificultad: dificultadFinal,
                         precio: precioFinal,
                         tiempo: tiempoFinal,
+                        tipo_discapacidad: tiposDiscapacidadFinal,
                         categoria1: categoria1Final, // <-- NUEVO
                         categoria2: categoria2Final, // <-- NUEVO
                         categoria: categoriaFinal,
@@ -425,6 +438,8 @@ async function validarYPublicar(elemento) {
         // Recogemos la categoría final del nivel 3 comercializado (Ya lo tenías)
         const spanNivel3Com = document.getElementById('valor-n3-com');
         const categoriaFinal = spanNivel3Com ? spanNivel3Com.innerText.trim() : "Sin categoría";
+        const tiposDiscapacidadFinal = Array.from(vistaActual.querySelectorAll('#tipo-discapacidad-com input[type="checkbox"]:checked'))
+            .map(input => input.value);
 
         // Recogemos el enlace
         const textareas = vistaActual.querySelectorAll('textarea');
@@ -450,6 +465,7 @@ async function validarYPublicar(elemento) {
                         categoria1: categoria1Final, // <-- NUEVO
                         categoria2: categoria2Final, // <-- NUEVO
                         categoria: categoriaFinal,
+                        tipo_discapacidad: tiposDiscapacidadFinal,
                         imagen_url: imgPrincipal,
                         descripcion: descripcionFinal,
                         enlace: enlaceFinal,
@@ -696,6 +712,9 @@ function limpiarFormulariosCompletos() {
 
         // Resetear categorías de bajo coste
         if (typeof resetearFormularioDOM === 'function') resetearFormularioDOM('');
+        vistaBaj.querySelectorAll('#tipo-discapacidad-baj input[type="checkbox"]').forEach(input => {
+            input.checked = input.value === 'Parkinson';
+        });
     }
 
     // 2. Limpiar Formulario Comercializado (#vista-prod-com)
@@ -723,6 +742,9 @@ function limpiarFormulariosCompletos() {
 
         // Resetear categorías de comercializado
         if (typeof resetearFormularioDOM === 'function') resetearFormularioDOM('-com');
+        vistaCom.querySelectorAll('#tipo-discapacidad-com input[type="checkbox"]').forEach(input => {
+            input.checked = input.value === 'Parkinson';
+        });
     }
 }
 
