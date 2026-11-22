@@ -26,7 +26,7 @@
 create or replace function public.usuario_registrado(nombre_usuario text)
 returns boolean
 language sql
-security definer
+security definer 
 set search_path = ''
 as $$
   select exists (
