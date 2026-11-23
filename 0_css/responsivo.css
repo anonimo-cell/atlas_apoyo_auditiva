@@ -717,26 +717,60 @@ main[tabindex="-1"]:focus {
 }
 
 .tipo-discapacidad-opciones {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
 }
 
-.tipo-discapacidad-opciones label {
-  display: inline-flex;
+#contenido-principal .acordeon-form .tipo-discapacidad-opciones label {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
   align-items: center;
-  gap: 7px;
-  min-height: 42px;
-  padding: 8px 12px;
-  border: 2px solid var(--form-borde);
-  border-radius: 999px;
+  justify-content: flex-start;
+  gap: 6px;
+  min-height: 130px;
+  margin: 0 !important;
+  padding: 12px 10px 8px;
+  border: 2px solid var(--color-acce-borde);
+  border-radius: 16px;
   background: #fff;
   cursor: pointer;
+  box-sizing: border-box;
+  text-align: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.tipo-discapacidad-opciones label:has(input:checked) {
+  border-color: #ffbf70;
+  background-color: #f7f8e3;
+}
+
+.tipo-discapacidad-opciones label:focus-within {
+  outline: 3px solid var(--color-acce-borde);
+  outline-offset: 2px;
+}
+
+.tipo-discapacidad-opciones label > span {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.tipo-discapacidad-opciones label > img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
 }
 
 .tipo-discapacidad-opciones input {
-  width: 18px;
-  height: 18px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
   accent-color: var(--color-acce-borde);
 }
 
@@ -3056,6 +3090,28 @@ img[role="button"] {
   padding: 28px 28px 32px !important;
 }
 
+#vista-prod-com .acordeon-form > .guia-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#vista-prod-com .acordeon-form > .guia-card > .paso-item,
+#vista-prod-com .acordeon-form > .guia-card > .tipo-discapacidad-campo,
+#vista-prod-com .acordeon-form > .guia-card > .form-row {
+  margin: 0 !important;
+}
+
+#vista-prod-com .acordeon-form .paso-columna-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#vista-prod-com .acordeon-form .paso-columna-texto > label {
+  margin: 0 !important;
+}
+
 /* "Registrarse" ocupa todo el ancho de la vista, como el resto de pantallas */
 #contenido-principal #vista-solicitud .acordeon-form {
   width: 100% !important;
@@ -3722,6 +3778,14 @@ img[role="button"] {
 
 #modal-login .btn-buscar {
   width: 100% !important;
+}
+
+#modal-login .enlace-recuperar-contrasena {
+  margin: 14px 0 8px;
+  color: #17668a;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: underline;
 }
 
 #modal-confirmar-cierre-sesion {

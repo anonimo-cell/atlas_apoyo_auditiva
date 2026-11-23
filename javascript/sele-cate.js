@@ -39,16 +39,28 @@ function resetearFormularioDOM(sufijo) {
 function abrirModalCate1(sufijo = '') {
     // Guardamos temporalmente en qué formulario estamos trabajando mediante un atributo global o dataset
     window.formularioActivoActual = sufijo;
+    mostrarAvisoCategoria(sufijo, '');
     abrirModal('modal-categorias1');
 }
 
-function abrirModalNivel2() {
-    const sufijo = window.formularioActivoActual || '';
+function mostrarAvisoCategoria(sufijo, mensaje) {
+    const aviso = document.getElementById(`aviso-categoria${sufijo}`);
+    if (!aviso) return;
+
+    aviso.textContent = mensaje;
+    aviso.hidden = !mensaje;
+}
+
+function abrirModalNivel2(sufijo = window.formularioActivoActual || '') {
+    window.formularioActivoActual = sufijo;
     const cat1 = localStorage.getItem(`categoriaGuardadaNombre${sufijo}`);
 
     if (!cat1 || cat1 === "No seleccionada") {
+        mostrarAvisoCategoria(sufijo, 'Selecciona primero una categoría.');
         return;
     }
+
+    mostrarAvisoCategoria(sufijo, '');
 
     const mapa = {
         "Autonomía y cuidado": "modal-autonomia",
@@ -65,13 +77,22 @@ function abrirModalNivel2() {
     }
 }
 
-function abrirModalNivel3() {
-    const sufijo = window.formularioActivoActual || '';
+function abrirModalNivel3(sufijo = window.formularioActivoActual || '') {
+    window.formularioActivoActual = sufijo;
+    const cat1 = localStorage.getItem(`categoriaGuardadaNombre${sufijo}`);
     const cat2 = localStorage.getItem(`subcategoriaGuardada${sufijo}`);
 
-    if (!cat2 || cat2 === "No seleccionada") {
+    if (!cat1 || cat1 === "No seleccionada") {
+        mostrarAvisoCategoria(sufijo, 'Selecciona primero una categoría.');
         return;
     }
+
+    if (!cat2 || cat2 === "No seleccionada") {
+        mostrarAvisoCategoria(sufijo, 'Selecciona primero una subcategoría.');
+        return;
+    }
+
+    mostrarAvisoCategoria(sufijo, '');
 
     // Solo se abre si el Nivel 2 es Higiene
     if (cat2.trim() === "Higiene") {
@@ -91,6 +112,7 @@ function abrirModalNivel3() {
 // ==========================================
 function seleccionarCatenivel1(boton) {
     const sufijo = window.formularioActivoActual || '';
+    mostrarAvisoCategoria(sufijo, '');
     const nuevoTexto = boton.querySelector('.btn-cate-txt').innerText.trim();
     const textoAnterior = localStorage.getItem(`categoriaGuardadaNombre${sufijo}`);
 
@@ -176,6 +198,7 @@ function seleccionarCatenivel1(boton) {
 // ==========================================
 function seleccionarCategoria2(boton) {
     const sufijo = window.formularioActivoActual || '';
+    mostrarAvisoCategoria(sufijo, '');
     const nuevoTexto = boton.querySelector('.btn-cate-txt').innerText.trim();
     const textoAnterior = localStorage.getItem(`subcategoriaGuardada${sufijo}`);
 
@@ -232,6 +255,7 @@ function seleccionarCategoria2(boton) {
 // ==========================================
 function seleccionarCategoria3(boton) {
     const sufijo = window.formularioActivoActual || '';
+    mostrarAvisoCategoria(sufijo, '');
     const texto = boton.querySelector('.btn-cate-txt').innerText.trim();
 
     // Guardamos y actualizamos Nivel 3

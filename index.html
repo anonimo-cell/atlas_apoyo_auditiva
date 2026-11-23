@@ -319,12 +319,11 @@
             <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-baj">
               <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
               <div class="tipo-discapacidad-opciones">
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Auditiva">Auditiva</label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Motriz">Motriz</label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Cognitiva">Cognitiva</label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Visual">Visual</label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Parkinson" checked>Parkinson</label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Otra">Otra</label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Auditiva"><span>Auditiva</span><img src="svg/discapacidad/auditiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Motriz"><span>Motriz</span><img src="svg/discapacidad/motriz.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Cognitiva"><span>Cognitiva</span><img src="svg/discapacidad/cognitiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Visual"><span>Visual</span><img src="svg/discapacidad/visual.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Parkinson" checked><span>Parkinson</span><img src="svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
               </div>
             </fieldset>
             <div class="contenedor-categoria">
@@ -334,18 +333,19 @@
                 <img loading="lazy" decoding="async" id="icono-elegido-n1" class="cap-icon-cate" src="" alt="" style="display: none;">
               </button>
 
-              <button type="button" class="btn-cate" onclick="abrirModalNivel2()">
+              <button type="button" class="btn-cate" onclick="abrirModalNivel2('')">
                 <span class="btn-cate-txt">Subcategoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
                 <span id="valor-n2" class="btn-sele-filt">No seleccionada</span>
                 <img loading="lazy" decoding="async" id="icono-elegido-n2" class="cap-icon-cate" src="" alt="" style="display: none;">
               </button>
 
-              <button type="button" class="btn-cate" onclick="abrirModalNivel3()">
+              <button type="button" class="btn-cate" onclick="abrirModalNivel3('')">
                 <span class="btn-cate-txt">Tipo<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
                 <span id="valor-n3" class="btn-sele-filt">No seleccionada</span>
                 <img loading="lazy" decoding="async" id="icono-elegido-n3" class="cap-icon-cate" src="" alt="" style="display: none;">
               </button>
             </div>
+            <p id="aviso-categoria" class="mensaje-error-campo" role="alert" hidden></p>
             <div class="siguiente">
               <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-filt')">
                 <span class="cabecera-linea-volver">
@@ -545,12 +545,11 @@
             <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-com">
               <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
               <div class="tipo-discapacidad-opciones">
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Auditiva">Auditiva</label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Motriz">Motriz</label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Cognitiva">Cognitiva</label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Visual">Visual</label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Parkinson" checked>Parkinson</label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Otra">Otra</label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Auditiva"><span>Auditiva</span><img src="svg/discapacidad/auditiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Motriz"><span>Motriz</span><img src="svg/discapacidad/motriz.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Cognitiva"><span>Cognitiva</span><img src="svg/discapacidad/cognitiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Visual"><span>Visual</span><img src="svg/discapacidad/visual.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Parkinson" checked><span>Parkinson</span><img src="svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
               </div>
             </fieldset>
             <div class="form-row">
@@ -576,6 +575,7 @@
                 </button>
               </div>
             </div>
+            <p id="aviso-categoria-com" class="mensaje-error-campo" role="alert" hidden></p>
             <div class="form-row">
               <label>Descripción:<span class="marca-obligatorio" aria-hidden="true">*</span>
                 <textarea class="input-moderno" placeholder="Breve descripción..." maxlength="300" aria-required="true"></textarea>
@@ -1622,6 +1622,7 @@
         </div>
       </div>
       <p id="mensaje-error-login-modal" class="mensaje-error-campo" role="alert" style="display: none;"></p>
+      <p class="enlace-recuperar-contrasena">¿Se te ha olvidado la contraseña?</p>
       <div class="buscar-espacio">
         <button type="submit" id="btn-login-modal" class="btn-buscar">Iniciar sesión</button>
       </div>
