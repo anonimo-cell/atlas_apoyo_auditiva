@@ -3187,6 +3187,52 @@ img[role="button"] {
   content: "−" !important;
 }
 
+#contenido-principal .acordeon-form summary .summary-navegacion {
+  display: grid;
+  grid-template-columns: 48px 48px;
+  flex-shrink: 0;
+  align-items: center;
+  column-gap: 8px;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+#contenido-principal .acordeon-form summary .summary-navegacion .btn-siguiente[aria-label="Sección anterior"] {
+  grid-column: 1;
+}
+
+#contenido-principal .acordeon-form summary .summary-navegacion .btn-siguiente[aria-label="Siguiente sección"] {
+  grid-column: 2;
+}
+
+#contenido-principal .acordeon-form summary:has(.summary-navegacion)::after {
+  margin-left: 0;
+}
+
+#contenido-principal .acordeon-form summary .summary-navegacion .btn-siguiente {
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 8px;
+  border: 2px solid var(--color-acce-borde);
+  border-radius: 10px;
+  background-color: var(--color-btn-volver);
+  color: var(--color-acce-borde);
+  cursor: pointer;
+}
+
+#contenido-principal .acordeon-form summary .summary-navegacion .btn-siguiente:hover {
+  background-color: var(--color-acce-hover);
+}
+
+#contenido-principal .acordeon-form summary .summary-navegacion .icon-btn-volver {
+  width: 24px;
+  height: 24px;
+}
+
 /* ---------- Etiquetas ---------- */
 #contenido-principal .acordeon-form label,
 #contenido-principal .acordeon-form .titulo-form,

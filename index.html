@@ -215,7 +215,15 @@
         <div class="acordeon-form">
           <!--TITULO,IMAGEN, FILTRO-->
           <details id="seccion-info" open style="display: block;">
-            <summary>Información del Producto</summary>
+            <summary>
+              Información del Producto
+              <span class="summary-navegacion">
+                <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-filt')">
+                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                </button>
+              </span>
+            </summary>
             <div class="guia-card">
               <div class="form-grid-ini">
                 <div class="col-left">
@@ -243,19 +251,23 @@
                   </div>
                 </div>
               </div>
-              <div class="siguiente">
-                <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-filt')">
-                  <span class="cabecera-linea-volver">
-                    <span class="texto-nav-seccion">Siguiente</span>
-                    <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
-                  </span>
-                </button>
-              </div>
             </div>
           </details>
           <!--FILTROS -->
           <details id="seccion-filt">
-            <summary>Filtros</summary>
+            <summary>
+              Filtros
+              <span class="summary-navegacion">
+                <button type="button" class="btn-siguiente" aria-label="Sección anterior"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-info')">
+                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                </button>
+                <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-cate')">
+                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                </button>
+              </span>
+            </summary>
             <div class="guia-card">
               <div class="contenedor-categoria">
                 <button type="button" class="btn-filt" onclick="abrirModal('modal-dificultad')">
@@ -290,32 +302,24 @@
                 </button>
 
               </div>
-
-
-              <div class="siguiente">
-                <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-info')">
-                  <span class="cabecera-linea-volver">
-                    <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                    <span class="texto-nav-seccion">Anterior</span>
-
-                  </span>
-                </button>
-                <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-cate')">
-                  <span class="cabecera-linea-volver">
-
-                    <span class="texto-nav-seccion">Siguiente</span>
- 
-                    <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
-
-                  </span>
-                </button>
-              </div>
             </div>
 
           </details>
           <!--CATEGORIAS -->
           <details id="seccion-cate">
-            <summary>Categorías</summary>
+            <summary>
+              Categorías
+              <span class="summary-navegacion">
+                <button type="button" class="btn-siguiente" aria-label="Sección anterior"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-filt')">
+                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                </button>
+                <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-materiales')">
+                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                </button>
+              </span>
+            </summary>
             <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-baj">
               <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
               <div class="tipo-discapacidad-opciones">
@@ -346,29 +350,22 @@
               </button>
             </div>
             <p id="aviso-categoria" class="mensaje-error-campo" role="alert" hidden></p>
-            <div class="siguiente">
-              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-filt')">
-                <span class="cabecera-linea-volver">
-                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                    <span class="texto-nav-seccion">Anterior</span>
-
-                </span>
-              </button>
-              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-materiales')">
-                <span class="cabecera-linea-volver">
-
-                  <span class="texto-nav-seccion">Siguiente</span>
-
-                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
-
-                </span>
-              </button>
-            </div>
-
           </details>
           <!--MATERIALES-->
           <details id="seccion-materiales">
-            <summary>Materiales necesarios<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></summary>
+            <summary>
+              Materiales necesarios<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span>
+              <span class="summary-navegacion">
+                <button type="button" class="btn-siguiente" aria-label="Sección anterior"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-cate')">
+                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                </button>
+                <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-pasos')">
+                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                </button>
+              </span>
+            </summary>
 
             <!-- Contenedor dinámico de materiales (máximo 10) -->
             <div id="lista-materiales" style="margin-bottom: 15px;">
@@ -380,28 +377,22 @@
               <span aria-hidden="true">+</span> Añadir material
             </button>
 
-            <div class="siguiente">
-              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-cate')">
-                <span class="cabecera-linea-volver">
-                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                    <span class="texto-nav-seccion">Anterior</span>
-
-                </span>
-              </button>
-              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-pasos')">
-                <span class="cabecera-linea-volver">
-
-                  <span class="texto-nav-seccion">Siguiente</span>
-
-                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
-                </span>
-              </button>
-            </div>
-
           </details>
           <!--PASOS-->
           <details id="seccion-pasos">
-            <summary>Pasos del tutorial<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></summary>
+            <summary>
+              Pasos del tutorial<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span>
+              <span class="summary-navegacion">
+                <button type="button" class="btn-siguiente" aria-label="Sección anterior"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-materiales')">
+                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                </button>
+                <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-conclusiones')">
+                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                </button>
+              </span>
+            </summary>
             <div class="guia-card">
               <div id="lista-pasos">
 
@@ -437,40 +428,22 @@
               </div>
               <button type="button" class="btn-accion" id="btn-agregar-paso"><span aria-hidden="true">+</span> Añadir nuevo paso</button>
 
-              <div class="siguiente">
-                <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-materiales')">
-                  <span class="cabecera-linea-volver">
-                    <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                    <span class="texto-nav-seccion">Anterior</span>
-
-                  </span>
-                </button>
-                <button type="button" class="btn-siguiente"
-                  onclick="siguienteSeccion('seccion-conclusiones')">
-                  <span class="cabecera-linea-volver">
-                    <span class="texto-nav-seccion">Siguiente</span>
-                    <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
-
-                  </span>
-                </button>
-              </div>
             </div>
           </details>
 
           <details id="seccion-conclusiones">
-            <summary>Conclusiones</summary>
+            <summary>
+              Conclusiones
+              <span class="summary-navegacion">
+                <button type="button" class="btn-siguiente" aria-label="Sección anterior"
+                  onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-pasos')">
+                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                </button>
+              </span>
+            </summary>
             <div class="form-row">
               <label for="conclusiones-texto" class="titulo-form">¿Has aprendido algo haciendo este proyecto? (opcional)</label>
               <textarea id="conclusiones-texto" placeholder="Escribe aquí lo que has aprendido" maxlength="300"></textarea>
-            </div>
-            <div class="siguiente">
-              <button type="button" class="btn-siguiente" onclick="siguienteSeccion('seccion-pasos')">
-                <span class="cabecera-linea-volver">
-                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                    <span class="texto-nav-seccion">Anterior</span>
-
-                </span>
-              </button>
             </div>
           </details>
           <div class="buscar-espacio">
