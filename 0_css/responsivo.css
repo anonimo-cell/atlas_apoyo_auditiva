@@ -3828,10 +3828,82 @@ img[role="button"] {
 
 #modal-login .enlace-recuperar-contrasena {
   margin: 14px 0 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: #17668a;
+  font-family: inherit;
   font-size: 0.95rem;
   text-align: center;
   text-decoration: underline;
+  cursor: pointer;
+}
+
+#modal-recuperar-contrasena,
+#modal-nueva-contrasena {
+  width: min(92vw, 480px) !important;
+  max-width: none !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+#modal-recuperar-contrasena .modal-cabecera,
+#modal-nueva-contrasena .modal-cabecera {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 16px 16px 16px 28px !important;
+  background-color: var(--color-acce-borde) !important;
+  border: none !important;
+}
+
+#modal-recuperar-contrasena .btn-titulo-dialog,
+#modal-nueva-contrasena .btn-titulo-dialog {
+  color: #fff !important;
+  font-size: 1.4rem !important;
+  font-weight: 700;
+}
+
+#modal-recuperar-contrasena .btn-cerrar-modal,
+#modal-nueva-contrasena .btn-cerrar-modal {
+  width: 44px !important;
+  height: 44px !important;
+  border: 2px solid #fff !important;
+  border-radius: 10px !important;
+  background-color: transparent !important;
+  color: #fff !important;
+  font-size: 1.6rem !important;
+  line-height: 1;
+}
+
+#modal-recuperar-contrasena .modal-cuerpo,
+#modal-nueva-contrasena .modal-cuerpo {
+  padding: 24px 28px 28px !important;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+#modal-recuperar-contrasena .buscar-espacio,
+#modal-nueva-contrasena .buscar-espacio {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0 0;
+}
+
+#modal-recuperar-contrasena .btn-buscar,
+#modal-nueva-contrasena .btn-buscar {
+  width: 100%;
+}
+
+#modal-recuperar-contrasena [role="status"],
+#modal-nueva-contrasena [role="status"] {
+  margin: 12px 0;
+  color: var(--color-acce-borde);
+  font-weight: 700;
 }
 
 #modal-confirmar-cierre-sesion {

@@ -1595,9 +1595,60 @@
         </div>
       </div>
       <p id="mensaje-error-login-modal" class="mensaje-error-campo" role="alert" style="display: none;"></p>
-      <p class="enlace-recuperar-contrasena">¿Se te ha olvidado la contraseña?</p>
+      <button type="button" id="btn-recuperar-contrasena" class="enlace-recuperar-contrasena">¿Se te ha olvidado la contraseña?</button>
       <div class="buscar-espacio">
         <button type="submit" id="btn-login-modal" class="btn-buscar">Iniciar sesión</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="modal-recuperar-contrasena" class="modal-accesible" aria-labelledby="titulo-recuperar-contrasena">
+    <div class="modal-cabecera">
+      <div class="btn-cabecera-linea-modal">
+        <h2 class="btn-titulo-dialog" id="titulo-recuperar-contrasena">Recuperar contraseña</h2>
+      </div>
+      <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana"
+        onclick="cerrarModal(this)">×</button>
+    </div>
+    <form id="form-recuperar-contrasena" class="modal-cuerpo">
+      <p>Escribe el correo electrónico de tu cuenta. Te enviaremos un enlace para confirmar tu identidad y elegir una contraseña nueva.</p>
+      <div class="form-row">
+        <label for="recuperar-email">Correo electrónico:</label>
+        <input type="email" id="recuperar-email" class="input-moderno" autocomplete="email"
+          autocapitalize="none" spellcheck="false" required>
+      </div>
+      <p id="mensaje-recuperar-contrasena" class="mensaje-error-campo" role="alert" hidden></p>
+      <p id="estado-recuperar-contrasena" role="status" aria-live="polite" hidden></p>
+      <div class="buscar-espacio">
+        <button type="submit" id="btn-enviar-recuperacion" class="btn-buscar">Enviar correo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="modal-nueva-contrasena" class="modal-accesible" aria-labelledby="titulo-nueva-contrasena">
+    <div class="modal-cabecera">
+      <div class="btn-cabecera-linea-modal">
+        <h2 class="btn-titulo-dialog" id="titulo-nueva-contrasena">Elige una contraseña nueva</h2>
+      </div>
+      <button type="button" class="btn-cerrar-modal" aria-label="Cerrar ventana" title="Cerrar ventana"
+        onclick="cerrarModal(this)">×</button>
+    </div>
+    <form id="form-nueva-contrasena" class="modal-cuerpo">
+      <p>El enlace ha confirmado tu identidad. Escribe y confirma tu nueva contraseña (mínimo 6 caracteres).</p>
+      <div class="form-row">
+        <label for="nueva-contrasena">Nueva contraseña:</label>
+        <input type="password" id="nueva-contrasena" class="input-moderno" autocomplete="new-password"
+          minlength="6" required>
+      </div>
+      <div class="form-row">
+        <label for="repite-nueva-contrasena">Repite la nueva contraseña:</label>
+        <input type="password" id="repite-nueva-contrasena" class="input-moderno" autocomplete="new-password"
+          minlength="6" required>
+      </div>
+      <p id="mensaje-nueva-contrasena" class="mensaje-error-campo" role="alert" hidden></p>
+      <p id="estado-nueva-contrasena" role="status" aria-live="polite" hidden></p>
+      <div class="buscar-espacio">
+        <button type="submit" id="btn-guardar-nueva-contrasena" class="btn-buscar">Guardar contraseña</button>
       </div>
     </form>
   </dialog>
@@ -2170,6 +2221,7 @@
   <script src="javascript/abrirproducto.js"></script>
   <script src="javascript/login_atras.js"></script>
   <script src="javascript/0_registro_inicio.js"></script>
+  <script src="javascript/recuperar_contrasena.js"></script>
   <script src="javascript/retroceder_movil.js"></script>
 
 
