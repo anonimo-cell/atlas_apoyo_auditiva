@@ -1,3 +1,5 @@
+let codigoRecuperacionEnviado = false;
+
 function limpiarEstadoRecuperacion() {
     const mensajeError = document.getElementById('mensaje-recuperar-contrasena');
     const estado = document.getElementById('estado-recuperar-contrasena');
@@ -14,10 +16,35 @@ function mostrarErrorRecuperacion(mensajeId, texto) {
     mensaje.hidden = false;
 }
 
-async function enviarEnlaceRecuperacion(evento) {
+function prepararDialogoRecuperacion(correoInicial = '') {
+    const formulario = document.getElementById('form-recuperar-contrasena');
+    const correo = document.getElementById('recuperar-email');
+    const codigo = document.getElementById('codigo-recuperacion');
+
+    formulario.reset();
+    codigoRecuperacionEnviado = false;
+    correo.value = correoInicial;
+    correo.readOnly = false;
+    codigo.required = false;
+    document.getElementById('grupo-codigo-recuperacion').hidden = true;
+    document.getElementById('btn-enviar-recuperacion').textContent = 'Enviar código';
+    limpiarEstadoRecuperacion();
+}
+
+function mostrarDialogoNuevaContrasena() {
+    const modalRecuperacion = document.getElementById('modal-recuperar-contrasena');
+    const modalNuevaContrasena = document.getElementById('modal-nueva-contrasena');
+
+    if (modalRecuperacion.open) cerrarModal(modalRecuperacion);
+    if (!modalNuevaContrasena.open) abrirModal(modalNuevaContrasena.id);
+    document.getElementById('nueva-contrasena').focus();
+}
+
+async function procesarRecuperacion(evento) {
     evento.preventDefault();
 
     const correo = document.getElementById('recuperar-email');
+    const codigo = document.getElementById('codigo-recuperacion');
     const boton = document.getElementById('btn-enviar-recuperacion');
     const estado = document.getElementById('estado-recuperar-contrasena');
     limpiarEstadoRecuperacion();
@@ -29,17 +56,42 @@ async function enviarEnlaceRecuperacion(evento) {
 
     boton.disabled = true;
     try {
-        const redirectTo = `${window.location.origin}${window.location.pathname}`;
-        const { error } = await window.supabase.auth.resetPasswordForEmail(correo.value.trim(), { redirectTo });
-        if (error) throw error;
+        if (!codigoRecuperacionEnviado) {
+            const { error } = await window.supabase.auth.resetPasswordForEmail(correo.value.trim());
+            if (error) throw error;
 
-        estado.textContent = 'Si el correo corresponde a una cuenta, recibirás un enlace para restablecer la contraseña. Revisa también la carpeta de correo no deseado.';
-        estado.hidden = false;
+            codigoRecuperacionEnviado = true;
+            correo.readOnly = true;
+            codigo.required = true;
+            document.getElementById('grupo-codigo-recuperacion').hidden = false;
+            boton.textContent = 'Confirmar código';
+            estado.textContent = 'Si el correo corresponde a una cuenta, recibirás un código. Revisa también la carpeta de correo no deseado.';
+            estado.hidden = false;
+            codigo.focus();
+            return;
+        }
+
+        const token = codigo.value.replace(/\s+/g, '');
+        if (!/^\d{6,10}$/.test(token)) {
+            mostrarErrorRecuperacion('mensaje-recuperar-contrasena', 'Escribe el código numérico que te hemos enviado al correo.');
+            codigo.focus();
+            return;
+        }
+
+        const { error } = await window.supabase.auth.verifyOtp({
+            email: correo.value.trim(),
+            token,
+            type: 'recovery'
+        });
+        if (error) throw error;
+        mostrarDialogoNuevaContrasena();
     } catch (error) {
-        console.error('No se pudo solicitar la recuperación de contraseña:', error);
+        console.error('No se pudo completar la recuperación de contraseña:', error);
         mostrarErrorRecuperacion(
             'mensaje-recuperar-contrasena',
-            'No se pudo enviar el correo. Comprueba la dirección e inténtalo de nuevo más tarde.'
+            codigoRecuperacionEnviado
+                ? 'El código no es válido o ha caducado. Compruébalo e inténtalo de nuevo.'
+                : 'No se pudo enviar el código. Comprueba la dirección e inténtalo de nuevo más tarde.'
         );
     } finally {
         boton.disabled = false;
@@ -91,7 +143,7 @@ async function guardarNuevaContrasena(evento) {
         console.error('No se pudo cambiar la contraseña:', error);
         mostrarErrorRecuperacion(
             'mensaje-nueva-contrasena',
-            'No se pudo cambiar la contraseña. Es posible que el enlace haya caducado; solicita uno nuevo e inténtalo de nuevo.'
+            'No se pudo cambiar la contraseña. Es posible que el código haya caducado; solicita uno nuevo e inténtalo de nuevo.'
         );
     } finally {
         boton.disabled = false;
@@ -105,20 +157,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     botonRecuperacion.addEventListener('click', () => {
         const usuario = document.getElementById('login-usuario-modal').value.trim();
-        campoCorreo.value = usuario.includes('@') ? usuario : '';
-        limpiarEstadoRecuperacion();
+        prepararDialogoRecuperacion(usuario.includes('@') ? usuario : '');
         cerrarModal('modal-login');
         abrirModal('modal-recuperar-contrasena');
         campoCorreo.focus();
     });
 
     document.getElementById('form-recuperar-contrasena')
-        .addEventListener('submit', enviarEnlaceRecuperacion);
+        .addEventListener('submit', procesarRecuperacion);
     document.getElementById('form-nueva-contrasena')
         .addEventListener('submit', guardarNuevaContrasena);
 
     modalRecuperacion.addEventListener('close', () => {
-        limpiarEstadoRecuperacion();
+        prepararDialogoRecuperacion();
     });
 
     if (!window.supabase || !window.supabase.auth) {
@@ -128,9 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.supabase.auth.onAuthStateChange(evento => {
         if (evento === 'PASSWORD_RECOVERY') {
-            cerrarModal('modal-recuperar-contrasena');
-            abrirModal('modal-nueva-contrasena');
-            document.getElementById('nueva-contrasena').focus();
+            mostrarDialogoNuevaContrasena();
         }
     });
 });
