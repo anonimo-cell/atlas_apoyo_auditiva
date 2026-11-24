@@ -11,15 +11,41 @@ let tipoFiltroGlobal = 1;   // 1 = Comercializado, 0 = Bajo coste
 
 // Para las tarjetas del catálogo solo pedimos estas columnas. Lo pesado
 // (pasos con sus fotos, materiales, textos largos) se pide al abrir la ficha.
-const COLUMNAS_TARJETA = 'id,titulo,imagen_url,producto,precio,dificultad,tiempo,fecha,usuario,categoria,categoria1,categoria2';
+const COLUMNAS_TARJETA = 'id,titulo,imagen_url,producto,precio,dificultad,tiempo,fecha,usuario,categoria1,categoria2';
 const COLUMNAS_DETALLE = 'descripcion,conclusiones,materiales,pasos,enlace';
+
+function obtenerTipoDiscapacidadCatalogo() {
+    if (window.ATLAS_DISCAPACIDAD) {
+        return String(window.ATLAS_DISCAPACIDAD).trim().toLowerCase();
+    }
+
+    const meta = document.querySelector('meta[name="atlas-discapacidad"]');
+    const metaTipo = meta ? meta.getAttribute('content') : '';
+    const parametros = new URLSearchParams(window.location.search);
+    const parametroTipo = parametros.get('discapacidad') || parametros.get('tipo');
+    const contexto = `${window.location.hostname} ${window.location.pathname} ${parametroTipo || ''}`;
+
+    if (/visual/i.test(contexto)) return 'visual';
+    if (metaTipo && /parkinson/i.test(metaTipo)) return 'parkinson';
+    return 'parkinson';
+}
+
+const TIPO_DISCAPACIDAD_CATALOGO = obtenerTipoDiscapacidadCatalogo();
+
+function añadirFiltroDiscapacidad(consulta) {
+    if (!consulta) consulta = 'order=fecha.desc';
+    if (/([&?])discapacidad=|([&?])discapacidad%3D/i.test(consulta)) return consulta;
+    const discapacidadJson = encodeURIComponent(JSON.stringify([TIPO_DISCAPACIDAD_CATALOGO]));
+    return `${consulta}&discapacidad=cs.${discapacidadJson}`;
+}
 
 // Catálogos ya descargados (por dirección de consulta): volver a una
 // categoría ya abierta es instantáneo. Se vacía al subir un producto nuevo.
 const cacheCatalogo = new Map();
 
 async function cargarProductos(consulta) {
-    const url = `${SUPABASE_URL}/rest/v1/productos_parkinson?select=${COLUMNAS_TARJETA}&${consulta}`;
+    consulta = añadirFiltroDiscapacidad(consulta);
+    const url = `${SUPABASE_URL}/rest/v1/catalogo_productos?select=${COLUMNAS_TARJETA}&${consulta}`;
     if (cacheCatalogo.has(url)) return cacheCatalogo.get(url);
 
     const respuesta = await fetch(url, {
@@ -39,7 +65,7 @@ async function cargarProductos(consulta) {
 async function completarProducto(prod) {
     if (prod.completo) return;
 
-    const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/productos_parkinson?select=${COLUMNAS_DETALLE}&id=eq.${prod.id}`, {
+    const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/catalogo_productos?select=${COLUMNAS_DETALLE}&id=eq.${prod.id}`, {
         headers: {
             'apikey': SUPABASE_KEY,
             'Authorization': `Bearer ${SUPABASE_KEY}`
@@ -113,7 +139,8 @@ async function abrirCatalogoProductos(boton) {
         `;
 
         try {
-            productosGlobales = await cargarProductos(`categoria=ilike.${encodeURIComponent(tituloCategoria)}&order=fecha.desc`);
+            const termino = encodeURIComponent(`*${tituloCategoria}*`);
+            productosGlobales = await cargarProductos(`or=(categoria1.ilike.${termino},categoria2.ilike.${termino})&order=fecha.desc`);
 
             const btnComercializado = document.getElementById('btn-opcion-2');
             const btnBajoCoste = document.getElementById('btn-opcion-1');
@@ -192,7 +219,6 @@ async function abrirDetalleVerProducto(indiceProducto) {
 
         let cat1 = producto.categoria1 && producto.categoria1 !== "Sin categoría" && producto.categoria1 !== "No seleccionada" ? producto.categoria1 : null;
         let cat2 = producto.categoria2 && producto.categoria2 !== "Sin categoría" && producto.categoria2 !== "No seleccionada" ? producto.categoria2 : null;
-        let cat3 = producto.categoria && producto.categoria !== "Sin categoría" && producto.categoria !== "No seleccionada" ? producto.categoria : null;
 
         // Si existe Nivel 1, permitimos que haga clic para volver a esa categoría
         if (cat1) {
@@ -202,14 +228,6 @@ async function abrirDetalleVerProducto(indiceProducto) {
         // Si existe Nivel 2 y es diferente al Nivel 1
         if (cat2 && cat2 !== cat1) {
             migasHTML += `<span class="miga-separador">&rarr;</span><span class="miga-enlace" onclick="regresarAnterior()">${cat2}</span>`;
-        }
-
-        // Condición de Nivel 3 (Solo para Vestirse o Higiene)
-        if (cat2) {
-            let cat2Lower = cat2.toLowerCase();
-            if ((cat2Lower.includes("vestir") || cat2Lower.includes("higiene")) && cat3 && cat3 !== cat2) {
-                migasHTML += `<span class="miga-separador">&rarr;</span><span class="miga-enlace" onclick="regresarAnterior()">${cat3}</span>`;
-            }
         }
 
         // Título final del producto (como texto actual, sin enlace)
@@ -618,7 +636,7 @@ document.addEventListener('keydown', (evento) => {
 // VALORACIONES: "ME GUSTA" / "NO ME GUSTA"
 // Solo votan los usuarios con sesión iniciada. El voto se guarda en la tabla
 // "valoraciones" (uno por usuario y producto) y la función votar_producto
-// recalcula las columnas me_gusta y no_gusta de productos_parkinson.
+// recalcula las columnas me_gusta y no_gusta de catalogo_productos.
 // (SQL en sql/valoraciones.sql)
 // =========================================================================
 const TEXTOS_VOTO = { me_gusta: 'Me gusta', no_gusta: 'No me gusta' };
@@ -755,126 +773,6 @@ function comprobarSesionYAbrirSubida(elemento) {
     }
 }
 
-// Si el usuario cierra el diálogo sin iniciar sesión, olvidamos el formulario
-// pendiente (para que un inicio de sesión posterior no le lleve allí por sorpresa)
-document.addEventListener('DOMContentLoaded', () => {
-    const modalLogin = document.getElementById('modal-login');
-    if (!modalLogin) return;
-    modalLogin.addEventListener('close', () => {
-        if (localStorage.getItem('sesionIniciada') !== '1') subidaPendienteTrasLogin = null;
-        // Al volver a abrirlo no debe quedar nada en rojo
-        modalLogin.querySelectorAll('.campo-error').forEach(campo => campo.classList.remove('campo-error'));
-        const avisoLogin = document.getElementById('mensaje-error-login-modal');
-        if (avisoLogin) avisoLogin.style.display = 'none';
-    });
-});
-
-
-// =========================================================================
-// INICIO DE SESIÓN EN EL MODAL FLOTANTE
-// =========================================================================
-async function simularInicioSesionModal() {
-    const campoUsuario = document.getElementById('login-usuario-modal');
-    const campoPass = document.getElementById('login-password-modal');
-    const usuarioInput = campoUsuario.value.trim();
-    const pass = campoPass.value.trim();
-    const mensajeError = document.getElementById('mensaje-error-login-modal');
-
-    // Campos vacíos: marcamos en rojo los que faltan y avisamos debajo,
-    // sin cerrar el diálogo
-    campoUsuario.classList.toggle('campo-error', !usuarioInput);
-    campoPass.classList.toggle('campo-error', !pass);
-
-    if (!usuarioInput || !pass) {
-        if (mensajeError) {
-            mensajeError.innerText = !usuarioInput && !pass
-                ? "Falta rellenar el correo o usuario y la contraseña"
-                : !usuarioInput
-                    ? "Falta rellenar el correo o usuario"
-                    : "Falta rellenar la contraseña";
-            mensajeError.style.display = 'block';
-        }
-        (!usuarioInput ? campoUsuario : campoPass).focus();
-        return;
-    }
-
-    if (mensajeError) mensajeError.style.display = 'none';
-
-    try {
-        // Se entra con el correo o con el nombre de usuario. Si no lleva "@"
-        // es un nombre: Supabase nos da el correo de esa cuenta, pero solo si
-        // la contraseña es correcta (función correo_de_usuario, ver
-        // supabase/usuarios_login.sql). También sirve para las cuentas antiguas.
-        let email = usuarioInput.toLowerCase();
-        if (!usuarioInput.includes('@')) {
-            const { data: correo, error: errorCorreo } = await supabase.rpc('correo_de_usuario', {
-                nombre_usuario: usuarioInput,
-                contrasena: pass
-            });
-            if (errorCorreo) throw errorCorreo;
-            if (!correo) throw { code: 'invalid_credentials', message: 'Usuario o contraseña incorrectos' };
-            email = correo;
-        }
-
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: pass
-        });
-
-        if (error) {
-            throw error;
-        }
-
-        localStorage.setItem('sesionIniciada', '1');
-
-        // Nombre visible del usuario: el que puso al registrarse
-        localStorage.setItem('nombreUsuario', nombreVisibleDe(data.user) || usuarioInput);
-
-        // PINTAMOS EL BOTÓN AL INSTANTE
-        if (typeof pintarBotonLogin === 'function') {
-            pintarBotonLogin();
-        }
-
-        if (mensajeError) {
-            mensajeError.style.display = 'none';
-        }
-
-        cerrarModal('modal-login');
-
-        // Si venía de pulsar "bajo coste" o "comercializado", abrimos ese formulario
-        if (subidaPendienteTrasLogin) {
-            const destino = subidaPendienteTrasLogin;
-            subidaPendienteTrasLogin = null;
-            cambiarEstadoslider(destino);
-        }
-
-
-    } catch (e) {
-        console.error("Error de inicio de sesión:", e.message);
-        if (mensajeError) {
-            const rpcUsuarioNoConfigurada = !usuarioInput.includes('@') && (
-                e.code === 'PGRST202'
-                || e.code === '42883'
-                || /correo_de_usuario|schema cache/i.test(e.message || '')
-            );
-            mensajeError.style.display = 'block';
-            mensajeError.innerText = (e.code === 'email_not_confirmed' || /not confirmed/i.test(e.message || ''))
-                ? "Todavía no has confirmado tu correo. Revisa tu bandeja de entrada."
-                : rpcUsuarioNoConfigurada
-                    ? "El acceso con nombre de usuario no está configurado. Ejecuta supabase/usuarios_login.sql en Supabase o inicia sesión con tu correo."
-                : usuarioInput.includes('@')
-                    ? "Correo o contraseña incorrectos"
-                    : "Usuario o contraseña incorrectos";
-        }
-    }
-}
-
-// Nombre que se muestra del usuario ("Subido por ..."): el nombre de usuario
-// guardado al registrarse; en cuentas antiguas, la parte del correo antes de la @
-function nombreVisibleDe(user) {
-    if (!user) return '';
-    return (user.user_metadata && user.user_metadata.nombre) || (user.email || '').split('@')[0];
-}
 
 // =========================================================================
 // OCULTAR LAS CATEGORÍAS QUE NO TIENEN PRODUCTOS
@@ -886,11 +784,10 @@ function nombreVisibleDe(user) {
 const normalizarCategoria = texto => (texto || '').trim().toLowerCase();
 const CATEGORIA_VACIA = ['', 'sin categoría', 'no seleccionada'];
 
-// Ruta de cada producto: [nivel 1, nivel 2, nivel 3], sin huecos ni repetidos
-// (p. ej. "Comer y beber" puede venir en el nivel 2 y en el 3)
+// Ruta de cada producto: [nivel 1, nivel 2], sin huecos ni repetidos.
 function rutaDeProducto(prod) {
     const ruta = [];
-    [prod.categoria1, prod.categoria2, prod.categoria].forEach(cat => {
+    [prod.categoria1, prod.categoria2].forEach(cat => {
         const c = normalizarCategoria(cat);
         if (!CATEGORIA_VACIA.includes(c) && ruta[ruta.length - 1] !== c) ruta.push(c);
     });
@@ -900,7 +797,8 @@ function rutaDeProducto(prod) {
 async function actualizarCategoriasVisibles() {
     let productos;
     try {
-        const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/productos_parkinson?select=categoria1,categoria2,categoria`, {
+        const discapacidadJson = encodeURIComponent(JSON.stringify([TIPO_DISCAPACIDAD_CATALOGO]));
+        const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/catalogo_productos?select=categoria1,categoria2&discapacidad=cs.${discapacidadJson}`, {
             headers: {
                 'apikey': SUPABASE_KEY,
                 'Authorization': `Bearer ${SUPABASE_KEY}`

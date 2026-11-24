@@ -201,12 +201,6 @@ async function validarYPublicar(elemento) {
             registrarError(txtN2Baj ? txtN2Baj.closest('button') : vistaActual, ".guia-card");
         }
 
-        // 3. Validar Categoría 3 (Bajo coste)
-        const txtN3Baj = document.getElementById('valor-n3');
-        if (!txtN3Baj || txtN3Baj.innerText.toLowerCase().includes("no seleccionada")) {
-            registrarError(txtN3Baj ? txtN3Baj.closest('button') : vistaActual, ".guia-card");
-        }
-
         const txtTiempo = document.getElementById('valor-tiempo');
         if (!txtTiempo || txtTiempo.innerText.toLowerCase().includes("no seleccionada")) registrarError(txtTiempo ? txtTiempo.closest('button') : vistaActual, "#seccion-filt");
 
@@ -291,11 +285,6 @@ async function validarYPublicar(elemento) {
             registrarError(txtN2Com ? txtN2Com.closest('button') : vistaActual, ".guia-card");
         }
 
-        // 3. Validar Categoría 3 (Comercializado)
-        const txtN3Com = document.getElementById('valor-n3-com');
-        if (!txtN3Com || txtN3Com.innerText.toLowerCase().includes("no seleccionada")) {
-            registrarError(txtN3Com ? txtN3Com.closest('button') : vistaActual, ".guia-card");
-        }
     }
 
 
@@ -326,8 +315,8 @@ async function validarYPublicar(elemento) {
         const dificultadFinal = document.getElementById('valor-dificultad').innerText;
         const precioFinal = document.getElementById('valor-precio').innerText;
         const tiempoFinal = document.getElementById('valor-tiempo').innerText;
-        const tiposDiscapacidadFinal = Array.from(vistaActual.querySelectorAll('#tipo-discapacidad-baj input[type="checkbox"]:checked'))
-            .map(input => input.value);
+        const discapacidadFinal = Array.from(vistaActual.querySelectorAll('#tipo-discapacidad-baj input[type="checkbox"]:checked'))
+            .map(input => input.value.toLowerCase());
 
         // <-- NUEVO: Recoger Categoría 1 y 2 para Bajo Coste
         const spanNivel1 = vistaActual.querySelector('#valor-n1');
@@ -335,10 +324,6 @@ async function validarYPublicar(elemento) {
 
         const spanNivel2 = vistaActual.querySelector('#valor-n2');
         const categoria2Final = spanNivel2 ? spanNivel2.innerText.trim() : "Sin categoría";
-
-        // Nivel 3 (Ya lo tenías)
-        const spanNivel3 = vistaActual.querySelector('#valor-n3');
-        const categoriaFinal = spanNivel3 ? spanNivel3.innerText.trim() : "Sin categoría";
 
         let arrayMateriales = [];
         vistaActual.querySelectorAll('#lista-materiales .material-item').forEach((nodo) => {
@@ -368,7 +353,7 @@ async function validarYPublicar(elemento) {
             const fechaActual = new Date().toISOString();
 
             const { data, error } = await supabase
-                .from('productos_parkinson')
+                .from('catalogo_productos')
                 .insert([
                     {
                         titulo: tituloFinal,
@@ -377,10 +362,9 @@ async function validarYPublicar(elemento) {
                         dificultad: dificultadFinal,
                         precio: precioFinal,
                         tiempo: tiempoFinal,
-                        tipo_discapacidad: tiposDiscapacidadFinal,
+                        discapacidad: discapacidadFinal,
                         categoria1: categoria1Final, // <-- NUEVO
                         categoria2: categoria2Final, // <-- NUEVO
-                        categoria: categoriaFinal,
                         materiales: arrayMateriales,
                         conclusiones: conclusionesFinal,
                         pasos: arrayPasos,
@@ -435,11 +419,8 @@ async function validarYPublicar(elemento) {
         const spanNivel2Com = document.getElementById('valor-n2-com');
         const categoria2Final = spanNivel2Com ? spanNivel2Com.innerText.trim() : "Sin categoría";
 
-        // Recogemos la categoría final del nivel 3 comercializado (Ya lo tenías)
-        const spanNivel3Com = document.getElementById('valor-n3-com');
-        const categoriaFinal = spanNivel3Com ? spanNivel3Com.innerText.trim() : "Sin categoría";
-        const tiposDiscapacidadFinal = Array.from(vistaActual.querySelectorAll('#tipo-discapacidad-com input[type="checkbox"]:checked'))
-            .map(input => input.value);
+        const discapacidadFinal = Array.from(vistaActual.querySelectorAll('#tipo-discapacidad-com input[type="checkbox"]:checked'))
+            .map(input => input.value.toLowerCase());
 
         // Recogemos el enlace
         const textareas = vistaActual.querySelectorAll('textarea');
@@ -457,15 +438,14 @@ async function validarYPublicar(elemento) {
             const fechaActual = new Date().toISOString();
 
             const { data, error } = await supabase
-                .from('productos_parkinson')
+                .from('catalogo_productos')
                 .insert([
                     {
                         titulo: tituloFinal,
                         precio: precioFinal,
                         categoria1: categoria1Final, // <-- NUEVO
                         categoria2: categoria2Final, // <-- NUEVO
-                        categoria: categoriaFinal,
-                        tipo_discapacidad: tiposDiscapacidadFinal,
+                        discapacidad: discapacidadFinal,
                         imagen_url: imgPrincipal,
                         descripcion: descripcionFinal,
                         enlace: enlaceFinal,
@@ -778,7 +758,8 @@ async function ejecutarBusquedaTexto(event, inputElement) {
         let textoMiga = "Búsqueda global";
 
         if (tituloVista && tituloVista.toLowerCase() !== "ver productos" && tituloVista.toLowerCase() !== "cargando...") {
-            url += `&categoria1=ilike.*${encodeURIComponent(tituloVista)}*`;
+            const categoriaVista = encodeURIComponent(`*${tituloVista}*`);
+            url += `&or=(categoria1.ilike.${categoriaVista},categoria2.ilike.${categoriaVista})`;
             textoMiga = `Búsqueda en ${tituloVista}`;
         }
 
