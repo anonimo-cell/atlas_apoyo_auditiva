@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atlas de apoyo Parkinson</title>
+  <title>Atlas de apoyo Auditiva</title>
   <link rel="preconnect" href="https://wdjpqqhxyzrhdbvrumav.supabase.co" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="icon" type="image/svg+xml" href="logo.svg">
@@ -30,10 +30,10 @@
         <path d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
-    <!--Pulsar el logo o "Atlas de apoyo Parkinson" lleva al inicio (Ver productos)-->
-    <button type="button" class="marca-movil" aria-label="Atlas de apoyo Parkinson, ir al inicio" onclick="regresarvolver(1)">
+    <!--Pulsar el logo o "Atlas de apoyo Auditiva" lleva al inicio (Ver productos)-->
+    <button type="button" class="marca-movil" aria-label="Atlas de apoyo Auditiva, ir al inicio" onclick="regresarvolver(1)">
       <img src="logo-atlas-de-apoyo.svg" alt="" class="marca-movil-logo">
-      <span class="marca-movil-nombre">Parkinson<svg aria-hidden="true" focusable="false" viewBox="26 18 46 76" height="32" width="19" style="vertical-align: middle; margin-left: 10px;" fill="currentColor"><path d="M50 58 V90" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M50 82 C40 80 33 72 31 62 C42 64 48 71 50 82 Z"/><path d="M50 75 C59 71 65 64 67 55 C58 57 52 64 50 75 Z"/><path d="M33 24 L42 36 L50 20 L58 36 L67 24 C70 44 63 59 50 59 C37 59 30 44 33 24 Z"/></svg></span>
+      <span class="marca-movil-nombre">Auditiva<svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" width="32" height="32" style="vertical-align: middle; margin-left: 10px;"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"><path d="M17 29c1-13 9-21 20-21 12 0 20 9 20 21 0 8-4 13-9 18-4 4-5 7-6 12-1 5-5 8-10 8-6 0-10-4-10-10"/><path d="M26 29c1-6 5-10 11-10 6 0 10 5 10 11 0 4-2 7-6 10-3 3-4 6-4 9"/><path d="M7 56 57 6"/></g></svg></span>
     </button>
   </div>
 
@@ -41,10 +41,10 @@
     <!--PARAMETROS BÁSICOS-->
     <!--ESLOGAN-->
     <header class="barra-superior-login">
-      <button type="button" class="eslogan-barra" aria-label="Atlas de apoyo Parkinson, ir al inicio"
+      <button type="button" class="eslogan-barra" aria-label="Atlas de apoyo Auditiva, ir al inicio"
         onclick="regresarvolver(1)">
         <img src="logo-atlas-de-apoyo-claro.svg" alt="" class="logo-barra">
-        <span class="titulo-menu-acce-claro">Atlas de apoyo Parkinson<svg aria-hidden="true" focusable="false" viewBox="26 18 46 76" height="38" width="23" style="vertical-align: middle; margin-left: 10px;" fill="currentColor"><path d="M50 58 V90" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M50 82 C40 80 33 72 31 62 C42 64 48 71 50 82 Z"/><path d="M50 75 C59 71 65 64 67 55 C58 57 52 64 50 75 Z"/><path d="M33 24 L42 36 L50 20 L58 36 L67 24 C70 44 63 59 50 59 C37 59 30 44 33 24 Z"/></svg></span>
+        <span class="titulo-menu-acce-claro">Atlas de apoyo Auditiva<svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" width="40" height="40" style="vertical-align: middle; margin-left: 10px;"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"><path d="M17 29c1-13 9-21 20-21 12 0 20 9 20 21 0 8-4 13-9 18-4 4-5 7-6 12-1 5-5 8-10 8-6 0-10-4-10-10"/><path d="M26 29c1-6 5-10 11-10 6 0 10 5 10 11 0 4-2 7-6 10-3 3-4 6-4 9"/><path d="M7 56 57 6"/></g></svg></span>
       </button>
       <div class="botones-login-container">
         <!--id="btn-header-sesion"-->
@@ -57,7 +57,7 @@
     </header>
     <button type="button" id="btn-top-accesibilidad" class="btn-top-acce" aria-haspopup="dialog"
       onclick="abrirModal('modal-acce-mas')">
-      <img src="../atlas_apoyo_compartido/svg/accesibilidad/acces.svg" alt="" class="cap-icon-acce-top">
+      <img src="../atlas_apoyo_compartido/svg/accesibilidad/silla.svg" alt="" class="cap-icon-acce-top">
       <span>Menú de accesibilidad</span>
     </button>
     <button type="button" id="btn-scroll-ayuda" class="btn-scroll-ayuda" aria-haspopup="dialog"
@@ -66,11 +66,12 @@
       <span>Menú de ayuda</span>
     </button>
     <!--MENÚ DE LATERAL DERECHO (el primero abre el menú de accesibilidad)-->
-    <aside class="lateral_izq" aria-label="Accesibilidad e información sobre Atlas de apoyo Parkinson">
+    <aside class="lateral_izq" aria-label="Accesibilidad e información sobre Atlas de apoyo Auditiva">
       <div class="grid-lateral-izq">
         <button type="button" class="side-btn-dech" aria-haspopup="dialog" onclick="abrirModal('modal-acce-mas')">
           <span class="cabecera-izq">
-            <img src="../atlas_apoyo_compartido/svg/accesibilidad/acces.svg" class="cap-icon-izq" alt="">
+            <img src="../atlas_apoyo_compartido/svg/accesibilidad/silla.svg" class="cap-icon-izq icono-acce-lateral" alt="">
+            <span class="pila-acce-lateral" aria-hidden="true"><span class="txt-acce-lateral">Accesibilidad</span><img src="../atlas_apoyo_compartido/svg/accesibilidad/silla.svg" class="icono-silla-lateral" alt=""></span>
             <span class="btn-titulo-izq">Menú de accesibilidad</span>
           </span>
         </button>
@@ -149,15 +150,13 @@
           <button type="button" class="btn-subir" data-vista="vista-prod-baj"
             onclick="comprobarSesionYAbrirSubida(this)">
             <span class="btn-titulo-subir">Producto de bajo coste</span>
-            <span class="btn-frase-subir">Sube un tutorial de un invento casero que te haya ayudado con algún síntoma
-              del Parkinson</span>
+            <span class="btn-frase-subir">Sube un tutorial de un invento casero que te haya ayudado en tu día a día con la discapacidad auditiva</span>
             <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/subir/hacer.png" class="cap-icon-subir" alt="">
           </button>
           <button type="button" class="btn-subir" data-vista="vista-prod-com"
             onclick="comprobarSesionYAbrirSubida(this)">
             <span class="btn-titulo-subir">Producto de apoyo comercializado</span>
-            <span class="btn-frase-subir">Sube un producto que hayas comprado y te haya ayudado con algún síntoma del
-              Parkinson</span>
+            <span class="btn-frase-subir">Sube un producto que hayas comprado y te haya ayudado en tu día a día con la discapacidad auditiva</span>
             <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/subir/comprar.png" class="cap-icon-subir" alt="">
           </button>
         </div>
@@ -295,16 +294,6 @@
                 </button>
               </span>
             </summary>
-            <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-baj">
-              <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
-              <div class="tipo-discapacidad-opciones">
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Auditiva"><span>Auditiva</span><img src="../atlas_apoyo_compartido/svg/discapacidad/auditiva.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Motriz"><span>Motriz</span><img src="../atlas_apoyo_compartido/svg/discapacidad/motriz.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Cognitiva"><span>Cognitiva</span><img src="../atlas_apoyo_compartido/svg/discapacidad/cognitiva.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Visual"><span>Visual</span><img src="../atlas_apoyo_compartido/svg/discapacidad/visual.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Parkinson"><span>Parkinson</span><img src="../atlas_apoyo_compartido/svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
-              </div>
-            </fieldset>
             <div class="contenedor-categoria">
               <button type="button" class="btn-cate" onclick="abrirModalCate1()">
                 <span class="btn-cate-txt">Categoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
@@ -320,6 +309,16 @@
 
             </div>
             <p id="aviso-categoria" class="mensaje-error-campo" role="alert" hidden></p>
+            <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-baj">
+              <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
+              <div class="tipo-discapacidad-opciones">
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Auditiva"><span>Auditiva</span><img src="../atlas_apoyo_compartido/svg/discapacidad/auditiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Motriz"><span>Motriz</span><img src="../atlas_apoyo_compartido/svg/discapacidad/motriz.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Cognitiva"><span>Cognitiva</span><img src="../atlas_apoyo_compartido/svg/discapacidad/cognitiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Visual"><span>Visual</span><img src="../atlas_apoyo_compartido/svg/discapacidad/visual.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Parkinson"><span>Parkinson</span><img src="../atlas_apoyo_compartido/svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
+              </div>
+            </fieldset>
           </details>
           <!--MATERIALES-->
           <details id="seccion-materiales">
@@ -452,24 +451,16 @@
           </div>
         </div>
         <div class="acordeon-form">
-          <!--TITULO,IMAGEN, FILTRO-->
+          <!--NOMBRE, DESCRIPCIÓN E IMAGEN-->
           <div class="guia-card">
             <div class="paso-item">
               <div class="paso-columna-texto">
                 <label>Nombre:<span class="marca-obligatorio" aria-hidden="true">*</span>
                   <input type="text" class="input-moderno" placeholder="Nombre del producto" maxlength="30" aria-required="true">
                 </label>
-                <label id="titulo-precio-com">Precio:<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></label>
-                <div class="contenedor-slider-filtros" style="display: flex; gap: 10px;" id="precio-com" role="group" aria-labelledby="titulo-precio-com">
-                  <button type="button" class="btn-filtro"
-                    onclick="cambiarOpcionPrecioComercializado(this, 'Bajo')">Bajo (hasta 20 €)</button>
-                  <button type="button" class="btn-filtro"
-                    onclick="cambiarOpcionPrecioComercializado(this, 'Medio')">Medio (20-50 €)</button>
-                  <button type="button" class="btn-filtro"
-                    onclick="cambiarOpcionPrecioComercializado(this, 'Alto')">Alto (más de 50 €)</button>
-                </div>
-                <!-- Elemento oculto o span para guardar el valor seleccionado para la validación -->
-                <span id="valor-precio-comercializado" style="display: none;">No seleccionada</span>
+                <label>Descripción:<span class="marca-obligatorio" aria-hidden="true">*</span>
+                  <textarea id="descripcion-com" class="input-moderno" placeholder="Breve descripción..." maxlength="300" aria-required="true"></textarea>
+                </label>
               </div>
 
               <div class="paso-columna-imagen">
@@ -485,6 +476,34 @@
                 </div>
               </div>
             </div>
+
+            <!--PRECIO (en euros)-->
+            <div class="form-row">
+              <label for="precio-com-euros">Precio en euros:<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></label>
+              <div class="campo-precio-euros">
+                <input type="number" id="precio-com-euros" class="input-moderno" min="0" max="100000" step="0.01"
+                  inputmode="decimal" placeholder="Por ejemplo: 25" aria-required="true" aria-describedby="ayuda-precio-com">
+                <span aria-hidden="true">€</span>
+              </div>
+              <p id="ayuda-precio-com" class="ayuda-precio">Escribe lo que te costó, aunque sea aproximado.</p>
+            </div>
+
+            <!--CATEGORÍAS-->
+            <div class="contenedor-categoria" id="categoria-sele" role="group" aria-label="Categoría">
+              <button type="button" class="btn-cate" onclick="abrirModalCate1('-com')">
+                <span class="btn-cate-txt">Categoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
+                <span id="valor-n1-com" class="btn-sele-filt">No seleccionada</span>
+                <img loading="lazy" decoding="async" id="icono-elegido-n1-com" class="cap-icon-cate" src="" alt=""
+                  style="display: none;">
+              </button>
+              <button type="button" class="btn-cate" onclick="abrirModalNivel2('-com')">
+                <span class="btn-cate-txt">Subcategoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
+                <span id="valor-n2-com" class="btn-sele-filt">No seleccionada</span>
+                <img loading="lazy" decoding="async" id="icono-elegido-n2-com" class="cap-icon-cate" src="" alt=""
+                  style="display: none;">
+              </button>
+            </div>
+            <p id="aviso-categoria-com" class="mensaje-error-campo" role="alert" hidden></p>
             <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-com">
               <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
               <div class="tipo-discapacidad-opciones">
@@ -495,32 +514,10 @@
                 <label><input type="checkbox" name="tipo-discapacidad-com" value="Parkinson"><span>Parkinson</span><img src="../atlas_apoyo_compartido/svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
               </div>
             </fieldset>
-            <div class="form-row">
-              <label id="titulo-categoria-sele">Categoría:<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></label>
-              <div class="contenedor-categoria" id="categoria-sele" role="group" aria-labelledby="titulo-categoria-sele">
-                <button type="button" class="btn-cate" onclick="abrirModalCate1('-com')">
-                  <span class="btn-cate-txt">Categoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
-                  <span id="valor-n1-com" class="btn-sele-filt">No seleccionada</span>
-                  <img loading="lazy" decoding="async" id="icono-elegido-n1-com" class="cap-icon-cate" src="" alt=""
-                    style="display: none;">
-                </button>
-                <button type="button" class="btn-cate" onclick="abrirModalNivel2('-com')">
-                  <span class="btn-cate-txt">Subcategoría<span class="marca-obligatorio" aria-hidden="true">*</span><span class="sr-only"> (obligatorio)</span></span>
-                  <span id="valor-n2-com" class="btn-sele-filt">No seleccionada</span>
-                  <img loading="lazy" decoding="async" id="icono-elegido-n2-com" class="cap-icon-cate" src="" alt=""
-                    style="display: none;">
-                </button>
-              </div>
-            </div>
-            <p id="aviso-categoria-com" class="mensaje-error-campo" role="alert" hidden></p>
-            <div class="form-row">
-              <label>Descripción:<span class="marca-obligatorio" aria-hidden="true">*</span>
-                <textarea class="input-moderno" placeholder="Breve descripción..." maxlength="300" aria-required="true"></textarea>
-              </label>
-            </div>
+            <!--FORMA DE COMPRA-->
             <div class="form-row">
               <label>Forma de compra:<span class="marca-obligatorio" aria-hidden="true">*</span>
-                <textarea class="input-moderno" placeholder="¿Cómo lo has comprado?" maxlength="400" aria-required="true"></textarea>
+                <textarea id="compra-com" class="input-moderno" placeholder="¿Cómo lo has comprado?" maxlength="400" aria-required="true"></textarea>
               </label>
             </div>
           </div>
@@ -558,7 +555,7 @@
           <h1 id="texto-exito-publicado" class="confirmacion-titulo">Producto subido con éxito</h1>
           <p class="confirmacion-texto">
             Gracias por compartir tu experiencia. Lo que has subido puede ayudar a otras personas
-            con Parkinson, a sus familias y a sus terapeutas.
+            con discapacidad auditiva, a sus familias y a sus terapeutas.
           </p>
           <div class="confirmacion-botones">
             <button id="btn-volver-publicado" type="button" onclick="regresarvolver(2)" class="btn-confirmacion-principal">
