@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="atlas-discapacidad" content="Parkinson">
   <title>Atlas de apoyo Parkinson</title>
   <link rel="preconnect" href="https://wdjpqqhxyzrhdbvrumav.supabase.co" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -58,12 +57,12 @@
     </header>
     <button type="button" id="btn-top-accesibilidad" class="btn-top-acce" aria-haspopup="dialog"
       onclick="abrirModal('modal-acce-mas')">
-      <img src="svg/accesibilidad/acces.svg" alt="" class="cap-icon-acce-top">
+      <img src="../atlas_apoyo_compartido/svg/accesibilidad/acces.svg" alt="" class="cap-icon-acce-top">
       <span>Menú de accesibilidad</span>
     </button>
     <button type="button" id="btn-scroll-ayuda" class="btn-scroll-ayuda" aria-haspopup="dialog"
       onclick="abrirModal('modal-menu-ayuda')">
-      <img src="svg/lat_dech/ayuda.svg" alt="" class="cap-icon-ayuda-scroll">
+      <img src="../atlas_apoyo_compartido/svg/lat_dech/ayuda.svg" alt="" class="cap-icon-ayuda-scroll">
       <span>Menú de ayuda</span>
     </button>
     <!--MENÚ DE LATERAL DERECHO (el primero abre el menú de accesibilidad)-->
@@ -71,25 +70,25 @@
       <div class="grid-lateral-izq">
         <button type="button" class="side-btn-dech" aria-haspopup="dialog" onclick="abrirModal('modal-acce-mas')">
           <span class="cabecera-izq">
-            <img src="svg/accesibilidad/acces.svg" class="cap-icon-izq" alt="">
+            <img src="../atlas_apoyo_compartido/svg/accesibilidad/acces.svg" class="cap-icon-izq" alt="">
             <span class="btn-titulo-izq">Menú de accesibilidad</span>
           </span>
         </button>
         <button type="button" class="side-btn-dech" onclick="abrirModal('modal-info')">
           <span class="cabecera-izq">
-            <img src="svg/lat_dech/info.svg" class="cap-icon-izq" alt="">
+            <img src="../atlas_apoyo_compartido/svg/lat_dech/info.svg" class="cap-icon-izq" alt="">
             <span class="btn-titulo-izq">Información</span>
           </span>  
         </button>
         <button type="button" class="side-btn-dech" onclick="abrirModal('modal-contacto')">
           <span class="cabecera-izq">
-            <img src="svg/lat_dech/gmail.svg" class="cap-icon-izq" alt="">
+            <img src="../atlas_apoyo_compartido/svg/lat_dech/gmail.svg" class="cap-icon-izq" alt="">
             <span class="btn-titulo-izq">Contacto</span>
           </span>
         </button>
         <button type="button" class="side-btn-dech" onclick="abrirModal('modal-agradecimientos')">
           <span class="cabecera-izq">
-            <img src="svg/lat_dech/agradecimientos.svg" class="cap-icon-izq" alt="">
+            <img src="../atlas_apoyo_compartido/svg/lat_dech/agradecimientos.svg" class="cap-icon-izq" alt="">
             <span class="btn-titulo-izq">Agradecimientos</span>
           </span>
         </button>
@@ -101,7 +100,7 @@
     <nav class="multi-slider" aria-label="Menú principal">
       <button type="button" class="btn-menu" data-vista="vista-subir" onclick="cambiarEstadoslider(this)">
         <span class="btn-icono-contenedor">
-          <img src="svg/menu/subir.svg" class="cap-icon-menu" alt="">
+          <img src="../atlas_apoyo_compartido/svg/menu/subir.svg" class="cap-icon-menu" alt="">
         </span>
         <span class="btn-textos-contenedor-menu">
           <span class="btn-titulo-menu"><span class="texto-largo-menu">Compartir productos</span><span class="texto-corto-menu">Compartir productos</span></span>
@@ -110,7 +109,7 @@
       <button type="button" class="btn-menu active" data-vista="vista-ver" aria-current="page"
         onclick="cambiarEstadoslider(this)">
         <span class="btn-icono-contenedor-menu">
-          <img src="svg/menu/ver.png" class="cap-icon-menu" alt="">
+          <img src="../atlas_apoyo_compartido/svg/menu/ver.png" class="cap-icon-menu" alt="">
         </span>
         <span class="btn-textos-contenedor-menu">
           <span class="btn-titulo-menu">Ver productos</span>
@@ -129,7 +128,7 @@
               <!-- Etiqueta real para WAVE, oculta visualmente pero leída por lectores de pantalla -->
               <label for="input-busqueda-id" class="sr-only">Buscar producto</label>
 
-              <img src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
+              <img src="../atlas_apoyo_compartido/svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
 
               <input type="text" id="input-busqueda-id" class="input-busqueda" aria-label="Buscar producto"
                 placeholder="Buscar producto" maxlength="20" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
@@ -139,32 +138,7 @@
           </div>
         </div>
         <div class="categorias">
-          <div class="grid-capsulas">
-            <button type="button" class="btn-cate" data-vista="vista-autonomia" onclick="seleccionarCategoria1(this)">
-              <span class="btn-cate-txt">Autonomía y cuidado</span>
-              <img src="svg/cate/auto/auto.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" data-vista="vista-movilidad" onclick="seleccionarCategoria1(this)">
-              <span class="btn-cate-txt">Movilidad</span>
-              <img src="svg/cate/movilidad/mover.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" data-vista="vista-comunica" onclick="seleccionarCategoria1(this)">
-              <span class="btn-cate-txt">Comunicación</span>
-              <img src="svg/cate/comunica/comunicación.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" data-vista="vista-productividad" onclick="seleccionarCategoria1(this)">
-              <span class="btn-cate-txt">Tareas cotidianas</span>
-              <img src="svg/cate/tareas/tareas.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" data-vista="vista-ocio" onclick="seleccionarCategoria1(this)">
-              <span class="btn-cate-txt">Ocio</span>
-              <img src="svg/cate/ocio/ocio.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Otros</span>
-              <img src="svg/cate/otros.svg" class="cap-icon-cate" alt="">
-            </button>
-          </div>
+          <div class="grid-capsulas" id="lista-categorias"></div>
         </div>
       </div>
     </div>
@@ -177,14 +151,14 @@
             <span class="btn-titulo-subir">Producto de bajo coste</span>
             <span class="btn-frase-subir">Sube un tutorial de un invento casero que te haya ayudado con algún síntoma
               del Parkinson</span>
-            <img loading="lazy" decoding="async" src="svg/subir/hacer.png" class="cap-icon-subir" alt="">
+            <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/subir/hacer.png" class="cap-icon-subir" alt="">
           </button>
           <button type="button" class="btn-subir" data-vista="vista-prod-com"
             onclick="comprobarSesionYAbrirSubida(this)">
             <span class="btn-titulo-subir">Producto de apoyo comercializado</span>
             <span class="btn-frase-subir">Sube un producto que hayas comprado y te haya ayudado con algún síntoma del
               Parkinson</span>
-            <img loading="lazy" decoding="async" src="svg/subir/comprar.png" class="cap-icon-subir" alt="">
+            <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/subir/comprar.png" class="cap-icon-subir" alt="">
           </button>
         </div>
       </div>
@@ -201,12 +175,12 @@
             </nav>
             <button type="button" class="btn-volver" onclick="regresarvolver(2)">
               <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 <span class="texto-nav-seccion">Volver</span>
               </span>
             </button>
             <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/subir/hacer.png" class="cap-icon-linea-superior" alt="">
+              <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/subir/hacer.png" class="cap-icon-linea-superior" alt="">
               <div class="text-linea-superior">
                 <h1 class="titulo-linea-superior">Formulario de producto de bajo coste</h1>
               </div>
@@ -221,7 +195,7 @@
               <span class="summary-navegacion">
                 <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-filt')">
-                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
                 </button>
               </span>
             </summary>
@@ -261,11 +235,11 @@
               <span class="summary-navegacion">
                 <button type="button" class="btn-siguiente" aria-label="Sección anterior"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-info')">
-                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 </button>
                 <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-cate')">
-                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
                 </button>
               </span>
             </summary>
@@ -313,22 +287,22 @@
               <span class="summary-navegacion">
                 <button type="button" class="btn-siguiente" aria-label="Sección anterior"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-filt')">
-                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 </button>
                 <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-materiales')">
-                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
                 </button>
               </span>
             </summary>
             <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-baj">
               <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
               <div class="tipo-discapacidad-opciones">
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Auditiva"><span>Auditiva</span><img src="svg/discapacidad/auditiva.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Motriz"><span>Motriz</span><img src="svg/discapacidad/motriz.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Cognitiva"><span>Cognitiva</span><img src="svg/discapacidad/cognitiva.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Visual"><span>Visual</span><img src="svg/discapacidad/visual.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Parkinson" checked><span>Parkinson</span><img src="svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Auditiva"><span>Auditiva</span><img src="../atlas_apoyo_compartido/svg/discapacidad/auditiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Motriz"><span>Motriz</span><img src="../atlas_apoyo_compartido/svg/discapacidad/motriz.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Cognitiva"><span>Cognitiva</span><img src="../atlas_apoyo_compartido/svg/discapacidad/cognitiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Visual"><span>Visual</span><img src="../atlas_apoyo_compartido/svg/discapacidad/visual.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-baj" value="Parkinson"><span>Parkinson</span><img src="../atlas_apoyo_compartido/svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
               </div>
             </fieldset>
             <div class="contenedor-categoria">
@@ -354,11 +328,11 @@
               <span class="summary-navegacion">
                 <button type="button" class="btn-siguiente" aria-label="Sección anterior"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-cate')">
-                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 </button>
                 <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-pasos')">
-                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
                 </button>
               </span>
             </summary>
@@ -381,11 +355,11 @@
               <span class="summary-navegacion">
                 <button type="button" class="btn-siguiente" aria-label="Sección anterior"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-materiales')">
-                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 </button>
                 <button type="button" class="btn-siguiente" aria-label="Siguiente sección"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-conclusiones')">
-                  <img loading="lazy" decoding="async" src="svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/siguiente.svg" class="icon-btn-volver" alt="">
                 </button>
               </span>
             </summary>
@@ -433,7 +407,7 @@
               <span class="summary-navegacion">
                 <button type="button" class="btn-siguiente" aria-label="Sección anterior"
                   onclick="event.preventDefault(); event.stopPropagation(); siguienteSeccion('seccion-pasos')">
-                  <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                  <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 </button>
               </span>
             </summary>
@@ -465,12 +439,12 @@
 
             <button type="button" class="btn-volver" onclick="regresarvolver(2)">
               <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 <span class="texto-nav-seccion">Volver</span>
               </span>
             </button>
             <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/subir/comprar.png" class="cap-icon-linea-superior" alt="">
+              <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/subir/comprar.png" class="cap-icon-linea-superior" alt="">
               <div class="text-linea-superior">
                 <h1 class="titulo-linea-superior">Formulario de Producto comercializado </h1>
               </div>
@@ -514,11 +488,11 @@
             <fieldset class="tipo-discapacidad-campo" id="tipo-discapacidad-com">
               <legend>Tipo de discapacidad en la que ayuda:<span class="marca-obligatorio" aria-hidden="true">*</span></legend>
               <div class="tipo-discapacidad-opciones">
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Auditiva"><span>Auditiva</span><img src="svg/discapacidad/auditiva.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Motriz"><span>Motriz</span><img src="svg/discapacidad/motriz.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Cognitiva"><span>Cognitiva</span><img src="svg/discapacidad/cognitiva.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Visual"><span>Visual</span><img src="svg/discapacidad/visual.svg" alt="" aria-hidden="true"></label>
-                <label><input type="checkbox" name="tipo-discapacidad-com" value="Parkinson" checked><span>Parkinson</span><img src="svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Auditiva"><span>Auditiva</span><img src="../atlas_apoyo_compartido/svg/discapacidad/auditiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Motriz"><span>Motriz</span><img src="../atlas_apoyo_compartido/svg/discapacidad/motriz.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Cognitiva"><span>Cognitiva</span><img src="../atlas_apoyo_compartido/svg/discapacidad/cognitiva.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Visual"><span>Visual</span><img src="../atlas_apoyo_compartido/svg/discapacidad/visual.svg" alt="" aria-hidden="true"></label>
+                <label><input type="checkbox" name="tipo-discapacidad-com" value="Parkinson"><span>Parkinson</span><img src="../atlas_apoyo_compartido/svg/discapacidad/parkinson.svg" alt="" aria-hidden="true"></label>
               </div>
             </fieldset>
             <div class="form-row">
@@ -645,7 +619,7 @@
 
             <button type="button" class="btn-volver" onclick="regresarAnterior()">
               <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 <span class="texto-nav-seccion">Volver</span>
               </span>
             </button>
@@ -720,7 +694,7 @@
 
             <button type="button" class="btn-volver" onclick="regresarAnterior()">
               <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 <span class="texto-nav-seccion">Volver</span>
               </span>
             </button>
@@ -767,350 +741,6 @@
       </div>
     </div>
 
-    <!--NIVEL 1-->
-    <div id="vista-autonomia" class="subvista-contenido" style="display: none;">
-      <div class="contenedor-dinamico">
-        <div class="linea_superior">
-          <div class="grid-linea-superior">
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-enlace" onclick="regresarvolver(1)">Ver Productos</span>
-              <span class="miga-separador">&rarr;</span>
-              <span class="miga-actual">Autonomía y cuidado</span>
-            </nav>
-            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
-              <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                <span class="texto-nav-seccion">Volver</span>
-              </span>
-            </button>
-            <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/cate/auto/auto.png" class="cap-icon-linea-superior" alt=""
-               >
-              <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior">Autonomía y cuidado </h1>
-              </div>
-            </div>
-
-            <div class="caja-contenedor-busqueda" role="search">
-              <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" placeholder="Buscar producto"
-                aria-label="Buscar producto" maxlength="20" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
-              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
-            </div>
-          </div>
-        </div>
-        <div class="categorias">
-          <div class="grid-capsulas">
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Higiene</span>
-              <img loading="lazy" decoding="async" src="svg/cate/auto/higiene/higiene.png" class="cap-icon-cate" alt="">
-            </button>
-
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Comer y beber</span>
-              <img loading="lazy" decoding="async" src="svg/cate/auto/alimentacion/comer.png" class="cap-icon-cate" alt="">
-            </button>
-
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Vestirse</span>
-              <img loading="lazy" decoding="async" src="svg/cate/auto/vestirse/ropa.png" class="cap-icon-cate" alt="">
-            </button>
-
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Medicación</span>
-              <img loading="lazy" decoding="async" src="svg/cate/auto/medi/medicamento.png" class="cap-icon-cate" alt="">
-            </button>
-
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Otros</span>
-              <img loading="lazy" decoding="async" src="svg/cate/otros.svg" class="cap-icon-cate" alt="">
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="vista-ocio" class="subvista-contenido" style="display: none;">
-      <div class="contenedor-dinamico">
-        <div class="linea_superior">
-          <div class="grid-linea-superior">
-
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-enlace" onclick="regresarvolver(1)">Ver Productos</span>
-              <span class="miga-separador">&rarr;</span>
-              <span class="miga-actual">Ocio</span>
-            </nav>
-
-            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
-              <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                <span class="texto-nav-seccion">Volver</span>
-              </span>
-            </button>
-            <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/cate/ocio/ocio.png" class="cap-icon-linea-superior" alt="">
-              <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior">Ocio </h1>
-              </div>
-            </div>
-
-            <div class="caja-contenedor-busqueda" role="search">
-              <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" placeholder="Buscar producto"
-                aria-label="Buscar producto" maxlength="20" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
-              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
-            </div>
-
-          </div>
-        </div>
-        <div class="categorias">
-          <div class="grid-capsulas">
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Juegos</span>
-              <img loading="lazy" decoding="async" src="svg/cate/ocio/juegos.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Deportes</span>
-              <img loading="lazy" decoding="async" src="svg/cate/ocio/deporte.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Escritura</span>
-              <img loading="lazy" decoding="async" src="svg/cate/ocio/escribir.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Aprendizaje</span>
-              <img loading="lazy" decoding="async" src="svg/cate/ocio/aprender.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Manualidades</span>
-              <img loading="lazy" decoding="async" src="svg/cate/ocio/manualidades.png" class="cap-icon-cate" alt="">
-            </button>
-
-            <button type="button" class="btn-cate" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Otros</span>
-              <img loading="lazy" decoding="async" src="svg/cate/otros.svg" class="cap-icon-cate" alt="">
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="vista-movilidad" class="subvista-contenido" style="display: none;">
-      <div class="contenedor-dinamico">
-        <div class="linea_superior">
-          <div class="grid-linea-superior">
-
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-enlace" onclick="regresarvolver(1)">Ver Productos</span>
-              <span class="miga-separador">&rarr;</span>
-              <span class="miga-actual">Movilidad</span>
-            </nav>
-
-            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
-              <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                <span class="texto-nav-seccion">Volver</span>
-              </span>
-            </button>
-            <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/cate/movilidad/mover.png" class="cap-icon-linea-superior" alt=""
-               >
-              <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior">Movilidad </h1>
-              </div>
-            </div>
-
-            <div class="caja-contenedor-busqueda" role="search">
-              <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
-              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
-            </div>
-
-          </div>
-        </div>
-        <div class="categorias">
-          <div class="grid-capsulas">
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Bloqueos</span>
-              <img loading="lazy" decoding="async" src="svg/cate/movilidad/bloqueo.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Paseos</span>
-              <img loading="lazy" decoding="async" src="svg/cate/movilidad/paseo.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Transporte</span>
-              <img loading="lazy" decoding="async" src="svg/cate/movilidad/coche.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Andadores</span>
-              <img loading="lazy" decoding="async" src="svg/cate/movilidad/andador.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Silla de ruedas</span>
-              <img loading="lazy" decoding="async" src="svg/cate/movilidad/silla.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Incorporarse</span>
-              <img loading="lazy" decoding="async" src="svg/cate/movilidad/levantar.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Ejercicio</span>
-              <img loading="lazy" decoding="async" src="svg/cate/movilidad/ejercicio.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Otros</span>
-              <img loading="lazy" decoding="async" src="svg/cate/otros.svg" class="cap-icon-cate" alt="">
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="vista-comunica" class="subvista-contenido" style="display: none;">
-      <div class="contenedor-dinamico">
-        <div class="linea_superior">
-          <div class="grid-linea-superior">
-
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-enlace" onclick="regresarvolver(1)">Ver Productos</span>
-              <span class="miga-separador">&rarr;</span>
-              <span class="miga-actual">Comunicación</span>
-            </nav>
-
-            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
-              <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                <span class="texto-nav-seccion">Volver</span>
-              </span>
-            </button>
-            <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/cate/comunica/comunicación.png" class="cap-icon-linea-superior" alt=""
-               >
-              <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior">Comunicación </h1>
-              </div>
-            </div>
-
-            <div class="caja-contenedor-busqueda" role="search">
-              <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
-              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
-            </div>
-
-          </div>
-        </div>
-        <div class="categorias">
-          <div class="grid-capsulas">
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Teléfonos</span>
-              <img loading="lazy" decoding="async" src="svg/cate/comunica/teléfono.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Escribir</span>
-              <img loading="lazy" decoding="async" src="svg/cate/comunica/escribir.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Lectura</span>
-              <img loading="lazy" decoding="async" src="svg/cate/comunica/leer.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Digital</span>
-              <img loading="lazy" decoding="async" src="svg/cate/comunica/ordenador.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Comunicación no verbal</span>
-              <img loading="lazy" decoding="async" src="svg/cate/comunica/no_verbal.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Medios de comunicación</span>
-              <img loading="lazy" decoding="async" src="svg/cate/comunica/medios.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Escuchar</span>
-              <img loading="lazy" decoding="async" src="svg/cate/comunica/escribir.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Otros</span>
-              <img loading="lazy" decoding="async" src="svg/cate/otros.svg" class="cap-icon-cate" alt="">
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="vista-productividad" class="subvista-contenido" style="display: none;">
-      <div class="contenedor-dinamico">
-        <div class="linea_superior">
-          <div class="grid-linea-superior">
-
-            <nav class="migas-pan" aria-label="Ruta de navegación">
-              <span class="miga-enlace" onclick="regresarvolver(1)">Ver Productos</span>
-              <span class="miga-separador">&rarr;</span>
-              <span class="miga-actual">Tareas cotidianas</span>
-            </nav>
-
-            <button type="button" class="btn-volver" onclick="regresarvolver(1)">
-              <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
-                <span class="texto-nav-seccion">Volver</span>
-              </span>
-            </button>
-            <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" src="svg/cate/tareas/tareas.png" class="cap-icon-linea-superior" alt=""
-               >
-              <div class="text-linea-superior">
-                <h1 class="titulo-linea-superior">Tareas cotidianas</h1>
-              </div>
-            </div>
-
-            <div class="caja-contenedor-busqueda" role="search">
-              <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
-              <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
-                aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
-              <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
-            </div>
-
-          </div>
-        </div>
-        <div class="categorias">
-          <div class="grid-capsulas">
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Cocinar</span>
-              <img loading="lazy" decoding="async" src="svg/cate/tareas/cocinar.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Hacer la cama</span>
-              <img loading="lazy" decoding="async" src="svg/cate/tareas/cama.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Fregar</span>
-              <img loading="lazy" decoding="async" src="svg/cate/tareas/fregar.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Limpiar la casa</span>
-              <img loading="lazy" decoding="async" src="svg/cate/tareas/fregar.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Cuidar la ropa</span>
-              <img loading="lazy" decoding="async" src="svg/cate/tareas/planchar.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Orden</span>
-              <img loading="lazy" decoding="async" src="svg/cate/tareas/ordenar.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Gestiones</span>
-              <img loading="lazy" decoding="async" src="svg/cate/tareas/firmar.png" class="cap-icon-cate" alt="">
-            </button>
-            <button type="button" class="btn-cate-4" onclick="abrirCatalogoProductos(this)">
-              <span class="btn-cate-txt">Otros</span>
-              <img loading="lazy" decoding="async" src="svg/cate/otros.svg" class="cap-icon-cate" alt="">
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!--VISTA VER PRODUCTOS MOLDE-->
     <div id="vista-productos-final" class="subvista-contenido" style="display: none;">
       <div class="contenedor-dinamico">
@@ -1125,13 +755,13 @@
 
             <button type="button" class="btn-volver" onclick="regresarAnterior()">
               <span class="cabecera-linea-volver">
-                <img loading="lazy" decoding="async" src="svg/volver/volver.svg" class="icon-btn-volver" alt="">
+                <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/volver/volver.svg" class="icon-btn-volver" alt="">
                 <span class="texto-nav-seccion">Volver</span>
               </span>
             </button>
 
             <div class="cabecera-superior-icono">
-              <img loading="lazy" decoding="async" id="icono-dinamico" src="svg/menu/ver.png" class="cap-icon-linea-superior"
+              <img loading="lazy" decoding="async" id="icono-dinamico" src="../atlas_apoyo_compartido/svg/menu/ver.png" class="cap-icon-linea-superior"
                 alt="">
               <div class="text-linea-superior">
                 <h1 id="titulo-dinamico" class="titulo-linea-superior">Catálogo de productos</h1>
@@ -1139,7 +769,7 @@
             </div>
 
             <div class="caja-contenedor-busqueda" role="search">
-              <img loading="lazy" decoding="async" src="svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
+              <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/buscar/buscar_input.svg" class="cap-icon-busqueda" alt="">
               <input type="text" class="input-busqueda" placeholder="Buscar producto" maxlength="20"
                 aria-label="Buscar producto" onkeydown="ejecutarBusquedaTexto(event, this)" enterkeyhint="search">
               <button type="button" class="btn-lanzar-busqueda" onclick="lanzarBusqueda(this)">Buscar</button>
@@ -1162,12 +792,12 @@
               <!-- Botón 2 -->
               <button type="button" class="btn-filtro  active-filtro" id="btn-opcion-1"
                 onclick="cambiarOpcionCatalogo(this, 'bajocoste')">
-                <img src="svg/subir/hacer.png" class="cap-icon-filtro-catalogo" alt="">
+                <img src="../atlas_apoyo_compartido/svg/subir/hacer.png" class="cap-icon-filtro-catalogo" alt="">
                 <span>Producto de bajo coste</span>
               </button>
               <!-- Botón 1 (Activo por defecto) -->
               <button type="button" class="btn-filtro" id="btn-opcion-2" onclick="cambiarOpcionCatalogo(this, 'comercializado')">
-                <img src="svg/subir/comprar.png" class="cap-icon-filtro-catalogo" alt="">
+                <img src="../atlas_apoyo_compartido/svg/subir/comprar.png" class="cap-icon-filtro-catalogo" alt="">
                 <span>Producto comercializado</span>
               </button>
             </div>
@@ -1188,11 +818,11 @@
 
             <button type="button" class="btn-producto">
               <span class="prod-titulo">Producto de ejemplo 1</span>
-              <img loading="lazy" decoding="async" src="svg/subir/hacer.png" class="prod-img" alt="">
+              <img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/subir/hacer.png" class="prod-img" alt="">
               <div class="prod-etiquetas">
-                <span class="etiqueta-badge"><img loading="lazy" decoding="async" src="svg/filtro/dona.svg" alt="Precio"> Bajo</span>
-                <span class="etiqueta-badge"><img loading="lazy" decoding="async" src="svg/filtro/difi.svg" alt="Dificultad"> Fácil</span>
-                <span class="etiqueta-badge"><img loading="lazy" decoding="async" src="svg/filtro/tiempo.svg" alt="Tiempo"> Bajo</span>
+                <span class="etiqueta-badge"><img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/filtro/dona.svg" alt="Precio"> Bajo</span>
+                <span class="etiqueta-badge"><img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/filtro/difi.svg" alt="Dificultad"> Fácil</span>
+                <span class="etiqueta-badge"><img loading="lazy" decoding="async" src="../atlas_apoyo_compartido/svg/filtro/tiempo.svg" alt="Tiempo"> Bajo</span>
               </div>
             </button>
           </div>
@@ -1227,23 +857,26 @@
   </script>
 
   <script src="../atlas_apoyo_compartido/javascript/dialogos_comunes.js"></script>
+  <script src="config.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/categorias_datos.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/categorias.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/dialogos_catalogo.js"></script>
-  <script src="javascript/0_variables.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/0_variables.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/0_accesibilidad_wcag.js"></script>
-  <script src="javascript/0_funcion_slider.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/0_funcion_slider.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/0_accesibilidad_java.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/0_accesibilidad_mas_opciones.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/0_modales.js"></script>
-  <script src="javascript/pasos.js"></script>
-  <script src="javascript/cargar_fotos.js"></script>
-  <script src="javascript/sele-cate.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/pasos.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/cargar_fotos.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/sele-cate.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/sele-filtro.js"></script>
-  <script src="javascript/abrirproducto.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/abrirproducto.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/login_modal.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/login_atras.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/0_registro_inicio.js"></script>
   <script src="../atlas_apoyo_compartido/javascript/recuperar_contrasena.js"></script>
-  <script src="javascript/retroceder_movil.js"></script>
+  <script src="../atlas_apoyo_compartido/javascript/retroceder_movil.js"></script>
 
 
 </body>
